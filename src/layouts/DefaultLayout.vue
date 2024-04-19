@@ -1,12 +1,12 @@
 <template>
   <div class="h-screen bg-white">
     <!-- Menu Bar for PC -->
-    <PCNav :navItems="pcNavItems"></PCNav>
+    <PCNav :navItems="pcNavItems" />
     <!-- Menu Bar for PC -->
     <RouterView />
 
     <!-- navbar for phone and pad -->
-    <MobileNav :navItems="mobileNavItems"></MobileNav>
+    <MobileNav :navItems="mobileNavItems" />
     <!-- navbar for phone and pad -->
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <div class="h-96">
+  <div class="flex">
     <Calendar v-model="date" inline>
       <template #date="slotProps">
         <strong

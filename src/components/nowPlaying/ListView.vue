@@ -6,13 +6,13 @@
 
     <!-- card for mobile -->
     <div class="flex w-full flex-col items-center justify-center gap-4 py-6 sm:hidden">
-      <FilmCard v-for="n in 10" :key="n"></FilmCard>
+      <FilmCard v-for="n in 10" :key="n" />
     </div>
     <!-- card for mobile -->
 
     <!-- list for pc and pad -->
     <ul role="list" class="hidden divide-y divide-gray-100 sm:block">
-      <ListItem v-for="n in 10" :key="n"></ListItem>
+      <ListItem v-for="n in 10" :key="n" />
     </ul>
     <!-- list for pc and pad -->
   </div>

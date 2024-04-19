@@ -8,7 +8,7 @@
     </div>
     <swiper-container v-bind="swiperOptions" class="h-full w-full">
       <swiper-slide v-for="n in 10" :key="n" class="w-72">
-        <FilmCard></FilmCard>
+        <FilmCard />
       </swiper-slide>
     </swiper-container>
   </div>

@@ -16,7 +16,7 @@
   <div class="my-10 w-full" v-for="n in 6" :key="n">
     <span class="my-6 text-2xl font-semibold">當代奇幻</span>
     <div class="my-6">
-      <CarouselComponent></CarouselComponent>
+      <CarouselComponent />
     </div>
   </div>
   <!-- carousels -->
