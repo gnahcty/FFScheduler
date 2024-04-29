@@ -73,6 +73,14 @@ const router = createRouter({
           meta: {
             title: '排程'
           }
+        },
+        {
+          path: '/export',
+          name: 'export',
+          component: () => import('@/views/ExportList.vue'),
+          meta: {
+            title: '匯出'
+          }
         }
       ]
     }
