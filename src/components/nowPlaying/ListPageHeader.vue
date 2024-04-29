@@ -38,7 +38,7 @@
           </div>
           <!-- Searchbar for PC and Tab -->
 
-          <!-- switch for pad and PC -->
+          <!-- switch for PC and Tab -->
           <div class="relative ml-5 mt-1">
             <span
               v-if="viewState === 'list'"
@@ -51,7 +51,7 @@
               class="pi pi-bars text-3xl text-gray-600 hover:text-emerald-500"
             ></span>
           </div>
-          <!-- switch for pad and PC -->
+          <!-- switch for PC and Tab -->
         </div>
       </div>
     </div>
@@ -75,8 +75,8 @@
 </template>
 
 <script setup>
-const viewState = defineModel()
+const viewState = defineModel();
 const switchView = () => {
-  viewState.value = viewState.value === 'carousel' ? 'list' : 'carousel'
-}
+  viewState.value = viewState.value === "carousel" ? "list" : "carousel";
+};
 </script>

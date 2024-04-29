@@ -30,6 +30,12 @@ export default {
       //   'bg-surface-50',
       //   'dark:bg-surface-800',
 
+      // border
+      'rounded-t-xl',
+      'border-x-2',
+      'border-t-4',
+      'border-b-0',
+
       // Transitions
       'transition-all',
       'duration-200',
@@ -38,20 +44,27 @@ export default {
       {
         'cursor-col-resize': props.layout == 'horizontal',
         'cursor-row-resize': props.layout !== 'horizontal'
-      }
+      },
+      'lg:hidden'
     ]
   }),
   gutterhandler: ({ props }) => ({
     class: [
-      // Colors
-      'rounded-t-xl',
-      'border-2',
+      // Border
       'border-b-0',
-      'w-full',
+
+      // padding
+      'pt-3',
 
       // Transitions
       'transition-all',
       'duration-200',
+
+      // Icon
+      'pi',
+      'pi-angle-up',
+      'text-center',
+      'text-gray-400',
 
       // Sizing (Conditional)
       {
