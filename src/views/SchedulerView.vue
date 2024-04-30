@@ -2,7 +2,7 @@
   <div class="w-full py-20">
     <!-- title -->
     <div class="flex flex-1 items-stretch justify-center lg:justify-start lg:pl-10">
-      <div class="text-3xl font-bold">影展場次</div>
+      <div class="text-3xl">我的排程</div>
     </div>
     <!-- title -->
     <div class="mx-auto hidden lg:flex">

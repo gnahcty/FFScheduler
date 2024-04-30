@@ -1,14 +1,15 @@
 <template>
   <!-- date nav -->
-  <div class="mt-20 flex w-full items-center justify-center gap-5 font-bold">
+  <div class="mt-5 flex w-full items-center justify-center gap-5 font-bold">
     <Button @click="goToPreviousWeek" class="px-4 py-2" icon="pi pi-angle-left" text rounded />
     <div class="text-lg">{{ formattedMonthYear }}</div>
     <Button @click="goToNextWeek" class="px-4 py-2" icon="pi pi-angle-right" text rounded />
   </div>
   <!-- date nav -->
+
   <!-- week view -->
   <div
-    class="mx-auto flex justify-center overflow-auto rounded-lg bg-white py-4 shadow-md sm:justify-center sm:px-2 md:mx-12"
+    class="mx-auto flex justify-center overflow-auto rounded-lg bg-white py-4 sm:justify-center sm:px-2 md:mx-12"
   >
     <div v-for="day in weekDays" :key="day.dateString">
       <!-- tab -->
@@ -41,6 +42,29 @@
     </div>
   </div>
   <!-- week view -->
+
+  <!-- list -->
+
+  <div class="flex flex-col">
+    <div class="mr-6 self-end text-sm underline">清除本日場次</div>
+    <div class="flex flex-wrap px-5 sm:mt-10">
+      <div class="flex flex-auto flex-col gap-1 rounded p-3">
+        <EventChips danger></EventChips>
+        <EventChips state="warning"></EventChips>
+        <EventChips state="locked"></EventChips>
+        <EventChips></EventChips>
+      </div>
+      <Divider class="sm:hidden" />
+      <div class="w-full sm:w-64">
+        <div class="text-center font-bold underline underline-offset-2 opacity-50">
+          本日已刪除場次
+        </div>
+        <div class="mt-3 min-h-32 rounded-lg border border-dashed px-2 py-3">
+          <EventChips state="locked" :showBtn="false"></EventChips>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>

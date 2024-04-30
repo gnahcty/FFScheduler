@@ -1,18 +1,13 @@
 <template>
   <div class="bg-white px-14 pt-14 lg:pt-20">
-    <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
       <div class="relative flex h-16 items-center justify-between">
         <!-- switch for Mobile-->
         <div class="absolute inset-y-0 left-5 flex items-center sm:hidden">
           <span
-            v-if="viewState === 'list'"
             @click="switchView()"
-            class="pi pi-th-large text-3xl text-gray-600 hover:text-emerald-500"
-          ></span>
-          <span
-            v-if="viewState === 'carousel'"
-            @click="switchView()"
-            class="pi pi-bars text-3xl text-gray-600 hover:text-emerald-500"
+            class="pi text-3xl text-gray-600 hover:text-emerald-500"
+            :class="viewState === 'carousel' ? 'pi-bars' : 'pi-th-large'"
           ></span>
         </div>
         <!-- switch for Mobile-->
@@ -75,8 +70,8 @@
 </template>
 
 <script setup>
-const viewState = defineModel();
+const viewState = defineModel()
 const switchView = () => {
-  viewState.value = viewState.value === "carousel" ? "list" : "carousel";
-};
+  viewState.value = viewState.value === 'carousel' ? 'list' : 'carousel'
+}
 </script>

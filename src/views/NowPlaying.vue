@@ -1,6 +1,6 @@
 <template>
   <ListPageHeader v-model="viewState" />
-  <div class="px-14 pb-16">
+  <div class="px-5 pb-16 sm:px-14">
     <ListView v-if="viewState === 'list'" />
 
     <CarouselView v-else />
@@ -8,6 +8,6 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-const viewState = ref("carousel");
+import { ref } from 'vue'
+const viewState = ref('carousel')
 </script>

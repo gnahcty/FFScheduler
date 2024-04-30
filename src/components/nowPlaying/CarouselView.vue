@@ -3,7 +3,7 @@
   <div class="my-6 hidden grid-cols-3 gap-3 lg:grid">
     <div class="border-1 relative" v-for="n in 3" :key="n">
       <div
-        class="to-bg-black-10 absolute inset-0 flex h-full w-full items-center justify-center rounded-xl bg-gradient-to-t from-black/80 via-black/50"
+        class="absolute inset-0 flex h-full w-full items-center justify-center rounded-xl bg-gradient-to-t from-black/80 via-black/50"
       >
         <span class="text-3xl font-semibold text-white">開幕片</span>
       </div>

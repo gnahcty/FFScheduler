@@ -46,7 +46,7 @@
 
       <!-- 每個月前幾天的空格 -->
       <div v-for="blankDay in blankDays" :key="blankDay">
-        <div class="min-h-32 border-b border-r h-full"></div>
+        <div class="h-full min-h-32 border-b border-r"></div>
       </div>
       <!-- 日期 -->
       <div v-for="(date, dateIndex) in noOfDays" :key="dateIndex">
