@@ -1,9 +1,29 @@
 <template>
-  <div class="mt-1 overflow-hidden rounded-lg border px-2 py-1" :class="chipStyle">
+  <!-- for PC -->
+  <div class="mt-1 hidden overflow-hidden rounded-lg border px-2 py-1 lg:block" :class="chipStyle">
     <p class="truncate text-xs leading-tight">11:00-22:00</p>
     <p class="truncate text-sm leading-tight">血迷宮（導演版）</p>
     <p class="truncate text-xs leading-tight">Blood Simple</p>
   </div>
+  <!-- for PC -->
+
+  <!-- for tab and mobile -->
+  <div class="flex gap-3 lg:hidden">
+    <div class="flex flex-col items-center text-sm">
+      <span>11:00</span>
+      <span>|</span>
+      <span>22:00</span>
+    </div>
+    <div class="mt-1 flex-auto overflow-hidden rounded-lg border px-2 py-1" :class="chipStyle">
+      <p class="truncate">血迷宮（導演版）</p>
+      <p class="truncate">Blood Simple</p>
+    </div>
+    <div class="flex gap-2" v-if="props.showBtn">
+      <div class="pi pi-minus h-fit rounded-full p-3 hover:bg-emerald-100"></div>
+      <div class="pi pi-lock h-fit rounded-full p-3 hover:bg-emerald-100"></div>
+    </div>
+  </div>
+  <!-- for tab and mobile -->
 </template>
 
 <script setup>
@@ -16,6 +36,10 @@ const props = defineProps({
   danger: {
     type: Boolean,
     default: false
+  },
+  showBtn: {
+    type: Boolean,
+    default: true
   }
 })
 
