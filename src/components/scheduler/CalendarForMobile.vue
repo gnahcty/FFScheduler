@@ -1,98 +1,76 @@
 <template>
-  <div class="flex items-end justify-center gap-5 font-bold">
-    <Button
-      @click="goToPreviousWeek"
-      class="rounded bg-blue-500 px-4 py-2 text-white"
-      icon="pi pi-angle-left"
-    />
+  <!-- date nav -->
+  <div class="mt-20 flex w-full items-center justify-center gap-5 font-bold">
+    <Button @click="goToPreviousWeek" class="px-4 py-2" icon="pi pi-angle-left" text rounded />
     <div class="text-lg">{{ formattedMonthYear }}</div>
-    <Button
-      @click="goToNextWeek"
-      class="rounded bg-blue-500 px-4 py-2 text-white"
-      icon="pi pi-angle-right"
-    />
+    <Button @click="goToNextWeek" class="px-4 py-2" icon="pi pi-angle-right" text rounded />
   </div>
+  <!-- date nav -->
+  <!-- week view -->
   <div
-    class="mx-auto flex justify-start overflow-x-auto rounded-lg bg-white px-2 py-4 shadow-md md:mx-12 md:justify-center"
+    class="mx-auto flex justify-center overflow-auto rounded-lg bg-white py-4 shadow-md sm:justify-center sm:px-2 md:mx-12"
   >
-    <div
-      v-for="day in weekDays"
-      :key="day.dateString"
-      class="hover-light-shadow group mx-1 flex w-16 cursor-pointer justify-center rounded-lg transition-all duration-300 hover:bg-purple-100 hover:shadow-lg"
-    >
+    <div v-for="day in weekDays" :key="day.dateString">
+      <!-- tab -->
       <div
-        v-if="isToday(day.dateString)"
-        class="light-shadow group relative mx-1 flex w-16 cursor-pointer content-center justify-center rounded-lg bg-purple-300 shadow-lg"
+        class="group hidden justify-center transition-all duration-300 hover:bg-emerald-100 hover:shadow-lg sm:mx-1 sm:flex sm:w-16 sm:cursor-pointer sm:rounded-lg"
       >
-        <span class="absolute -right-1 -top-1 flex h-3 w-3">
-          <span
-            class="absolute inline-flex h-full w-full animate-ping rounded-full bg-purple-400 opacity-0 group-hover:opacity-75"
-          ></span>
-          <span class="relative inline-flex h-3 w-3 rounded-full bg-purple-500"></span>
-        </span>
-        <div class="flex items-center px-4 py-4">
-          <div class="text-center">
-            <p class="text-sm text-purple-900">{{ day.day }}</p>
-            <p class="mt-3 font-bold text-purple-900">{{ day.date }}</p>
-          </div>
-        </div>
-      </div>
-
-      <div v-else class="flex items-center px-4 py-4">
-        <div class="text-center">
-          <p
-            class="text-sm text-gray-900 transition-all duration-300 group-hover:text-purple-900"
-          >
+        <div class="flex flex-col items-center px-4 py-4 text-center">
+          <p class="text-sm group-hover:text-emerald-900">
             {{ day.day }}
           </p>
-          <p
-            class="mt-3 text-gray-900 transition-all duration-300 group-hover:font-bold group-hover:text-purple-900"
-          >
+          <p class="mt-3 group-hover:font-bold group-hover:text-emerald-900">
             {{ day.date }}
           </p>
         </div>
       </div>
+      <!-- tab -->
+
+      <!-- mobile -->
+      <div class="mx-1 flex flex-col justify-center gap-3 text-center text-gray-900 sm:hidden">
+        <p class="text-sm">
+          {{ day.day }}
+        </p>
+        <p
+          class="flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:bg-emerald-100 hover:text-emerald-900 hover:shadow-lg"
+        >
+          {{ day.date }}
+        </p>
+      </div>
+      <!-- mobile -->
     </div>
   </div>
+  <!-- week view -->
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-import { startOfWeek, endOfWeek, format, eachDayOfInterval } from "date-fns";
+import { ref, computed } from 'vue'
+import { startOfWeek, endOfWeek, addWeeks, format, eachDayOfInterval } from 'date-fns'
 
-const currentDate = ref(new Date());
+const currentDate = ref(new Date())
 
-const startOfCurrentWeek = computed(() =>
-  startOfWeek(currentDate.value, { weekStartsOn: 1 })
-);
-const endOfCurrentWeek = computed(() =>
-  endOfWeek(currentDate.value, { weekStartsOn: 1 })
-);
+const startOfCurrentWeek = computed(() => startOfWeek(currentDate.value, { weekStartsOn: 1 }))
+const endOfCurrentWeek = computed(() => endOfWeek(currentDate.value, { weekStartsOn: 1 }))
 
-const formattedMonthYear = computed(() => format(currentDate.value, "MMMM yyyy"));
-
-const isToday = (dateString) => {
-  return dateString === format(new Date(), "yyyy-MM-dd");
-};
+const formattedMonthYear = computed(() => format(currentDate.value, 'MMMM yyyy'))
 
 const weekDays = computed(() => {
   return eachDayOfInterval({
     start: startOfCurrentWeek.value,
-    end: endOfCurrentWeek.value,
+    end: endOfCurrentWeek.value
   }).map((day) => ({
-    day: format(day, "EEE"),
-    date: format(day, "dd"),
-    dateString: format(day, "yyyy-MM-dd"),
-  }));
-});
+    day: format(day, 'EEE'),
+    date: format(day, 'dd'),
+    dateString: format(day, 'yyyy-MM-dd')
+  }))
+})
 
 const goToNextWeek = () => {
-  console.log(currentDate.value);
-  // currentDate.value = addWeeks(currentDate.value, 1);
-};
+  currentDate.value = addWeeks(currentDate.value, 1)
+  console.log(currentDate.value)
+}
 
 const goToPreviousWeek = () => {
-  console.log(currentDate.value);
-  // currentDate.value = addWeeks(currentDate.value, -1);
-};
+  currentDate.value = addWeeks(currentDate.value, -1)
+}
 </script>

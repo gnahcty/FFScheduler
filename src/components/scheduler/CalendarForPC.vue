@@ -34,7 +34,7 @@
 
     <div class="-mx-1 -mb-1 grid grid-cols-7 border-t">
       <div class="absolute grid w-full grid-cols-7">
-        <!-- Render 星期幾 -->
+        <!-- 星期幾 -->
         <div v-for="(day, index) in days" :key="index">
           <div class="h-8 py-2">
             <div class="pl-2 text-center text-sm font-bold uppercase tracking-wide text-gray-400">
@@ -44,11 +44,11 @@
         </div>
       </div>
 
-      <!-- Render 每個月前幾天的空格 -->
+      <!-- 每個月前幾天的空格 -->
       <div v-for="blankDay in blankDays" :key="blankDay">
-        <div class="min-h-32 border-b border-r"></div>
+        <div class="min-h-32 border-b border-r h-full"></div>
       </div>
-      <!-- Render 日期 -->
+      <!-- 日期 -->
       <div v-for="(date, dateIndex) in noOfDays" :key="dateIndex">
         <div class="relative min-h-32 border-b border-r px-2 py-2">
           <div
