@@ -1,5 +1,5 @@
 <template>
-  <div class="relative mt-24 overflow-hidden rounded-lg border bg-white shadow">
+  <div class="relative mt-10 overflow-hidden rounded-lg border bg-white shadow">
     <!-- header -->
     <div class="flex items-center justify-between px-6 py-2">
       <!-- 日期年份 -->

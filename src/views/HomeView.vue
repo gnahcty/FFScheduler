@@ -1,3 +1,4 @@
+// 首頁
 <template>
   <div class="h-full bg-white">
     <div class="isolate flex min-h-full items-center px-6 pt-14 lg:px-8">
@@ -15,9 +16,9 @@
               />
             </RouterLink>
             <RouterLink to="/playing">
-              <span class="text-sm font-semibold leading-6 text-gray-900"
-                >看片單 <span aria-hidden="true">→</span></span
-              >
+              <span class="text-sm font-semibold leading-6 text-gray-900">
+                看片單 <span>→</span>
+              </span>
             </RouterLink>
           </div>
         </div>

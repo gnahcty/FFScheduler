@@ -1,3 +1,4 @@
+// NavBar for PC
 <template>
   <header class="fixed inset-x-0 top-0 z-50">
     <nav class="flex items-center justify-between p-6 lg:px-8">

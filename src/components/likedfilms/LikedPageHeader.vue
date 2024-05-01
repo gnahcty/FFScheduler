@@ -1,5 +1,5 @@
 <template>
-  <div class="px-10 pt-14">
+  <div class="px-10">
     <div class="mx-auto max-w-7xl px-2 sm:px-6">
       <div class="relative flex h-16 items-center justify-between">
         <!-- button for mobile -->

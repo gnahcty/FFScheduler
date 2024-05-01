@@ -1,7 +1,13 @@
+// 排程
 <template>
-  <div class="w-full py-20">
+  <div class="w-full py-16">
     <!-- title -->
-    <div class="flex flex-1 items-stretch justify-center lg:justify-start lg:pl-10">
+    <div
+      class="relative mx-20 flex flex-1 items-stretch justify-center px-2 lg:justify-start lg:pt-8"
+    >
+      <div class="absolute inset-y-0 right-5 flex items-center lg:hidden">
+        <span class="pi pi-print text-3xl text-gray-600 hover:text-emerald-500"></span>
+      </div>
       <div class="text-3xl">我的排程</div>
     </div>
     <!-- title -->

@@ -1,7 +1,7 @@
+<!-- navbar for phone and pad -->
 <template>
-  <!-- navbar for phone and pad -->
   <div
-    class="fixed bottom-0 left-0 z-50 h-16 w-full border-t border-gray-200 bg-white lg:hidden dark:border-gray-600 dark:bg-gray-700"
+    class="fixed inset-x-0 bottom-0 z-50 h-16 w-full border-t border-gray-200 bg-white lg:hidden dark:border-gray-600 dark:bg-gray-700"
   >
     <div class="mx-auto grid h-full max-w-lg grid-cols-4 font-medium">
       <router-link

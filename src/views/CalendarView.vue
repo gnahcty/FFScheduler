@@ -1,14 +1,15 @@
+// 影展場次(月曆版)
 <template>
-  <div class="h-screen w-full px-5 py-20 lg:flex lg:px-20">
-    <div class="h-full w-full">
+  <div class="h-screen w-full px-5 py-16 lg:flex lg:px-20">
+    <div class="flex h-full w-full flex-col">
       <!-- title -->
-      <div class="mb-5 flex flex-1 items-stretch justify-center lg:justify-start">
+      <div class="flex flex-1 items-stretch justify-center px-2 lg:justify-start lg:pt-8">
         <div class="text-3xl">影展場次</div>
       </div>
       <!-- title -->
 
       <!--for PC  -->
-      <div class="hidden h-full w-full items-center justify-between gap-10 lg:flex">
+      <div class="hidden w-full flex-auto items-center justify-between gap-10 lg:flex">
         <FullCalendar />
         <HorizontalSchedule :films="films" />
       </div>
