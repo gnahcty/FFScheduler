@@ -51,9 +51,9 @@ const chipStyle = computed(() => {
     textColor = 'text-orange-800'
     borderColor = 'border-orange-200'
   } else if (props.state === 'locked') {
-    bgColor = 'bg-gray-100'
-    textColor = 'text-gray-800'
-    borderColor = 'border-gray-200'
+    bgColor = 'bg-gray-800'
+    textColor = 'text-gray-100'
+    borderColor = 'border-gray-800'
   } else {
     bgColor = 'bg-emerald-100'
     textColor = 'text-emerald-800'
@@ -62,10 +62,10 @@ const chipStyle = computed(() => {
 
   // 若衝堂，border及文字顏色設為紅色，加ring
   if (props.danger) {
-    return `${bgColor} border-red-400 ring-1 ring-red-400 ${textColor}`
+    return `${bgColor} border-red-400 ring-1 ring-red-400 text-red-800`
   } else {
     // 否則設為主題色，不加ring
-    return `${bgColor} ${borderColor}-200 ${textColor}`
+    return `${bgColor} ${borderColor} ${textColor}`
   }
 })
 </script>
