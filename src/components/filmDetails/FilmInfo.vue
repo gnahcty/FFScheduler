@@ -1,3 +1,5 @@
+// 電影資訊-文字區塊
+//這裡是電影資訊的文字區塊，包含電影名稱、導演、獎項、影展、上映年份、片長、分級、簡介等資訊。
 <template>
   <div class="flex flex-col gap-6">
     <!-- title & dir -->
@@ -12,7 +14,7 @@
 
         <!-- like btn  -->
         <div class="ml-3 w-8 lg:hidden">
-          <span class="pi pi-heart text-3xl text-gray-400"></span>
+          <span class="pi pi-heart text-3xl text-gray-400 hover:text-primary-500"></span>
         </div>
         <!-- like btn  -->
       </div>

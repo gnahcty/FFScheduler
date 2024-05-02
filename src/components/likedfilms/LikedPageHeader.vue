@@ -1,3 +1,5 @@
+// 收藏清單頁面-收藏清單header
+
 <template>
   <div class="px-10">
     <div class="mx-auto max-w-7xl px-2 sm:px-6">

@@ -26,7 +26,17 @@ export default {
         'surface-700': 'rgb(var(--surface-700))',
         'surface-800': 'rgb(var(--surface-800))',
         'surface-900': 'rgb(var(--surface-900))',
-        'surface-950': 'rgb(var(--surface-950))'
+        'surface-950': 'rgb(var(--surface-950))',
+        main: {
+          yellow: '#F28705',
+          orange: '#F23005',
+          LBrown: '#8C0E03',
+          DBrown: '#590B0B',
+          black: '#0D0D0D'
+        }
+      },
+      backgroundImage: {
+        'gradient-to-b': 'linear-gradient(to bottom, #0D0D0D, transparent)'
       }
     }
   },

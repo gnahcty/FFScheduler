@@ -1,15 +1,17 @@
+// 電影資訊
+
 <template>
   <div class="pb-16">
-    <!-- 頂部劇照 -->
+    <!-- 頂部劇照輪播 -->
     <div class="h-44 lg:mt-20 lg:h-80">
       <ImgSlider />
     </div>
-    <!-- 頂部劇照 -->
+    <!-- 頂部劇照輪播 -->
 
     <div
       class="my-8 w-full px-5 py-10 md:flex md:flex-col lg:grid lg:grid-cols-2 lg:gap-10 lg:px-20"
     >
-      <div class="flex flex-col" v-if="viewState === 'info'">
+      <div class="flex flex-col">
         <!-- Breadcrumb -->
         <Breadcrumb :model="items" class="mb-5 border-0 pl-0" />
         <!-- Breadcrumb -->
@@ -21,24 +23,19 @@
 
       <!-- 右邊場次&目錄 -->
       <div class="mt-10 flex flex-col px-5">
-        <!-- 場次 -->
+        <!-- 場次列表 -->
         <div class="flex w-full justify-between">
           <p class="mb-4 truncate text-3xl font-bold">場次</p>
-          <Button
-            label="收藏全部"
-            icon="pi pi-plus"
-            text
-            class="hidden lg:block"
-          ></Button>
+          <Button label="收藏全部" icon="pi pi-plus" text class="hidden lg:block"></Button>
         </div>
         <ShowtimeList />
-        <!-- 場次 -->
+        <!-- 場次列表 -->
 
-        <!-- 目錄 -->
+        <!-- 片單目錄 -->
         <div class="my-5 hidden px-10 lg:block">
           <FilmNav />
         </div>
-        <!-- 目錄 -->
+        <!-- 片單目錄 -->
       </div>
     </div>
 
@@ -54,9 +51,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref } from 'vue'
 
-const viewState = ref("info");
-
-const items = ref([{ label: "當代奇幻" }, { label: "拍血少年" }]);
+const items = ref([{ label: '當代奇幻' }, { label: '拍血少年' }])
 </script>

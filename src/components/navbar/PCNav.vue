@@ -1,6 +1,6 @@
 // NavBar for PC
 <template>
-  <header class="fixed inset-x-0 top-0 z-50">
+  <header class="fixed inset-x-0 top-0 z-50 dark:bg-gradient-to-b">
     <nav class="flex items-center justify-between p-6 lg:px-8">
       <!-- LOGO -->
       <div class="flex lg:flex-1">
@@ -19,7 +19,7 @@
           v-for="navItem in navItems"
           :key="navItem.to"
           :to="navItem.to"
-          class="text-sm font-semibold leading-6 text-gray-900 hover:text-emerald-500"
+          class="dark:text-main-orange dark:hover:text-main-yellow text-sm font-semibold leading-6"
         >
           {{ navItem.text }}
         </RouterLink>
@@ -27,7 +27,7 @@
       <!-- Menu Bar for PC -->
       <!-- Login Button for PC -->
       <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-        <RouterLink to="/login" class="text-sm font-semibold leading-6 text-gray-900">
+        <RouterLink to="/login" class="dark:text-main-yellow text-sm font-semibold leading-6">
           登入<span>&rarr;</span>
         </RouterLink>
       </div>

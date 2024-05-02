@@ -1,3 +1,5 @@
+// 電影資訊-頂部劇照輪播
+
 <template>
   <div class="relative h-full w-full">
     <!-- controls -->

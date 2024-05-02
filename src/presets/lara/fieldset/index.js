@@ -37,7 +37,7 @@ export default {
 
       // States
       {
-        'hover:bg-surface-100 hover:border-surface-200 hover:text-surface-900 dark:hover:text-surface-0/80 dark:hover:bg-surface-800/80':
+        ' hover:border-surface-200 hover:text-surface-900 dark:hover:text-surface-0/80 dark:hover:bg-surface-800/80':
           props.toggleable
       }
     ]

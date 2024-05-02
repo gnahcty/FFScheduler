@@ -11,7 +11,7 @@ export default {
       'rounded-lg',
 
       // Borders (Conditional)
-      { 'border border-solid border-surface-50 dark:border-surface-700': !context.nested },
+      // { 'border border-solid border-surface-50 dark:border-surface-700': !context.nested },
 
       // Nested
       { 'flex grow border-0': context.nested }
@@ -27,14 +27,15 @@ export default {
       'shrink-0',
 
       // Colors
-      //   'bg-surface-50',
-      //   'dark:bg-surface-800',
+      // 'bg-main-black',
+      'dark:bg-surface-800',
 
       // border
       'rounded-t-xl',
       'border-x-2',
-      'border-t-4',
+      'border-t-2',
       'border-b-0',
+      // 'dark:border-main-black',
 
       // Transitions
       'transition-all',

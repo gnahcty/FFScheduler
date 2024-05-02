@@ -1,28 +1,39 @@
 // 影展場次(月曆版)
 <template>
-  <div class="h-screen w-full px-5 py-16 lg:flex lg:px-20">
+  <div class="h-screen w-full px-5 py-16 lg:flex lg:px-20 dark:bg-slate-950">
     <div class="flex h-full w-full flex-col">
       <!-- title -->
       <div class="flex flex-1 items-stretch justify-center px-2 lg:justify-start lg:pt-8">
-        <div class="text-3xl">影展場次</div>
+        <div class="dark:text-main-orange text-3xl">影展場次</div>
       </div>
       <!-- title -->
 
       <!--for PC  -->
       <div class="hidden w-full flex-auto items-center justify-between gap-10 lg:flex">
+        <!-- calendar component -->
         <FullCalendar />
+        <!-- calendar component -->
+
+        <!-- 放映清單(橫向) -->
         <HorizontalSchedule :films="films" />
+        <!-- 放映清單(橫向) -->
       </div>
       <!--for PC  -->
 
       <!-- for pad and mobile -->
-      <div class="flex h-full flex-col items-center lg:hidden">
+      <div class="dark:bg-main-black flex h-full flex-col items-center lg:hidden">
         <Splitter :gutterSize="40" layout="vertical" class="h-full w-full">
-          <SplitterPanel class="flex items-center justify-center overflow-clip">
+          <SplitterPanel class="dark:bg-main-black flex items-center justify-center overflow-clip">
+            <!-- calendar component -->
             <FullCalendar />
+            <!-- calendar component -->
           </SplitterPanel>
-          <SplitterPanel class="overflow-y-auto border-x-2 lg:hidden">
+          <SplitterPanel
+            class="dark:bg-main-black no-scrollbar dark:border-main-black overflow-y-auto border-x-2 lg:hidden"
+          >
+            <!-- 放映清單(縱向) -->
             <VerticalSchedule :films="films"></VerticalSchedule>
+            <!-- 放映清單(縱向) -->
           </SplitterPanel>
         </Splitter>
       </div>
@@ -490,3 +501,14 @@ const films = [
   }
 ]
 </script>
+
+<style scoped>
+.no-scrollbar {
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
+</style>
