@@ -12,6 +12,8 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@vueuse/components": "^10.9.0",
+    "@vueuse/core": "^10.9.0",
     "date-fns": "^3.6.0",
     "pinia": "^2.1.7",
     "primeicons": "^7.0.0",

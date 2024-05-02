@@ -11,6 +11,7 @@ import PrimeVue from 'primevue/config'
 import Lara from './presets/lara'
 import ConfirmationService from 'primevue/confirmationservice'
 import ToastService from 'primevue/toastservice'
+
 const app = createApp(App)
 
 register() // register Swiper custom elements

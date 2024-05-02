@@ -23,9 +23,10 @@
       <button
         v-for="screening in filmModel.times"
         :key="screening.time"
-        :class="BtnStyle(screening)"
         class="my-btn text-sm"
-        @click="handleScreening(screening)"
+        :class="BtnStyle(screening)"
+        @click="clickHandler(screening)"
+        v-on-long-press="[() => LongPressHandler(screening), { modifiers: { stop: true } }]"
       >
         <span class="font-bold">{{ screening.time }}</span>
       </button>
@@ -38,7 +39,9 @@
 import { computed } from 'vue'
 import { useConfirm } from 'primevue/useconfirm'
 import { useToast } from 'primevue/usetoast'
+import { vOnLongPress } from '@vueuse/components'
 
+// 雙向綁定filmModel
 const filmModel = defineModel('filmModel')
 
 const confirm = useConfirm()
@@ -52,7 +55,26 @@ const remainingScreening = computed(
   () => filmModel.value.times.filter((screening) => !screening.deleted).length
 )
 
-const handleScreening = function (thisScreening) {
+const LongPressHandler = (thisScreening) => {
+  if (thisScreening.locked) {
+    return
+  }
+  confirm.require({
+    message: '鎖定後，此電影其他場次將被刪除，確定要鎖定嗎？',
+    header: '鎖定場次',
+    rejectClass: 'p-button-text p-button-text',
+    acceptClass: 'p-button-success p-button-text',
+    accept: () => {
+      lockScreening(thisScreening)
+    },
+    reject: () => {
+      toast.add({ severity: 'error', summary: '已取消', life: 3000 })
+    }
+  })
+}
+
+// 點擊場次
+const clickHandler = function (thisScreening) {
   // 若場次已鎖定
   if (thisScreening.locked) {
     // 解除鎖定，復原已被刪除場次
@@ -69,6 +91,20 @@ const handleScreening = function (thisScreening) {
   }
 }
 
+const lockScreening = (thisScreening) => {
+  // 鎖定此場次
+  thisScreening.locked = true
+  // 刪除其他場次
+  for (const screening of filmModel.value.times) {
+    if (screening !== thisScreening) {
+      screening.deleted = true
+    }
+  }
+  // 跳通知
+  toast.add({ severity: 'success', summary: '已鎖定', life: 3000 })
+}
+
+// 復原已刪除場次
 const reviveScreening = (thisScreening) => {
   try {
     // 若該電影有場次已鎖定，則解除鎖定並通知
@@ -99,6 +135,7 @@ const reviveScreening = (thisScreening) => {
   })
 }
 
+// 解除鎖定已鎖定場次
 const unlock = (thisScreening) => {
   confirm.require({
     message: '解除鎖定後，此電影其他場次將被復原，確定要解除鎖定嗎？',
@@ -121,6 +158,7 @@ const unlock = (thisScreening) => {
   })
 }
 
+// 刪除場次
 const deleteScreening = (thisScreening) => {
   // 刪除此場次
   thisScreening.deleted = true
