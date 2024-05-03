@@ -121,7 +121,7 @@ export default function useScreeningManagement(filmModel) {
 
   /******** export styles ********/
 
-  const fieldsetStyle = {
+  const fieldsetStyle = computed(() => ({
     legendTitle: {
       class: `${isLocked.value ? 'text-grey-900' : remainingScreening.value > 2 ? 'text-emerald-500' : 'text-orange-500'}`
     },
@@ -131,7 +131,8 @@ export default function useScreeningManagement(filmModel) {
     toggleableContent: {
       class: `${isLocked.value ? 'ring-black' : remainingScreening.value > 2 ? 'ring-emerald-500' : 'ring-orange-400'}`
     }
-  }
+  }))
+
   const fieldsetRingColor = computed(() => ({
     'ring-black': isLocked.value,
     'ring-emerald-500': !isLocked.value && remainingScreening.value > 2,
