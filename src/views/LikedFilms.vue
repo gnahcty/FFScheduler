@@ -7,6 +7,7 @@
 
     <div class="pt-4">
       <div v-for="(film, i) in films" :key="film.filmId">
+        <!-- 收藏清單 -->
         <LikedList v-model:filmModel="films[i]"></LikedList>
       </div>
     </div>
