@@ -1,3 +1,4 @@
+// 排程頁面-行事曆元件（手機、平板）
 <template>
   <!-- date nav -->
   <div class="mt-5 flex w-full items-center justify-center gap-5 font-bold">
