@@ -74,25 +74,27 @@ import { startOfWeek, endOfWeek, addWeeks, format, eachDayOfInterval } from 'dat
 
 const currentDate = ref(new Date())
 
+// 本周第一天日期
 const startOfCurrentWeek = computed(() => startOfWeek(currentDate.value, { weekStartsOn: 1 }))
+// 本周最後一天日期
 const endOfCurrentWeek = computed(() => endOfWeek(currentDate.value, { weekStartsOn: 1 }))
-
+// MMMM yyyy
 const formattedMonthYear = computed(() => format(currentDate.value, 'MMMM yyyy'))
 
+// 本周日期
 const weekDays = computed(() => {
   return eachDayOfInterval({
     start: startOfCurrentWeek.value,
     end: endOfCurrentWeek.value
   }).map((day) => ({
-    day: format(day, 'EEE'),
-    date: format(day, 'dd'),
-    dateString: format(day, 'yyyy-MM-dd')
+    day: format(day, 'EEE'), //wed
+    date: format(day, 'dd'), //02
+    dateString: format(day, 'yyyy-MM-dd') //2022-02-02
   }))
 })
 
 const goToNextWeek = () => {
   currentDate.value = addWeeks(currentDate.value, 1)
-  console.log(currentDate.value)
 }
 
 const goToPreviousWeek = () => {
