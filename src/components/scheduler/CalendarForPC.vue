@@ -48,21 +48,7 @@
 
       <!-- 日期 -->
       <div v-for="date in daysInMonth" :key="date.getDate()">
-        <div class="relative min-h-32 border-b border-r px-2 py-2">
-          <div
-            class="inline-flex h-6 w-6 cursor-pointer items-center justify-center rounded-full text-center leading-none transition duration-100 ease-in-out"
-            :class="{
-              'bg-emerald-500 text-white': isToday(date),
-              'text-gray-700 hover:bg-blue-200': !isToday(date)
-            }"
-          >
-            {{ getDate(date) }}
-          </div>
-          <EventChips danger></EventChips>
-          <EventChips state="warning"></EventChips>
-          <EventChips state="locked"></EventChips>
-          <EventChips></EventChips>
-        </div>
+        <DateBlock :date="date"></DateBlock>
       </div>
       <!-- 日期 -->
     </div>
@@ -78,9 +64,7 @@ import {
   eachDayOfInterval,
   endOfMonth,
   addMonths,
-  getYear,
-  isToday,
-  getDate
+  getYear
 } from 'date-fns'
 
 const currentDate = ref(new Date())
@@ -103,7 +87,6 @@ const daysInMonth = computed(() => {
 
 // 每個月第一天是星期幾 (0= sunday)
 const blankDays = computed(() => {
-  console.log((getDay(startDay.value) + 6) % 7)
   return (getDay(startDay.value) + 6) % 7
 })
 

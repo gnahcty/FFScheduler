@@ -15,7 +15,12 @@
     <div v-for="day in weekDays" :key="day.dateString">
       <!-- tab -->
       <div
-        class="group hidden justify-center transition-all duration-300 hover:bg-emerald-100 hover:shadow-lg sm:mx-1 sm:flex sm:w-16 sm:cursor-pointer sm:rounded-lg"
+        class="group hidden justify-center transition-all duration-300 hover:bg-primary-50 hover:shadow-lg sm:mx-1 sm:flex sm:w-16 sm:cursor-pointer sm:rounded-lg"
+        @click="currentDate = new Date(day.dateString)"
+        :class="{
+          'border border-primary-400 bg-primary-50 font-bold text-primary-900':
+            currentDate.getDate() === new Date(day.dateString).getDate()
+        }"
       >
         <div class="flex flex-col items-center px-4 py-4 text-center">
           <p class="text-sm group-hover:text-emerald-900">
@@ -29,12 +34,19 @@
       <!-- tab -->
 
       <!-- mobile -->
-      <div class="mx-1 flex flex-col justify-center gap-3 text-center text-gray-900 sm:hidden">
+      <div
+        class="mx-1 flex flex-col justify-center gap-3 text-center text-gray-900 sm:hidden"
+        @click="currentDate = new Date(day.dateString)"
+      >
         <p class="text-sm">
           {{ day.day }}
         </p>
         <p
           class="flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:bg-emerald-100 hover:text-emerald-900 hover:shadow-lg"
+          :class="{
+            'border border-primary-400 bg-primary-50 font-bold text-primary-900':
+              currentDate.getDate() === new Date(day.dateString).getDate()
+          }"
         >
           {{ day.date }}
         </p>
@@ -47,13 +59,12 @@
   <!-- list -->
 
   <div class="flex flex-col">
-    <div class="mr-6 self-end text-sm underline">清除本日場次</div>
+    <div class="mr-6 self-end text-sm underline" @click="deleteAllFilmsToday">清除本日場次</div>
     <div class="flex flex-wrap px-5 sm:mt-10">
       <div class="flex flex-auto flex-col gap-1 rounded p-3">
-        <EventChips danger></EventChips>
-        <EventChips state="warning"></EventChips>
-        <EventChips state="locked"></EventChips>
-        <EventChips></EventChips>
+        <div v-for="(film, i) in filmsForDate" :key="i">
+          <EventChips v-model:film="filmsForDate[i]" :date="currentDate"></EventChips>
+        </div>
       </div>
       <Divider class="sm:hidden" />
       <div class="w-full sm:w-64">
@@ -61,7 +72,13 @@
           本日已刪除場次
         </div>
         <div class="mt-3 min-h-32 rounded-lg border border-dashed px-2 py-3">
-          <EventChips state="locked" :showBtn="false"></EventChips>
+          <div v-for="(film, i) in deletedFilms" :key="i">
+            <EventChips
+              v-model:film="deletedFilms[i]"
+              :date="currentDate"
+              :showDeleted="true"
+            ></EventChips>
+          </div>
         </div>
       </div>
     </div>
@@ -71,8 +88,40 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { startOfWeek, endOfWeek, addWeeks, format, eachDayOfInterval } from 'date-fns'
+import { useExampleStore } from '@/stores/filmStore.js'
+const { films } = useExampleStore()
 
 const currentDate = ref(new Date())
+
+const filmsForDate = computed(() => {
+  return films.filter((film) =>
+    film.times.some(
+      (timeEntry) =>
+        timeEntry.time.includes(`${format(currentDate.value, 'MM.dd')}`) &&
+        timeEntry.deleted === false
+    )
+  )
+})
+
+const deletedFilms = computed(() => {
+  return films.filter((film) =>
+    film.times.some(
+      (timeEntry) =>
+        timeEntry.time.includes(`${format(currentDate.value, 'MM.dd')}`) &&
+        timeEntry.deleted === true
+    )
+  )
+})
+
+const deleteAllFilmsToday = () => {
+  for (const film of filmsForDate.value) {
+    for (const screening of film.times) {
+      if (screening.time.includes(`${format(currentDate.value, 'MM.dd')}`)) {
+        screening.deleted = true
+      }
+    }
+  }
+}
 
 // 本周第一天日期
 const startOfCurrentWeek = computed(() => startOfWeek(currentDate.value, { weekStartsOn: 1 }))

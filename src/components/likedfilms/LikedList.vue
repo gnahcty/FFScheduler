@@ -14,7 +14,7 @@
 
   <!-- 已收藏場次表 -->
   <Fieldset
-    :legend="filmModel.CName"
+    :legend="props.film.CName"
     class="mx-4 ring-1"
     :pt="fieldsetStyle"
     :class="fieldsetRingColor"
@@ -22,12 +22,12 @@
   >
     <div class="flex flex-wrap gap-4 gap-y-4">
       <button
-        v-for="screening in filmModel.times"
+        v-for="screening in props.film.times"
         :key="screening.time"
         class="my-btn text-sm"
         :class="BtnStyle(screening)"
-        @click="manageScreeningStatus(screening)"
-        v-on-long-press="[() => toggleScreeningLock(screening), { modifiers: { stop: true } }]"
+        @click="deleteScreeningToggle(screening)"
+        v-on-long-press="[() => lockScreeningToggle(screening), { modifiers: { stop: true } }]"
       >
         <span class="font-bold">{{ screening.time }}</span>
       </button>
@@ -37,21 +37,19 @@
 </template>
 
 <script setup>
-// import { computed } from 'vue'
-
 import { vOnLongPress } from '@vueuse/components'
 import useScreeningManagement from '@/utils/useScreeningManagement.js'
 
-// 雙向綁定filmModel
-const filmModel = defineModel('filmModel')
+// const props.film = defineModel('props.film')
+const props = defineProps({ film: { type: Object, default: () => {} } })
 
 const {
   isLocked,
   remainingScreening,
-  toggleScreeningLock,
-  manageScreeningStatus,
+  lockScreeningToggle,
+  deleteScreeningToggle,
   BtnStyle,
   fieldsetStyle,
   fieldsetRingColor
-} = useScreeningManagement(filmModel)
+} = useScreeningManagement(props.film)
 </script>

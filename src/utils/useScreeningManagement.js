@@ -1,19 +1,21 @@
 import { computed } from 'vue'
 import { useConfirm } from 'primevue/useconfirm'
 import { useToast } from 'primevue/usetoast'
+import { useExampleStore } from '@/stores/filmStore.js'
 
 export default function useScreeningManagement(filmModel) {
+  const { films } = useExampleStore()
   const confirm = useConfirm()
   const toast = useToast()
 
   /******** export computed  **********/
 
   // 該電影是否已鎖定場次
-  const isLocked = computed(() => filmModel.value.times.some((screening) => screening.locked))
+  const isLocked = computed(() => filmModel.times.some((screening) => screening.locked))
 
   // 該電影剩餘場次數
   const remainingScreening = computed(
-    () => filmModel.value.times.filter((screening) => !screening.deleted).length
+    () => filmModel.times.filter((screening) => !screening.deleted).length
   )
 
   /******** export computed  **********/
@@ -34,26 +36,40 @@ export default function useScreeningManagement(filmModel) {
     }
   }
 
+  // 更新電影資訊
+  const updateFilmStatus = (thisFilm) => {
+    handleException(() => {
+      let targetFilm = films.find((film) => film.CName === thisFilm.CName)
+      if (targetFilm) {
+        targetFilm = thisFilm
+      }
+    })
+  }
+
   /******** internal use only ********/
 
   /******** export functions ********/
 
   // 長按鎖定/解鎖場次
-  const toggleScreeningLock = (screening) => {
+  const lockScreeningToggle = (screening) => {
     const action = screening.locked ? unlockScreening : lockScreening
     handleException(() => action(screening))
+    updateFilmStatus(filmModel)
   }
 
   // 點擊刪除/復原場次
-  const manageScreeningStatus = (screening) => {
+  const deleteScreeningToggle = (screening, confirmDelete = false) => {
     if (screening.locked) {
       handleException(() => unlockScreening(screening))
     } else if (screening.deleted) {
       handleException(() => reviveScreening(screening))
     } else {
-      handleException(() => deleteScreening(screening))
+      handleException(() => deleteScreening(screening, confirmDelete))
     }
+    updateFilmStatus(filmModel)
   }
+
+  // FIXME: the logic is wrong, need to fix
 
   // 鎖定場次
   const lockScreening = (thisScreening) => {
@@ -66,7 +82,7 @@ export default function useScreeningManagement(filmModel) {
         // 鎖定此場次
         thisScreening.locked = true
         // 刪除其他場次
-        filmModel.value.times.forEach((screening) => {
+        filmModel.times.forEach((screening) => {
           if (screening !== thisScreening) screening.deleted = true
         })
         notify('success', '已鎖定')
@@ -86,7 +102,7 @@ export default function useScreeningManagement(filmModel) {
         // 解除此場次鎖定狀態
         thisScreening.locked = false
         // 復原已刪除場次
-        filmModel.value.times.forEach((screening) => (screening.deleted = false))
+        filmModel.times.forEach((screening) => (screening.deleted = false))
         // 跳通知
         notify('success', '已解除鎖定')
       },
@@ -95,17 +111,33 @@ export default function useScreeningManagement(filmModel) {
   }
 
   // 刪除場次
-  const deleteScreening = (thisScreening) => {
-    // 刪除此場次
-    thisScreening.deleted = true
-    // 跳通知
-    notify('success', '已刪除')
+  const deleteScreening = (thisScreening, confirmDelete) => {
+    if (confirmDelete) {
+      confirm.require({
+        message: '此場次將被刪除，確定要鎖定嗎？（可於收藏清單中復原）',
+        header: '刪除場次',
+        rejectClass: 'p-button-text',
+        acceptClass: 'p-button-success p-button-text',
+        accept: () => {
+          // 刪除此場次
+          thisScreening.deleted = true
+          // 跳通知
+          notify('success', '已刪除')
+        },
+        reject: () => notify('error', '已取消')
+      })
+    } else {
+      // 刪除此場次
+      thisScreening.deleted = true
+      // 跳通知
+      notify('success', '已刪除')
+    }
   }
 
   // 復原已刪除場次
   const reviveScreening = (thisScreening) => {
     // 若該電影有場次已鎖定，則解除鎖定並通知
-    for (const screening of filmModel.value.times) {
+    for (const screening of filmModel.times) {
       if (screening.locked) {
         screening.locked = false
         notify('success', '場次已解除鎖定')
@@ -162,8 +194,8 @@ export default function useScreeningManagement(filmModel) {
     filmModel,
     isLocked,
     remainingScreening,
-    manageScreeningStatus,
-    toggleScreeningLock,
+    deleteScreeningToggle,
+    lockScreeningToggle,
     fieldsetRingColor,
     fieldsetStyle,
     BtnStyle

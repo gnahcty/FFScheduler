@@ -18,7 +18,7 @@
       <ScrollPanel class="h-screen w-2/3">
         <div class="w-full px-10">
           <!-- 行事曆元件（電腦版） -->
-          <CalendarForPC v-model:films="films"></CalendarForPC>
+          <CalendarForPC></CalendarForPC>
           <!-- 行事曆元件（電腦版） -->
         </div>
       </ScrollPanel>
@@ -30,11 +30,11 @@
           <LikedPageHeader :showPCview="false"></LikedPageHeader>
           <!-- 收藏清單header -->
           <div class="pt-4">
-            <!-- 收藏清單 -->
-            <div v-for="(film, i) in films" :key="film.filmId">
-              <LikedList v-model:filmModel="films[i]"></LikedList>
+            <div v-for="film in films" :key="film.filmId">
+              <!-- 收藏清單 -->
+              <LikedList :film="film"></LikedList>
+              <!-- 收藏清單 -->
             </div>
-            <!-- 收藏清單 -->
           </div>
         </div>
       </ScrollPanel>
@@ -45,7 +45,7 @@
     <!-- for tab and mobile -->
     <div class="lg:hidden">
       <!-- 行事曆元件（手機、平板） -->
-      <CalendarForMobile v-model:films="films"></CalendarForMobile>
+      <CalendarForMobile></CalendarForMobile>
       <!-- 行事曆元件（手機、平板） -->
     </div>
     <!-- for tab and mobile -->
@@ -53,6 +53,6 @@
 </template>
 
 <script setup>
-import useFilmExample from '@/utils/filmExample.js'
-const { films } = useFilmExample()
+import { useExampleStore } from '@/stores/filmStore.js'
+const { films } = useExampleStore()
 </script>

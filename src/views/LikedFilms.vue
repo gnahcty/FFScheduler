@@ -6,9 +6,9 @@
     <!-- 收藏清單header -->
 
     <div class="pt-4">
-      <div v-for="(film, i) in films" :key="film.filmId">
+      <div v-for="film in films" :key="film.filmId">
         <!-- 收藏清單 -->
-        <LikedList v-model:filmModel="films[i]"></LikedList>
+        <LikedList :film="film"></LikedList>
         <!-- 收藏清單 -->
       </div>
     </div>
@@ -16,6 +16,6 @@
 </template>
 
 <script setup>
-import useFilmExample from '@/utils/filmExample.js'
-const { films } = useFilmExample()
+import { useExampleStore } from '@/stores/filmStore.js'
+const { films } = useExampleStore()
 </script>
