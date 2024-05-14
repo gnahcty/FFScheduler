@@ -35,15 +35,24 @@ const router = createRouter({
           }
         },
         {
-          path: '/playing',
-          name: 'now playing',
-          component: () => import(/* webpackChunkName: "playing" */ '@/views/NowPlaying.vue'),
+          path: '/categories',
+          name: 'categories',
+          component: () => import(/* webpackChunkName: "categories" */ '@/views/CategoryList.vue'),
           meta: {
-            title: '片單'
+            title: '影展單元'
           }
         },
         {
-          path: '/details',
+          path: '/categories/:name',
+          name: 'categories_:name',
+          component: () =>
+            import(/* webpackChunkName: "categories" */ '@/views/CategoryDetail.vue'),
+          meta: {
+            title: '影展單元'
+          }
+        },
+        {
+          path: '/details/:name',
           name: 'film details',
           component: () => import('@/views/FilmDetails.vue'),
           meta: {
@@ -53,7 +62,7 @@ const router = createRouter({
         {
           path: '/calendar',
           name: 'calendar',
-          component: () => import('@/views/CalendarView.vue'),
+          component: () => import('@/views/EventCalendar.vue'),
           meta: {
             title: '場次'
           }
@@ -69,7 +78,7 @@ const router = createRouter({
         {
           path: '/scheduler',
           name: 'scheduler',
-          component: () => import('@/views/SchedulerView.vue'),
+          component: () => import('@/views/UserScheduler.vue'),
           meta: {
             title: '排程'
           }
@@ -86,5 +95,7 @@ const router = createRouter({
     }
   ]
 })
-
+router.afterEach((to) => {
+  document.title = to.meta.title
+})
 export default router

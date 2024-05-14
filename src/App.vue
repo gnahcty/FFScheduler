@@ -5,7 +5,7 @@ import Toast from 'primevue/toast'
 </script>
 
 <template>
-  <RouterView />
+  <RouterView class="noto-sans no-scrollbar" />
   <Toast />
   <ConfirmDialog></ConfirmDialog>
 </template>

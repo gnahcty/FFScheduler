@@ -1,20 +1,21 @@
+import { addDynamicIconSelectors } from '@iconify/tailwind'
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
-        'primary-50': 'rgb(var(--primary-50))',
-        'primary-100': 'rgb(var(--primary-100))',
-        'primary-200': 'rgb(var(--primary-200))',
-        'primary-300': 'rgb(var(--primary-300))',
-        'primary-400': 'rgb(var(--primary-400))',
-        'primary-500': 'rgb(var(--primary-500))',
-        'primary-600': 'rgb(var(--primary-600))',
-        'primary-700': 'rgb(var(--primary-700))',
-        'primary-800': 'rgb(var(--primary-800))',
-        'primary-900': 'rgb(var(--primary-900))',
-        'primary-950': 'rgb(var(--primary-950))',
+        'primary-50': '#fff7ed',
+        'primary-100': '#ffedd5',
+        'primary-200': '#fed7aa',
+        'primary-300': '#fdba74',
+        'primary-400': '#fb923c',
+        'primary-500': '#f97316',
+        'primary-600': '#ea580c',
+        'primary-700': '#c2410c',
+        'primary-800': '#9a3412',
+        'primary-900': '#7c2d12',
+        'primary-950': '#431407',
         'surface-0': 'rgb(var(--surface-0))',
         'surface-50': 'rgb(var(--surface-50))',
         'surface-100': 'rgb(var(--surface-100))',
@@ -40,5 +41,5 @@ export default {
       }
     }
   },
-  plugins: []
+  plugins: [addDynamicIconSelectors()]
 }

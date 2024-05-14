@@ -12,16 +12,15 @@
 </template>
 
 <script setup>
-import PCNav from '@/components/navbar/PCNav.vue'
-import MobileNav from '@/components/navbar/MobileNav.vue'
-
+import PCNav from '@/components/navbar_in_layouts/PCNav.vue'
+import MobileNav from '@/components/navbar_in_layouts/MobileNav.vue'
 const pcNavItems = [
-  { to: '/playing', text: '索引' },
+  { to: '/categories', text: '索引' },
   { to: '/calendar', text: '場次' },
   { to: '/scheduler', text: '排程' }
 ]
 const mobileNavItems = [
-  { to: '/playing', text: '索引', icon: 'pi-list' },
+  { to: '/categories', text: '索引', icon: 'pi-list' },
   { to: '/calendar', text: '場次', icon: 'pi-calendar' },
   { to: '/favorites', text: '收藏', icon: 'pi-heart' },
   { to: '/scheduler', text: '排程', icon: 'pi-calendar-times' }
