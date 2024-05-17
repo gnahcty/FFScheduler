@@ -50,7 +50,7 @@ const props = defineProps({
   }
 })
 const { remainingScreening, deleteScreeningToggle, lockScreeningToggle } = useScreeningManagement(
-  film.value
+  film.value.Id
 )
 
 //  {"time": "04.14(日) 18:40", "place": "MUVIE TITAN", "locked": false, "deleted": false, "danger": false }
@@ -83,7 +83,7 @@ const chipStyle = computed(() => {
     bgColor = 'bg-gray-800'
     textColor = 'text-gray-100'
     borderColor = 'border-gray-800'
-  } else if (remainingScreening.value <= 2) {
+  } else if (remainingScreening.value.length <= 2) {
     bgColor = 'bg-orange-100'
     textColor = 'text-orange-800'
     borderColor = 'border-orange-200'

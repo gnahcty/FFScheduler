@@ -1,57 +1,99 @@
 // 電影資訊
 
 <template>
-  <div class="pb-16">
-    <!-- 頂部劇照輪播 -->
-    <div class="h-44 lg:mt-20 lg:h-80">
-      <ImgSlider />
+  <!-- nav prev -->
+  <div class="cursor-left absolute h-full w-0 sm:w-12 md:w-24 lg:w-1/5" @click="nav(-1)"></div>
+  <!-- nav prev -->
+
+  <!-- nav next -->
+  <div
+    class="cursor-right absolute right-0 h-full w-0 sm:w-12 md:w-24 lg:w-1/5"
+    @click="nav(1)"
+  ></div>
+  <!-- nav next -->
+
+  <div class="flex h-full flex-col bg-black pb-12 text-primary-600 sm:pb-0 sm:pt-12">
+    <!-- title -->
+    <div class="flex w-screen overflow-x-clip text-9xl font-bold">
+      <span class="flex-0 text-nowrap">{{ film.EName }}</span>
+      <span class="flex-0 text-nowrap">{{ film.CName }}</span>
     </div>
-    <!-- 頂部劇照輪播 -->
+    <!-- title -->
 
-    <div
-      class="my-8 w-full px-5 py-10 md:flex md:flex-col lg:grid lg:grid-cols-2 lg:gap-10 lg:px-20"
-    >
-      <div class="flex flex-col">
-        <!-- Breadcrumb -->
-        <Breadcrumb :model="items" class="mb-5 border-0 pl-0" />
-        <!-- Breadcrumb -->
-
-        <!-- 左邊電影資訊 -->
-        <FilmInfo />
-        <!-- 左邊電影資訊 -->
+    <div class="flex h-full flex-col justify-between gap-y-6 overflow-clip sm:flex-row">
+      <!-- img -->
+      <div class="hidden max-w-fit flex-1 md:block">
+        <img :src="film.photos?.photos2" alt="film poster" class="h-full w-[40vw] object-cover" />
       </div>
+      <!-- img -->
 
-      <!-- 右邊場次&目錄 -->
-      <div class="mt-10 flex flex-col px-5">
-        <!-- 場次列表 -->
-        <div class="flex w-full justify-between">
-          <p class="mb-4 truncate text-3xl font-bold">場次</p>
-          <Button label="收藏全部" icon="pi pi-plus" text class="hidden lg:block"></Button>
+      <!-- 2nd column -->
+      <div class="mr-2 flex w-full min-w-72 flex-col justify-between sm:w-1/4">
+        <div class="flex flex-col">
+          <!-- awards -->
+          <div v-for="awards in film.awards" :key="awards">{{ awards }}</div>
+          <!-- awards -->
+          <!-- film info -->
+          <div class="mb-6 flex items-center">
+            <div class="flex-shrink-0 pr-1">{{ film.year }}</div>
+            <div class="text-pretty border-l border-orange-600 px-1 text-center">
+              {{ film.region }}
+            </div>
+            <div class="flex-shrink-0 border-l border-orange-600 px-1">{{ film.format }}</div>
+            <div class="flex-shrink-0 border-l border-orange-600 px-1">{{ film.color }}</div>
+            <div class="flex-shrink-0 border-l border-orange-600 px-1">{{ film.length }}</div>
+            <div class="flex-shrink-0 border-l border-orange-600 px-1">{{ film.rating }}</div>
+          </div>
+          <!-- film info -->
         </div>
-        <ShowtimeList />
-        <!-- 場次列表 -->
-
-        <!-- 片單目錄 -->
-        <div class="my-5 hidden px-10 lg:block">
-          <FilmNav />
+        <!-- 放映時間 -->
+        <div class="flex flex-col">
+          <ShowtimeList :screenings="film.times"></ShowtimeList>
         </div>
-        <!-- 片單目錄 -->
+        <!-- 放映時間 -->
       </div>
-    </div>
-
-    <!-- 底部推薦影片 -->
-    <div class="flex flex-col gap-5 px-5 lg:px-20">
-      <span class="text-xl font-semibold">你可能也會喜歡...</span>
-      <div class="flex flex-row gap-3 overflow-clip">
-        <FilmCard v-for="n in 3" :key="n" />
+      <!-- 2nd column -->
+      <!-- 劇情簡介 -->
+      <div
+        class="no-scrollbar flex w-full min-w-72 flex-col justify-between overflow-x-auto sm:w-[28vw]"
+      >
+        <div class="text-right text-sm">導演: {{ directors.join() }}</div>
+        <div class="h-fit">
+          {{ film.description }}
+        </div>
       </div>
+      <!-- 劇情簡介 -->
     </div>
-    <!-- 底部推薦影片 -->
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { getFilm, getAdjacentIds } from '@/utils/temp_data.js'
+const route = useRoute()
+const router = useRouter()
+const film = ref({})
+const directors = ref([])
+const nav = (direction) => {
+  const id = getAdjacentIds(route.params.id, direction)
+  router.push(`/details/${id}`)
+}
 
-const items = ref([{ label: '當代奇幻' }, { label: '拍血少年' }])
+onMounted(() => {
+  film.value = getFilm(route.params.id)
+  film.value.directors.map((director) =>
+    directors.value.splice(0, directors.value.length, director.directorName)
+  )
+})
+
+watch(
+  () => route.params.id,
+  () => (
+    (film.value = getFilm(route.params.id)),
+    film.value.directors.map((director) =>
+      directors.value.splice(0, directors.value.length, director.directorName)
+    )
+  )
+)
 </script>

@@ -18,7 +18,7 @@
 <script setup>
 import { computed } from 'vue'
 import { isToday, getDate, format } from 'date-fns'
-import { useExampleStore } from '@/stores/filmStore.js'
+import { useUserList } from '@/stores/filmStore.js'
 
 const props = defineProps({
   date: {
@@ -27,7 +27,7 @@ const props = defineProps({
   }
 })
 
-const { films } = useExampleStore()
+const { films } = useUserList()
 const filmsForDate = computed(() => {
   return films.filter((film) =>
     film.times.some(

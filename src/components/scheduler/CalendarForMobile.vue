@@ -88,8 +88,8 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { startOfWeek, endOfWeek, addWeeks, format, eachDayOfInterval } from 'date-fns'
-import { useExampleStore } from '@/stores/filmStore.js'
-const { films } = useExampleStore()
+import { useUserList } from '@/stores/filmStore.js'
+const { films } = useUserList()
 
 const currentDate = ref(new Date())
 

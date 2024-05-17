@@ -1,19 +1,20 @@
 // 電影資訊-場次列表
 
 <template>
-  <ul role="list" class="w-full flex-shrink divide-y divide-gray-100">
-    <li v-for="n in 5" :key="n" class="flex justify-between gap-x-6 py-5">
+  <ul role="list" class="w-full flex-shrink divide-y divide-orange-600">
+    <li v-for="(screening, i) in props.screenings" :key="i" class="flex justify-between">
       <div class="flex flex-wrap gap-x-3">
-        <span> 04.12 〈五〉 14:50</span>
-        <span> 信義威秀 11 廳 </span>
+        <span> {{ screening.time }}</span>
+        <span> {{ screening.place }} </span>
       </div>
       <!-- like btn -->
-      <div class="flex shrink-0 items-center justify-center">
+      <div class="px-3">
         <span
-          class="pi text-xl leading-6 text-gray-900 hover:text-primary-500"
-          :class="liked ? 'pi-heart-fill' : 'pi-heart'"
-          @click="liked = !liked"
+          class="pi leading-6"
+          :class="isLiked(screening.time, route.params.id) ? 'pi-minus' : 'pi-plus'"
+          @click="likeScreeningToggle(screening, route.params.id)"
         ></span>
+        <div></div>
       </div>
       <!-- like btn -->
     </li>
@@ -21,6 +22,14 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-const liked = ref(false)
+import { useUserList } from '@/stores/filmStore.js'
+import { useRoute } from 'vue-router'
+const props = defineProps({
+  screenings: {
+    type: Object,
+    default: () => {}
+  }
+})
+const route = useRoute()
+const { isLiked, likeScreeningToggle } = useUserList()
 </script>

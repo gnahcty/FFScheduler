@@ -52,7 +52,7 @@ const router = createRouter({
           }
         },
         {
-          path: '/details/:name',
+          path: '/details/:id',
           name: 'film details',
           component: () => import('@/views/FilmDetails.vue'),
           meta: {
@@ -90,6 +90,11 @@ const router = createRouter({
           meta: {
             title: '匯出'
           }
+        },
+        {
+          path: '/:pathMatch(.*)*',
+          name: 'NotFound',
+          component: () => import('@/views/ExportList.vue')
         }
       ]
     }

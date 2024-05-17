@@ -4,9 +4,9 @@
   <div
     v-if="!isLocked"
     class="relative top-14 mr-6 text-right text-sm"
-    :class="remainingScreening > 2 ? 'text-emerald-500' : 'text-orange-500'"
+    :class="remainingScreening.length > 2 ? 'text-emerald-500' : 'text-orange-500'"
   >
-    剩餘場次：{{ remainingScreening }}
+    剩餘場次：{{ remainingScreening.length }}
   </div>
   <div v-else class="relative top-14 mr-6 text-right text-sm text-gray-300">已鎖定</div>
 
@@ -51,5 +51,5 @@ const {
   BtnStyle,
   fieldsetStyle,
   fieldsetRingColor
-} = useScreeningManagement(props.film)
+} = useScreeningManagement(props.film.Id)
 </script>

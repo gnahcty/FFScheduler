@@ -1,7 +1,7 @@
 // 影展單元詳細片單-電影卡片
 <template>
   <div class="group relative h-96 w-64 text-primary-600 sm:h-full">
-    <router-link :to="`/details/${props.film.CName}`">
+    <router-link :to="`/details/${props.film.filmId}`">
       <!-- index -->
       <div
         class="absolute left-0 top-0 z-20 ps-4 pt-4 transition duration-300 ease-in-out group-hover:-translate-x-1 group-hover:-translate-y-1 group-hover:scale-90"

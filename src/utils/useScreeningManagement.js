@@ -1,21 +1,22 @@
 import { computed } from 'vue'
 import { useConfirm } from 'primevue/useconfirm'
 import { useToast } from 'primevue/usetoast'
-import { useExampleStore } from '@/stores/filmStore.js'
+import { useUserList } from '@/stores/filmStore.js'
 
-export default function useScreeningManagement(filmModel) {
-  const { films } = useExampleStore()
+export default function useScreeningManagement(id) {
+  const { films } = useUserList()
   const confirm = useConfirm()
   const toast = useToast()
+  const film = computed(() => films.find((film) => film.value?.filmId === id))
 
   /******** export computed  **********/
 
   // 該電影是否已鎖定場次
-  const isLocked = computed(() => filmModel.times.some((screening) => screening.locked))
+  const isLocked = computed(() => film.value.times.some((screening) => screening.locked))
 
   // 該電影剩餘場次數
-  const remainingScreening = computed(
-    () => filmModel.times.filter((screening) => !screening.deleted).length
+  const remainingScreening = computed(() =>
+    film.value.times.filter((screening) => !screening.deleted)
   )
 
   /******** export computed  **********/
@@ -39,7 +40,7 @@ export default function useScreeningManagement(filmModel) {
   // 更新電影資訊
   const updateFilmStatus = (thisFilm) => {
     handleException(() => {
-      let targetFilm = films.find((film) => film.CName === thisFilm.CName)
+      let targetFilm = films.find((film) => film.value.filmId === thisFilm.value.filmId)
       if (targetFilm) {
         targetFilm = thisFilm
       }
@@ -54,7 +55,7 @@ export default function useScreeningManagement(filmModel) {
   const lockScreeningToggle = (screening) => {
     const action = screening.locked ? unlockScreening : lockScreening
     handleException(() => action(screening))
-    updateFilmStatus(filmModel)
+    updateFilmStatus(film)
   }
 
   // 點擊刪除/復原場次
@@ -66,7 +67,7 @@ export default function useScreeningManagement(filmModel) {
     } else {
       handleException(() => deleteScreening(screening, confirmDelete))
     }
-    updateFilmStatus(filmModel)
+    updateFilmStatus(film)
   }
 
   // FIXME: the logic is wrong, need to fix
@@ -82,7 +83,7 @@ export default function useScreeningManagement(filmModel) {
         // 鎖定此場次
         thisScreening.locked = true
         // 刪除其他場次
-        filmModel.times.forEach((screening) => {
+        film.value.times.forEach((screening) => {
           if (screening !== thisScreening) screening.deleted = true
         })
         notify('success', '已鎖定')
@@ -102,7 +103,7 @@ export default function useScreeningManagement(filmModel) {
         // 解除此場次鎖定狀態
         thisScreening.locked = false
         // 復原已刪除場次
-        filmModel.times.forEach((screening) => (screening.deleted = false))
+        film.value.times.forEach((screening) => (screening.deleted = false))
         // 跳通知
         notify('success', '已解除鎖定')
       },
@@ -137,7 +138,7 @@ export default function useScreeningManagement(filmModel) {
   // 復原已刪除場次
   const reviveScreening = (thisScreening) => {
     // 若該電影有場次已鎖定，則解除鎖定並通知
-    for (const screening of filmModel.times) {
+    for (const screening of film.value.times) {
       if (screening.locked) {
         screening.locked = false
         notify('success', '場次已解除鎖定')
@@ -155,20 +156,20 @@ export default function useScreeningManagement(filmModel) {
 
   const fieldsetStyle = computed(() => ({
     legendTitle: {
-      class: `${isLocked.value ? 'text-grey-900' : remainingScreening.value > 2 ? 'text-emerald-500' : 'text-orange-500'}`
+      class: `${isLocked.value ? 'text-grey-900' : remainingScreening.value.length > 2 ? 'text-emerald-500' : 'text-orange-500'}`
     },
     togglerIcon: {
-      class: `${isLocked.value ? 'text-grey-900' : remainingScreening.value > 2 ? 'text-emerald-500' : 'text-orange-500'}`
+      class: `${isLocked.value ? 'text-grey-900' : remainingScreening.value.length > 2 ? 'text-emerald-500' : 'text-orange-500'}`
     },
     toggleableContent: {
-      class: `${isLocked.value ? 'ring-black' : remainingScreening.value > 2 ? 'ring-emerald-500' : 'ring-orange-400'}`
+      class: `${isLocked.value ? 'ring-black' : remainingScreening.value.length > 2 ? 'ring-emerald-500' : 'ring-orange-400'}`
     }
   }))
 
   const fieldsetRingColor = computed(() => ({
     'ring-black': isLocked.value,
-    'ring-emerald-500': !isLocked.value && remainingScreening.value > 2,
-    'ring-orange-400': !isLocked.value && remainingScreening.value <= 2
+    'ring-emerald-500': !isLocked.value && remainingScreening.value.length > 2,
+    'ring-orange-400': !isLocked.value && remainingScreening.value.length <= 2
   }))
 
   // prettier-ignore
@@ -191,7 +192,7 @@ export default function useScreeningManagement(filmModel) {
   /******** export styles ********/
 
   return {
-    filmModel,
+    film,
     isLocked,
     remainingScreening,
     deleteScreeningToggle,

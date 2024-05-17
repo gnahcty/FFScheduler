@@ -53,6 +53,6 @@
 </template>
 
 <script setup>
-import { useExampleStore } from '@/stores/filmStore.js'
-const { films } = useExampleStore()
+import { useUserList } from '@/stores/filmStore.js'
+const { films } = useUserList()
 </script>
