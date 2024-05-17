@@ -1,6 +1,6 @@
 // 首頁
 <template>
-  <div class="h-full bg-black py-16">
+  <div class="h-full bg-stone-900 py-16">
     <div
       class="mx-8 h-full rounded-3xl"
       :style="`background:center 35%/ cover no-repeat url(${bgImg})`"

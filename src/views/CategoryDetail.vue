@@ -2,7 +2,7 @@
 
 <template>
   <!-- for pc & tab -->
-  <div class="mb-16 hidden h-full flex-col bg-black pt-16 text-primary-600 sm:flex">
+  <div class="mb-16 hidden h-full flex-col bg-stone-900 pt-16 text-primary-600 sm:flex">
     <!-- 上半部標題 -->
     <div class="flex h-1/2 w-screen items-center justify-center gap-6">
       <!-- 上一個單元按鈕 -->
@@ -40,7 +40,7 @@
   <!-- for pc & tab -->
 
   <!-- for mobile -->
-  <div class="mb-16 flex h-full justify-around bg-black sm:hidden">
+  <div class="mb-16 flex h-full justify-around bg-stone-900 sm:hidden">
     <div class="flex flex-col items-center justify-start gap-6 py-16 align-middle">
       <!-- 上一個單元按鈕 -->
       <span class="icon-[formkit--up] text-xs text-primary-800" @click="switchCategory(-1)"></span>

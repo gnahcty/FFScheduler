@@ -12,7 +12,7 @@
   ></div>
   <!-- nav next -->
 
-  <div class="flex h-full flex-col bg-black pb-12 text-primary-600 sm:pb-0 sm:pt-12">
+  <div class="flex h-full flex-col bg-stone-900 pb-12 text-primary-600 sm:pb-0 sm:pt-12">
     <!-- title -->
     <div class="flex w-screen overflow-x-clip text-9xl font-bold">
       <span class="flex-0 text-nowrap">{{ film.EName }}</span>
