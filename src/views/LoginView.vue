@@ -1,23 +1,23 @@
 <template>
-  <div class="h-full">
-    <div
-      class="flex h-full w-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 dark:backdrop-blur dark:backdrop-brightness-75"
-    >
+  <div class="h-full bg-stone-900 text-primary-600 sm:pt-16">
+    <div class="flex w-full flex-1 flex-col justify-center self-center px-6 py-12 lg:px-8">
+      <!-- 返回鍵 -->
+      <router-link to="/" class="sm:hidden">
+        <div class="pi pi-times"></div>
+      </router-link>
+      <!-- 返回鍵 -->
+
+      <!-- 標題 -->
       <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-        <!-- LOGO for Phone -->
-        <img
-          class="mx-auto h-10 w-auto lg:hidden"
-          src="https://tailwindui.com/img/logos/mark.svg?color=amber&shade=500"
-          alt="LOGO"
-        />
-        <!-- LOGO for Phone -->
         <h2
           class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight dark:text-amber-500"
         >
           登入帳號
         </h2>
       </div>
-      <!-- TODO:登入表單驗證 -->
+      <!-- 標題 -->
+
+      <!-- 登入表單 -->
       <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form class="space-y-6" action="#" method="POST">
           <div>
@@ -64,18 +64,24 @@
             </button>
           </div>
         </form>
-
-        <p class="mt-10 text-center text-sm text-gray-500">
-          還不是會員？
-          {{ ' ' }}
+        <div
+          class="my-4 mt-10 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-primary-700 after:mt-0.5 after:flex-1 after:border-t after:border-primary-700"
+        >
+          <p class="mx-4 mb-0 text-center text-sm font-semibold">還不是會員？</p>
+        </div>
+        <div class="mt-10 flex items-center justify-center gap-8 text-center">
           <router-link to="/register">
-            <span
+            <div
               class="font-semibold leading-6 text-primary-500 hover:text-primary-400 dark:text-amber-500 dark:hover:text-amber-400"
-              >點擊註冊</span
             >
+              註冊
+            </div>
           </router-link>
-        </p>
+          <div class="text-sm">/</div>
+          <div class="pi pi-google"></div>
+        </div>
       </div>
+      <!-- 登入表單 -->
     </div>
   </div>
 </template>

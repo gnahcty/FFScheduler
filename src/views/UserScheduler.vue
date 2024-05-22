@@ -1,14 +1,14 @@
 // 排程頁面
 <template>
-  <div class="w-full py-16">
+  <div class="w-full bg-stone-900 py-16 text-primary-600">
     <!-- title -->
     <div
       class="relative mx-20 flex flex-1 items-stretch justify-center px-2 lg:justify-start lg:pt-8"
     >
       <div class="absolute inset-y-0 right-5 flex items-center lg:hidden">
-        <span class="pi pi-print text-3xl text-gray-600 hover:text-emerald-500"></span>
+        <span class="pi pi-print text-3xl hover:text-emerald-500"></span>
       </div>
-      <div class="text-3xl">我的排程</div>
+      <div class="text-7xl uppercase">scheduler</div>
     </div>
     <!-- title -->
 

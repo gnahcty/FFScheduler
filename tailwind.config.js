@@ -35,6 +35,9 @@ export default {
       cursor: {
         left: 'url(@/assets/left-circle.svg), pointer',
         right: 'url(@/assets/right-circle.svg), pointer'
+      },
+      aspectRatio: {
+        '4/3': '4 / 3'
       }
     }
   },

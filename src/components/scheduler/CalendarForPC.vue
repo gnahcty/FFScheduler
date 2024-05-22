@@ -1,23 +1,23 @@
 // 排程頁面-行事曆元件（電腦版）
 <template>
-  <div class="relative mt-10 overflow-hidden rounded-lg border bg-white shadow">
+  <div class="relative mt-10 overflow-hidden rounded-lg border">
     <!-- header -->
     <div class="flex items-center justify-between px-6 py-2">
       <!-- 日期年份 -->
       <div>
-        <span class="text-lg font-bold text-gray-800">{{ format(currentDate, 'MMMM') }}</span>
-        <span class="ml-1 text-lg font-normal text-gray-600">{{ getYear(currentDate) }}</span>
+        <span class="text-lg font-bold">{{ format(currentDate, 'MMMM') }}</span>
+        <span class="ml-1 text-lg font-bold">{{ getYear(currentDate) }}</span>
       </div>
       <!-- 日期年份 -->
       <!-- 換月份 -->
-      <div class="rounded-lg border px-1" style="padding-top: 2px">
+      <div class="flex items-center rounded-lg px-1" style="padding-top: 2px">
         <button
           class="inline-flex cursor-pointer items-center rounded-lg p-1 leading-none transition duration-100 ease-in-out hover:bg-gray-200"
           @click="changeMonth(-1)"
         >
           <span class="pi pi-angle-left"></span>
         </button>
-        <div class="inline-flex h-6 border-r"></div>
+        <!-- <div class="inline-flex h-6 border-r"></div> -->
         <button
           class="inline-flex cursor-pointer items-center rounded-lg p-1 leading-none transition duration-100 ease-in-out hover:bg-gray-200"
           @click="changeMonth(1)"
@@ -33,7 +33,7 @@
       <div class="absolute grid w-full grid-cols-7">
         <!-- 星期幾 -->
         <div v-for="day in days" :key="day" class="h-8 pt-[10px]">
-          <div class="pl-2 text-center text-sm font-bold uppercase tracking-wide text-gray-400">
+          <div class="pl-2 text-center text-sm font-bold uppercase tracking-wide text-primary-800">
             {{ day }}
           </div>
         </div>

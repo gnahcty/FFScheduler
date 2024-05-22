@@ -2,12 +2,12 @@
 
 <template>
   <!-- nav prev -->
-  <div class="cursor-left absolute h-full w-0 sm:w-12 md:w-24 lg:w-1/5" @click="nav(-1)"></div>
+  <div class="absolute h-full w-0 cursor-left sm:w-12 md:w-24 lg:w-1/5" @click="nav(-1)"></div>
   <!-- nav prev -->
 
   <!-- nav next -->
   <div
-    class="cursor-right absolute right-0 h-full w-0 sm:w-12 md:w-24 lg:w-1/5"
+    class="absolute right-0 h-full w-0 cursor-right sm:w-12 md:w-24 lg:w-1/5"
     @click="nav(1)"
   ></div>
   <!-- nav next -->
@@ -70,7 +70,7 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { getFilm, getAdjacentIds } from '@/utils/temp_data.js'
+import { getFilmById, getAdjacentIds } from '@/utils/temp_data.js'
 const route = useRoute()
 const router = useRouter()
 const film = ref({})
@@ -81,7 +81,7 @@ const nav = (direction) => {
 }
 
 onMounted(() => {
-  film.value = getFilm(route.params.id)
+  film.value = getFilmById(route.params.id)
   film.value.directors.map((director) =>
     directors.value.splice(0, directors.value.length, director.directorName)
   )
@@ -90,7 +90,7 @@ onMounted(() => {
 watch(
   () => route.params.id,
   () => (
-    (film.value = getFilm(route.params.id)),
+    (film.value = getFilmById(route.params.id)),
     film.value.directors.map((director) =>
       directors.value.splice(0, directors.value.length, director.directorName)
     )

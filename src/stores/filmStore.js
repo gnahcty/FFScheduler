@@ -1,6 +1,6 @@
 import { reactive } from 'vue'
 import { defineStore } from 'pinia'
-import { getFilm } from '@/utils/temp_data'
+import { getFilmById } from '@/utils/temp_data'
 
 export const useUserList = defineStore('films', () => {
   const films = reactive([
@@ -406,7 +406,7 @@ export const useUserList = defineStore('films', () => {
         targetFilm.times.splice(targetScreeningIdx, 1)
       }
     } else {
-      const film = getFilm(id)
+      const film = getFilmById(id)
       film.times.map((screening) => {
         screening.danger = false
         screening.locked = false

@@ -1,51 +1,81 @@
 //影展場次-放映清單(橫向)-特定影城放映清單 //影展場次-放映清單(縱向)-特定影城放映清單
 
 <template>
-  <div v-for="film in props.films" :key="film.filmId">
+  <div class="absolute h-full rounded-md" :style="CardPosition(props.film)">
     <div
-      class="card border-1 absolute flex w-full flex-col justify-between rounded-md border p-2 hover:border-primary-400 hover:text-primary-500 dark:border-amber-200 dark:text-amber-100 dark:hover:bg-slate-800"
-      :style="CardPosition(film)"
+      class="group relative m-0 flex h-full w-full rounded-md shadow-xl ring-gray-900/5 sm:mx-auto sm:max-w-lg"
     >
-      <router-link to="/details">
-        <div class="ellipsis flex w-full flex-col overflow-clip">
-          <span class="text-sm opacity-75">{{ findTime(film) }} - {{ findEndingTime(film) }}</span>
-          <span>{{ film.CName }}</span>
-          <span class="text-pretty text-sm opacity-75">{{ film.EName }}</span>
-        </div>
-      </router-link>
-      <span
-        :class="films.liked ? 'pi-heart-fill' : 'pi-heart'"
-        class="pi text-right hover:text-primary-500"
-        @click="film.liked = !film.liked"
-      ></span>
+      <!-- 遮罩 -->
+      <div
+        class="absolute inset-0 z-20 h-full w-full rounded-md bg-gradient-to-t from-black/80 via-black/50 to-black/10 backdrop-grayscale duration-300 group-hover:backdrop-grayscale-0"
+      ></div>
+      <!-- 遮罩 -->
+      <!-- 卡片 -->
+      <div
+        class="z-10 h-full w-full overflow-hidden rounded-md opacity-80 transition duration-300 ease-in-out group-hover:opacity-100"
+      >
+        <router-link :to="`/details/${props.film.filmId}`">
+          <!-- cover photo -->
+          <img
+            :src="props.film.photos.photos1"
+            class="animate-fade-in block h-full w-full scale-100 transform object-cover object-center opacity-100 transition duration-300 group-hover:scale-110"
+            :alt="props.film.CName"
+          />
+          <!-- cover photo -->
+        </router-link>
+      </div>
+      <!-- 卡片 -->
+
+      <!-- 卡片上的字 -->
+      <div class="absolute z-20 flex h-full w-full items-center justify-between p-4 ps-4">
+        <router-link :to="`/details/${props.film.filmId}`">
+          <div
+            class="ellipsis flex h-fit w-full flex-col overflow-clip duration-300 ease-in-out group-hover:-translate-y-1 group-hover:translate-x-3 group-hover:scale-110"
+          >
+            <span class="text-xs opacity-75 sm:text-sm"
+              >{{ findTime(props.film) }} - {{ findEndingTime(props.film) }}</span
+            >
+            <span class="sm:text-md text-sm">{{ props.film.CName }}</span>
+            <span class="text-pretty text-xs opacity-75 sm:text-sm">{{ props.film.EName }}</span>
+          </div>
+        </router-link>
+        <!-- like btn  -->
+        <span class="pi pi-plus absolute right-3 top-3 z-40 text-gray-400"></span>
+        <!-- like btn  -->
+      </div>
+      <!-- 卡片上的字 -->
     </div>
   </div>
 </template>
 
 <script setup>
 const props = defineProps({
-  films: {
-    type: Array,
-    default: () => []
+  film: {
+    type: Object,
+    default: () => {}
   },
   vertical: {
     type: Boolean,
     default: false
+  },
+  date: {
+    type: String,
+    default: ''
   }
 })
 
 // 回傳film.times裡面time包含04.18的放映時間(HH:MM)
 const findTime = (film) => {
   // 找到film.times裡面time包含04.18的screening obj
-  const screening = film.times.find((screening) => screening.time.includes('04.18'))
-  //包含04.18的time (eg. "04.18  〈四〉 17:30"),以空格分開(["04.18","","〈四〉","17:30"])，取第4個
-  return screening.time.split(' ')[3]
+  const screening = film.times.find((screening) => screening.time.includes(props.date))
+  //包含04.18的time (eg. "04.18  〈四〉 17:30"),以空格分開(["04.18","〈四〉","17:30"])，取第4個
+  return screening.time.split(' ')[2]
 }
 
 // 計算場次結束時間
 const findEndingTime = (film) => {
   const StartingTime = convertTimeToMinutes(findTime(film))
-  const length = parseInt(film.length.split(' ')[0])
+  const length = parseInt(film.length.split(' ')[0]) //去掉"分"
   return convertMinutesToTime(StartingTime + length)
 }
 
@@ -64,24 +94,23 @@ const convertMinutesToTime = (totalMinutes) => {
 }
 
 const CardPosition = (film) => {
-  const referenceTime = 600 // 10:00 AM in minutes
+  const referenceTime = 610 // 10:10 AM in minutes
 
   const filmTime = convertTimeToMinutes(findTime(film))
   // 將片長去掉分轉成以10分鐘為單位
   const filmLength = parseInt(film.length.split(' ')[0], 10)
 
   if (props.vertical) {
-    // 計算offset
-    const offset = (filmTime - referenceTime) * 1.25 - 50
+    const offset = (filmTime - referenceTime) * 2
     return {
       marginTop: offset + 'px',
-      height: filmLength * 1.5 + 'px'
+      height: filmLength * 2 + 'px'
     }
   } else {
-    const offset = (filmTime - referenceTime) * 2 - 50
+    const offset = (filmTime - referenceTime) * 2.6
     return {
       marginLeft: offset + 'px',
-      width: filmLength * 2.5 + 'px'
+      width: filmLength * 3 + 'px'
     }
   }
 }

@@ -3,7 +3,7 @@
     <div
       class="inline-flex h-6 w-6 cursor-pointer items-center justify-center rounded-full text-center leading-none transition duration-100 ease-in-out"
       :class="{
-        'bg-emerald-500 text-white': isToday(props.date),
+        'text-primary-500 underline underline-offset-4': isToday(props.date),
         'text-gray-700 hover:bg-blue-200': !isToday(props.date)
       }"
     >

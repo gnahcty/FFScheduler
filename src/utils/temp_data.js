@@ -1,47 +1,5 @@
 const data = [
   {
-    CName: '陰陽師0',
-    EName: 'The Yin Yang Master Zero',
-    link: 'https://www.goldenhorse.org.tw/film/programme/films/detail/3772?search_year=2024&search_category=FFF&ghff_id=639',
-    filmId: '3772',
-    category: '開幕片',
-    photos: {
-      photos0: 'https://img.youtube.com/vi/g06S-5IBAZs/maxresdefault.jpg',
-      photos1:
-        'https://storage.googleapis.com/tghff_outland/image/photo/2024/GHFF/huge/photo_14b24747ab48959bd0a833c15ae19848.jpeg',
-      photos2:
-        'https://storage.googleapis.com/tghff_outland/image/photo/2024/GHFF/huge/photo_9d52f0af494fd546309ca452117fee98.jpeg',
-      photos3:
-        'https://storage.googleapis.com/tghff_outland/image/photo/2024/GHFF/huge/photo_35756c95f8415a5d52e8b9555094b9c6.jpeg'
-    },
-    region: '日本',
-    year: '2024',
-    format: 'DCP',
-    color: '彩色',
-    length: '113 分',
-    rating: '12+',
-    note: '',
-    awards: [],
-    description:
-      '世間有名者皆受咒束縛。千年前的平安時代人鬼共存，魑魅魍魎橫衝直撞，卻又藏匿於人心的各種欲望。陰陽寮的學生安倍晴明，傳說是狐妖之子，雖天賦異稟卻對追求名利毫無興趣，一心只想揭開父母遇害之謎，特立獨行也引來眾妒。有天，皇族徽子女王的住所發生奇異事件，貴族之子源博雅受託前來尋求晴明相助，與此同時，陰陽寮也有學生離奇死亡，各種異象顯示邪惡陰謀籠罩平安京，種種謎團即將解咒，真相讓人不寒而慄。<br>改編自同名系列小說，原作者夢枕獏協助監製全新故事。演員陣容華麗，網羅山崎賢人、染谷將太、奈緒、北村一輝、小林薰、安藤政信、國村隼等，更找來加門七海擔任咒術顧問，片中旁白亦由人氣聲優津田健次郎助陣，這部為紀念安倍晴明誕生一千一百週年所製作的電影，將為《陰陽師》寫下全新篇章。<br>史上最強咒術師，沒有之一！',
-    directors: [
-      {
-        directorName: '佐藤嗣麻子 SATO Shimako',
-        'director photo':
-          'https://storage.googleapis.com/tghff_outland/image/person/ghff/person_38539_60c0b01d9de61f0e891863c18e48c4c2.jpg',
-        'director description':
-          '1964年生於日本，directors、編劇。創作領域橫跨劇集及電影，首部擔任directors的長片《Tale of a Vampire》即入選倫敦影展。著名影視作品有《K-20怪人二十面相》、《非關正義》、《宇 宙戰艦大和號》等，《陰陽師0》為其最新執導電影。'
-      }
-    ],
-    times: [
-      { date: '04.12', day: '(五)', time: ' 19:00', place: 'MUVIE TITAN' },
-      { date: '04.15', day: '(一)', time: ' 19:00', place: 'MUVIE TITAN' },
-      { date: '04.17', day: '(三)', time: ' 11:50', place: '信義威秀11廳' },
-      { date: '04.20', day: '(六)', time: ' 21:20', place: '信義威秀11廳' }
-    ]
-  },
-
-  {
     CName: '盜墓奇美拉',
     EName: 'La Chimera',
     link: 'https://www.goldenhorse.org.tw/film/programme/films/detail/3812?search_year=2024&search_category=FFF&ghff_id=641',
@@ -963,10 +921,10 @@ const data = [
       }
     ],
     times: [
-      { time: '04.14 (日) 19:00', place: '信義威秀10廳　 ▲' },
-      { time: '04.15 (一) 16:10', place: 'MUVIE TITAN　 ▲' },
-      { time: '04.17 (三) 21:00', place: '信義威秀10廳　 ▲' },
-      { time: '04.18 (四) 21:10', place: 'MUVIE TITAN　 ▲' }
+      { time: '04.14 (日) 19:00', place: '信義威秀10廳' },
+      { time: '04.15 (一) 16:10', place: 'MUVIE TITAN' },
+      { time: '04.17 (三) 21:00', place: '信義威秀10廳' },
+      { time: '04.18 (四) 21:10', place: 'MUVIE TITAN' }
     ]
   },
   {
@@ -1003,9 +961,9 @@ const data = [
       }
     ],
     times: [
-      { time: '04.13 (六) 10:20', place: '信義威秀11廳　 ▲' },
-      { time: '04.18 (四) 15:20', place: '信義威秀11廳　 ▲' },
-      { time: '04.21 (日) 19:50', place: '信義威秀11廳　 ▲' }
+      { time: '04.13 (六) 10:20', place: '信義威秀11廳' },
+      { time: '04.18 (四) 15:20', place: '信義威秀11廳' },
+      { time: '04.21 (日) 19:50', place: '信義威秀11廳' }
     ]
   },
   {
@@ -1140,7 +1098,7 @@ const data = [
       }
     ],
     times: [
-      { time: '04.14 (日) 18:40', place: 'MUVIE TITAN ( 扮裝場 )' },
+      { time: '04.14 (日) 18:40', place: 'MUVIE TITAN' },
       { time: '04.18 (四) 21:40', place: '信義威秀11廳' },
       { time: '04.19 (五) 10:20', place: '信義威秀11廳' }
     ]
@@ -1188,8 +1146,8 @@ const data = [
       }
     ],
     times: [
-      { time: '04.20 (六) 16:50', place: 'MUVIE TITAN ( 扮裝場 )' },
-      { time: '04.20 (六) 19:20', place: 'MUVIE TITAN ( 扮裝場 )' }
+      { time: '04.20 (六) 16:50', place: 'MUVIE TITAN' },
+      { time: '04.20 (六) 19:20', place: 'MUVIE TITAN' }
     ]
   },
   {
@@ -1715,7 +1673,7 @@ export const getFilmsByCategory = (category) => {
  * @param {string} filmId
  * @returns {Object} - Return an film object
  */
-export const getFilm = (id) => {
+export const getFilmById = (id) => {
   return data.find((item) => item.filmId === id)
 }
 
@@ -1731,6 +1689,10 @@ export const getAdjacentIds = (id, dir) => {
     return data[(index + dir + data.length) % data.length].filmId
   }
   return null
+}
+
+export const getFilmsByDate = (date) => {
+  return data.filter((film) => film.times.some((screening) => screening.time.includes(date)))
 }
 
 export default function ex() {
