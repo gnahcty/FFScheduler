@@ -1,6 +1,7 @@
 // 影展場次-放映清單(橫向)
 
 <template>
+  <!-- pc and tab -->
   <div
     class="no-scrollbar hidden h-full w-full flex-col justify-center overflow-x-auto text-stone-300 sm:flex"
     ref="scrollContainer"
@@ -23,8 +24,12 @@
     </div>
     <!-- 各影城場次 -->
   </div>
+  <!-- pc and tab -->
 
-  <div class="flex h-full w-full justify-center gap-1 overflow-auto text-stone-300 sm:hidden">
+  <!-- mobile -->
+  <div
+    class="no-scrollbar flex h-full w-full justify-center gap-1 overflow-auto text-stone-300 sm:hidden"
+  >
     <!-- 各影城場次 -->
     <div v-for="(theatre, key) in screenTimes" :key="key" class="flex-0 h-full w-full flex-col">
       <!-- 影城名稱 -->
@@ -43,6 +48,7 @@
     </div>
     <!-- 各影城場次 -->
   </div>
+  <!-- mobile -->
 </template>
 
 <script setup>
