@@ -14,9 +14,11 @@
 
   <div class="flex h-full flex-col bg-stone-900 pb-12 text-primary-600 sm:pb-0 sm:pt-12">
     <!-- title -->
-    <div class="flex w-screen overflow-x-clip text-9xl font-bold">
-      <span class="flex-0 text-nowrap">{{ film.EName }}</span>
-      <span class="flex-0 text-nowrap">{{ film.CName }}</span>
+    <div class="text-9xl font-bold">
+      <Vue3Marquee class="overflow-y-clip" :clone="true">
+        <span class="flex-0 text-nowrap">{{ film.EName }}</span>
+        <span class="flex-0 text-nowrap">{{ film.CName }}</span>
+      </Vue3Marquee>
     </div>
     <!-- title -->
 
