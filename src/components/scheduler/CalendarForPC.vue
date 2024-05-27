@@ -1,6 +1,6 @@
 // 排程頁面-行事曆元件（電腦版）
 <template>
-  <div class="relative mt-10 overflow-hidden rounded-lg border">
+  <div class="relative mt-10 overflow-hidden rounded-lg border border-stone-600">
     <!-- header -->
     <div class="flex items-center justify-between px-6 py-2">
       <!-- 日期年份 -->
@@ -17,7 +17,6 @@
         >
           <span class="pi pi-angle-left"></span>
         </button>
-        <!-- <div class="inline-flex h-6 border-r"></div> -->
         <button
           class="inline-flex cursor-pointer items-center rounded-lg p-1 leading-none transition duration-100 ease-in-out hover:bg-gray-200"
           @click="changeMonth(1)"
@@ -29,7 +28,7 @@
     </div>
     <!-- header -->
 
-    <div class="-mx-1 -mb-1 grid grid-cols-7 border-t">
+    <div class="-mx-1 -mb-1 grid grid-cols-7 border-t border-stone-600">
       <div class="absolute grid w-full grid-cols-7">
         <!-- 星期幾 -->
         <div v-for="day in days" :key="day" class="h-8 pt-[10px]">
@@ -42,7 +41,7 @@
 
       <!-- 每個月前幾天的空格 -->
       <div v-for="n in blankDays" :key="n">
-        <div class="h-full min-h-32 border-b border-r"></div>
+        <div class="h-full min-h-32 border-b border-r border-stone-600"></div>
       </div>
       <!-- 每個月前幾天的空格 -->
 
@@ -66,29 +65,21 @@ import {
   addMonths,
   getYear
 } from 'date-fns'
-
-const currentDate = ref(new Date())
+import { FFStartDay } from '@/utils/temp_data.js'
+const currentDate = ref(FFStartDay)
 const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
 // 本月第一天日期 (str)
-const startDay = computed(() => {
-  return startOfMonth(currentDate.value)
-})
+const startDay = computed(() => startOfMonth(currentDate.value))
 
 // 本月最後一天日期 (str)
-const endDay = computed(() => {
-  return endOfMonth(currentDate.value)
-})
+const endDay = computed(() => endOfMonth(currentDate.value))
 
 // 本月所有日期 (array)
-const daysInMonth = computed(() => {
-  return eachDayOfInterval({ start: startDay.value, end: endDay.value })
-})
+const daysInMonth = computed(() => eachDayOfInterval({ start: startDay.value, end: endDay.value }))
 
 // 每個月第一天是星期幾 (0= sunday)
-const blankDays = computed(() => {
-  return (getDay(startDay.value) + 6) % 7
-})
+const blankDays = computed(() => (getDay(startDay.value) + 6) % 7)
 
 function changeMonth(step) {
   currentDate.value = addMonths(currentDate.value, step)

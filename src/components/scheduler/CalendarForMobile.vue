@@ -1,32 +1,26 @@
 // 排程頁面-行事曆元件（手機、平板）
 <template>
-  <!-- date nav -->
-  <div class="mt-5 flex w-full items-center justify-center gap-5 font-bold">
-    <Button @click="goToPreviousWeek" class="px-4 py-2" icon="pi pi-angle-left" text rounded />
-    <div class="text-lg">{{ formattedMonthYear }}</div>
-    <Button @click="goToNextWeek" class="px-4 py-2" icon="pi pi-angle-right" text rounded />
-  </div>
-  <!-- date nav -->
-
   <!-- week view -->
   <div
-    class="mx-auto flex justify-center overflow-auto rounded-lg bg-white py-4 sm:justify-center sm:px-2 md:mx-12"
+    class="mx-auto mt-5 flex justify-center overflow-auto py-4 sm:justify-center sm:px-2 md:mx-12"
   >
     <div v-for="day in weekDays" :key="day.dateString">
       <!-- tab -->
       <div
-        class="group hidden justify-center transition-all duration-300 hover:bg-primary-50 hover:shadow-lg sm:mx-1 sm:flex sm:w-16 sm:cursor-pointer sm:rounded-lg"
+        class="hidden justify-center sm:mx-1 sm:flex sm:w-16 sm:cursor-pointer sm:rounded-lg"
         @click="currentDate = new Date(day.dateString)"
         :class="{
-          'border border-primary-400 bg-primary-50 font-bold text-primary-900':
-            currentDate.getDate() === new Date(day.dateString).getDate()
+          ' border border-primary-700 font-bold ':
+            currentDate.getDate() === new Date(day.dateString).getDate(),
+          'text-primary-500': isAiring(day.dateString),
+          'text-primary-50': !isAiring(day.dateString)
         }"
       >
         <div class="flex flex-col items-center px-4 py-4 text-center">
-          <p class="text-sm group-hover:text-emerald-900">
+          <p class="text-sm">
             {{ day.day }}
           </p>
-          <p class="mt-3 group-hover:font-bold group-hover:text-emerald-900">
+          <p class="mt-3">
             {{ day.date }}
           </p>
         </div>
@@ -35,16 +29,20 @@
 
       <!-- mobile -->
       <div
-        class="mx-1 flex flex-col justify-center gap-3 text-center text-gray-900 sm:hidden"
+        class="mx-1 flex flex-col justify-center gap-3 text-center sm:hidden"
         @click="currentDate = new Date(day.dateString)"
+        :class="{
+          'text-primary-500': isAiring(day.dateString),
+          'text-primary-50': !isAiring(day.dateString)
+        }"
       >
         <p class="text-sm">
           {{ day.day }}
         </p>
         <p
-          class="flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:bg-emerald-100 hover:text-emerald-900 hover:shadow-lg"
+          class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full"
           :class="{
-            'border border-primary-400 bg-primary-50 font-bold text-primary-900':
+            'border border-primary-600 font-bold ':
               currentDate.getDate() === new Date(day.dateString).getDate()
           }"
         >
@@ -55,15 +53,28 @@
     </div>
   </div>
   <!-- week view -->
+  <!-- date nav -->
+  <div class="flex w-full items-center justify-center gap-5 font-bold text-white">
+    <Button @click="goToPreviousWeek" class="px-4 py-2" icon="pi pi-angle-left" text rounded />
+    <div class="text-lg">{{ formattedMonthYear }}</div>
+    <Button @click="goToNextWeek" class="px-4 py-2" icon="pi pi-angle-right" text rounded />
+  </div>
+  <!-- date nav -->
 
   <!-- list -->
-
   <div class="flex flex-col">
-    <div class="mr-6 self-end text-sm underline" @click="deleteAllFilmsToday">清除本日場次</div>
+    <div
+      class="mr-6 self-end text-sm underline"
+      @click="deleteScreeningOfTheDay(format(currentDate, 'MM.dd'))"
+    >
+      清除本日場次
+    </div>
     <div class="flex flex-wrap px-5 sm:mt-10">
       <div class="flex flex-auto flex-col gap-1 rounded p-3">
         <div v-for="(film, i) in filmsForDate" :key="i">
-          <EventChips v-model:film="filmsForDate[i]" :date="currentDate"></EventChips>
+          <div v-if="!film.times.deleted">
+            <EventChips v-model:film="filmsForDate[i]"></EventChips>
+          </div>
         </div>
       </div>
       <Divider class="sm:hidden" />
@@ -72,12 +83,10 @@
           本日已刪除場次
         </div>
         <div class="mt-3 min-h-32 rounded-lg border border-dashed px-2 py-3">
-          <div v-for="(film, i) in deletedFilms" :key="i">
-            <EventChips
-              v-model:film="deletedFilms[i]"
-              :date="currentDate"
-              :showDeleted="true"
-            ></EventChips>
+          <div v-for="(film, i) in filmsForDate" :key="i">
+            <div v-if="film.times.deleted">
+              <EventChips v-model:film="filmsForDate[i]"></EventChips>
+            </div>
           </div>
         </div>
       </div>
@@ -86,42 +95,26 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { startOfWeek, endOfWeek, addWeeks, format, eachDayOfInterval } from 'date-fns'
+import { ref, computed, watch } from 'vue'
+import {
+  startOfWeek,
+  endOfWeek,
+  addWeeks,
+  format,
+  eachDayOfInterval,
+  isBefore,
+  isAfter
+} from 'date-fns'
 import { useUserList } from '@/stores/filmStore.js'
-const { films } = useUserList()
+import { FFStartDay, FFEndDay } from '@/utils/temp_data'
+const { screeningsOfTheDay, deleteScreeningOfTheDay } = useUserList()
 
 const currentDate = ref(new Date())
 
-const filmsForDate = computed(() => {
-  return films.filter((film) =>
-    film.times.some(
-      (timeEntry) =>
-        timeEntry.time.includes(`${format(currentDate.value, 'MM.dd')}`) &&
-        timeEntry.deleted === false
-    )
-  )
-})
+let filmsForDate = screeningsOfTheDay(format(currentDate.value, 'MM.dd'))
 
-const deletedFilms = computed(() => {
-  return films.filter((film) =>
-    film.times.some(
-      (timeEntry) =>
-        timeEntry.time.includes(`${format(currentDate.value, 'MM.dd')}`) &&
-        timeEntry.deleted === true
-    )
-  )
-})
-
-const deleteAllFilmsToday = () => {
-  for (const film of filmsForDate.value) {
-    for (const screening of film.times) {
-      if (screening.time.includes(`${format(currentDate.value, 'MM.dd')}`)) {
-        screening.deleted = true
-      }
-    }
-  }
-}
+//是否在影展播映期間
+const isAiring = (date) => isAfter(new Date(date), FFStartDay) && isBefore(new Date(date), FFEndDay)
 
 // 本周第一天日期
 const startOfCurrentWeek = computed(() => startOfWeek(currentDate.value, { weekStartsOn: 1 }))
@@ -149,4 +142,11 @@ const goToNextWeek = () => {
 const goToPreviousWeek = () => {
   currentDate.value = addWeeks(currentDate.value, -1)
 }
+
+watch(
+  () => currentDate.value,
+  () => {
+    filmsForDate = screeningsOfTheDay(format(currentDate.value, 'MM.dd'))
+  }
+)
 </script>

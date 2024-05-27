@@ -1,4 +1,4 @@
-<!-- navbar for phone and pad -->
+<!-- navbar for phone and tab -->
 <template>
   <div class="fixed inset-x-0 bottom-0 z-50 h-16 w-full text-primary-600 sm:hidden">
     <div class="mx-auto grid h-full max-w-lg grid-cols-4 font-medium">

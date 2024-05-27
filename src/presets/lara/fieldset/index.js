@@ -11,8 +11,8 @@ export default {
       'rounded-md',
       // Color
       'border border-surface-200 dark:border-surface-700',
-      'bg-surface-0 dark:bg-surface-900',
-      'text-surface-700 dark:text-surface-0/80'
+      'bg-stone-900',
+      'text-primary-700 dark:text-surface-0/80'
     ]
   },
   legend: ({ props }) => ({
@@ -28,9 +28,9 @@ export default {
       'rounded-md',
 
       // Color
-      'text-surface-700 dark:text-surface-0/80',
+      'text-surface-100',
       // 'border border-surface-200 dark:border-surface-700',
-      'bg-surface-0 dark:bg-surface-900',
+      'bg-stone-900',
 
       // Transition
       'transition-none',

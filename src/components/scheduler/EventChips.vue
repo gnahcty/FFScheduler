@@ -1,10 +1,11 @@
 <template>
   <!-- for PC -->
   <div
-    class="mt-1 hidden overflow-hidden rounded-lg border px-2 py-1 lg:block"
-    :class="chipStyle"
-    @click="deleteScreeningToggle(screening, true)"
-    v-on-long-press="[() => lockScreeningToggle(screening), { modifiers: { stop: true } }]"
+    class="mt-1 hidden cursor-pointer overflow-hidden rounded-lg px-2 py-1 lg:block"
+    :class="BtnStyle(film.times).value"
+    @click="deleteScreeningToggle(film.times)"
+    v-on-long-press="[() => lockScreeningToggle(film.times), { modifiers: { stop: true } }]"
+    v-if="!film.times.deleted"
   >
     <p class="truncate text-xs leading-tight">{{ startingTime }} - {{ endingTime }}</p>
     <p class="truncate text-sm leading-tight">{{ film.CName }}</p>
@@ -21,9 +22,9 @@
     </div>
     <div
       class="mt-1 flex-auto overflow-hidden rounded-lg border px-2 py-1"
-      @click="deleteScreeningToggle(screening, true)"
-      v-on-long-press="[() => lockScreeningToggle(screening), { modifiers: { stop: true } }]"
-      :class="chipStyle"
+      @click="deleteScreeningToggle(film.times)"
+      v-on-long-press="[() => lockScreeningToggle(film.times), { modifiers: { stop: true } }]"
+      :class="BtnStyle(film.times).value"
     >
       <p class="truncate">{{ film.CName }}</p>
       <p class="truncate">{{ film.EName }}</p>
@@ -34,71 +35,28 @@
 
 <script setup>
 import { computed } from 'vue'
-import { format, set, addMinutes } from 'date-fns'
+// import { format, set, addMinutes } from 'date-fns'
 import useScreeningManagement from '@/utils/useScreeningManagement.js'
 import { vOnLongPress } from '@vueuse/components'
 
 const film = defineModel('film')
-const props = defineProps({
-  date: {
-    type: Object,
-    default: null
-  },
-  showDeleted: {
-    type: Boolean,
-    default: false
-  }
-})
-const { remainingScreening, deleteScreeningToggle, lockScreeningToggle } = useScreeningManagement(
-  film.value.Id
+
+const { deleteScreeningToggle, lockScreeningToggle, BtnStyle } = useScreeningManagement(
+  film.value.filmId
 )
 
-//  {"time": "04.14(日) 18:40", "place": "MUVIE TITAN", "locked": false, "deleted": false, "danger": false }
-const screening = computed(() => {
-  return film.value.times.find(
-    (timeEntry) =>
-      timeEntry.time.includes(`${format(props.date, 'MM.dd')}`) &&
-      timeEntry.deleted === props.showDeleted
-  )
-})
-// 計算場次開始時間
+// 場次開始時間
 const startingTime = computed(() => {
-  return screening.value.time.split(' ')[1]
+  return film.value.times.time.split(' ')[2]
 })
-// 計算場次結束時間
+// 場次結束時間
 const endingTime = computed(() => {
-  const startTimeFull = set(props.date, {
-    hours: startingTime.value.split(':')[0],
-    minutes: startingTime.value.split(':')[1]
-  })
-  const endTime = addMinutes(startTimeFull, film.value.length)
-
-  return format(endTime, 'HH:mm')
-})
-// FIXME: locked &danger text should be white
-const chipStyle = computed(() => {
-  let bgColor, textColor, borderColor
-
-  if (screening.value.locked === true) {
-    bgColor = 'bg-gray-800'
-    textColor = 'text-gray-100'
-    borderColor = 'border-gray-800'
-  } else if (remainingScreening.value.length <= 2) {
-    bgColor = 'bg-orange-100'
-    textColor = 'text-orange-800'
-    borderColor = 'border-orange-200'
-  } else {
-    bgColor = 'bg-emerald-100'
-    textColor = 'text-emerald-800'
-    borderColor = 'border-emerald-200'
+  let h = startingTime.value?.split(':')[0] * 1
+  let min = startingTime.value?.split(':')[1] * 1 + film.value?.length * 1
+  while (min >= 60) {
+    h++
+    min = min - 60
   }
-
-  // 若衝堂，border及文字顏色設為紅色，加ring
-  if (screening.value.danger) {
-    return `${bgColor} border-red-400 ring-1 ring-red-400 text-red-800`
-  } else {
-    // 否則設為主題色，不加ring
-    return `${bgColor} ${borderColor} ${textColor}`
-  }
+  return `${h}:${min}`
 })
 </script>

@@ -70,7 +70,7 @@ const router = createRouter({
         {
           path: '/favorites',
           name: 'favorites',
-          component: () => import('@/views/LikedFilms.vue'),
+          component: () => import('@/views/WatchList.vue'),
           meta: {
             title: '收藏'
           }

@@ -5,9 +5,9 @@
     <!-- Menu Bar for PC -->
     <RouterView />
 
-    <!-- navbar for phone and pad -->
+    <!-- navbar for phone and tab -->
     <MobileNav :navItems="mobileNavItems" />
-    <!-- navbar for phone and pad -->
+    <!-- navbar for phone and tab -->
   </div>
 </template>
 

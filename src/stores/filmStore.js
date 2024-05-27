@@ -1,4 +1,4 @@
-import { reactive } from 'vue'
+import { reactive, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { getFilmById } from '@/utils/temp_data'
 
@@ -109,7 +109,7 @@ export const useUserList = defineStore('films', () => {
       CName: '沙漠大冒險',
       EName: 'Sand Land',
       filmId: '3777',
-      length: '113',
+      length: '96',
       times: [
         {
           time: '04.13 (六) 14:30',
@@ -145,7 +145,7 @@ export const useUserList = defineStore('films', () => {
       CName: '邪厄恩典',
       EName: 'Raging Grace',
       filmId: '3790',
-      length: '113',
+      length: '120',
       times: [
         {
           time: '04.13 (六) 12:30',
@@ -283,7 +283,7 @@ export const useUserList = defineStore('films', () => {
       CName: '拍血少年',
       EName: 'All You Need Is Blood',
       filmId: '3795',
-      length: '113',
+      length: '160',
       times: [
         {
           time: '04.12 (五) 14:50',
@@ -430,5 +430,46 @@ export const useUserList = defineStore('films', () => {
     return false
   }
 
-  return { isLiked, films, likeScreeningToggle }
+  const filmsOfTheDay = (date) =>
+    computed(() =>
+      films.filter((film) => film.times.some((screening) => screening.time.includes(date)))
+    )
+  const screeningsOfTheDay = (date) =>
+    computed(() => {
+      const result = reactive([])
+      films.map((film) => {
+        film.times.map((screening) => {
+          if (screening.time.includes(date)) {
+            result.push({
+              CName: film.CName,
+              EName: film.EName,
+              filmId: film.filmId,
+              length: film.length,
+              times: screening
+            })
+          }
+        })
+      })
+
+      return result
+    })
+
+  const deleteScreeningOfTheDay = (date) => {
+    films.map((film) => {
+      film.times.map((screening) => {
+        if (screening.time.includes(date)) {
+          screening.deleted = true
+        }
+      })
+    })
+  }
+
+  return {
+    isLiked,
+    films,
+    likeScreeningToggle,
+    filmsOfTheDay,
+    screeningsOfTheDay,
+    deleteScreeningOfTheDay
+  }
 })

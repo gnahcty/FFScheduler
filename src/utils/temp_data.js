@@ -1631,6 +1631,9 @@ const data = [
   }
 ]
 
+export const FFStartDay = new Date(2024, 3, 7)
+export const FFEndDay = new Date(2024, 3, 22)
+
 /**
  *
  * @returns {Array} - Return an array of categories

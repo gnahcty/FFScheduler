@@ -71,7 +71,6 @@
   padding-left: 0.75rem; /* 12px */
   padding-right: 0.75rem; /* 12px */
   border-radius: 9999px;
-  border: 1px solid; /* Default color not specified in Tailwind class */
   cursor: pointer;
   user-select: none;
   transition: all 200ms ease-in-out;
