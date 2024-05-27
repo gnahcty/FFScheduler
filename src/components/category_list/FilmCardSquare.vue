@@ -1,13 +1,13 @@
 // 影展單元詳細片單-電影卡片
 <template>
-  <div class="group relative h-96 w-64 text-primary-600 sm:h-full">
+  <div class="animateFilmCard group relative h-96 w-64 text-primary-600 sm:h-full">
     <router-link :to="`/details/${props.film.filmId}`">
       <!-- index -->
       <div
         class="absolute left-0 top-0 z-20 ps-4 pt-4 transition duration-300 ease-in-out group-hover:-translate-x-1 group-hover:-translate-y-1 group-hover:scale-90"
       >
         <h1 class="text-shadow text-2xl font-light">
-          {{ (props.filmIndex + 1).toString().padStart(2, '0') }}/
+          {{ (props.filmIndex + 1).toString().padStart(2, "0") }}/
         </h1>
       </div>
       <!-- index -->
@@ -37,14 +37,47 @@
 </template>
 
 <script setup>
+import { onMounted, watch } from "vue";
+import { gsap } from "gsap";
 const props = defineProps({
   film: {
     type: Object,
-    default: () => {}
+    default: () => {},
   },
   filmIndex: {
     type: Number,
-    default: 0
+    default: 0,
+  },
+});
+onMounted(() => {
+  gsap.fromTo(
+    ".animateFilmCard",
+    {
+      opacity: 0,
+    },
+    {
+      opacity: 1,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: "sine",
+    }
+  );
+});
+watch(
+  () => props.film,
+  () => {
+    gsap.fromTo(
+      ".animateFilmCard",
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "sine",
+      }
+    );
   }
-})
+);
 </script>

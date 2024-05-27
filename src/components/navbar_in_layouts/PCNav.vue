@@ -1,28 +1,31 @@
 // NavBar for PC
 <template>
-  <header class="fixed inset-x-0 top-0 z-50 text-primary-600 dark:bg-gradient-to-b">
-    <nav class="flex items-center justify-between p-6 lg:px-12">
+  <header class="fixed inset-x-0 top-0 z-50 hidden text-primary-600 sm:block">
+    <nav class="m-6 flex h-6 items-center justify-between lg:mx-12">
       <!-- LOGO -->
-      <div class="flex sm:flex-1">
-        <router-link to="/" class="hidden font-semibold sm:flex"> HOME </router-link>
+      <div>
+        <router-link to="/" class="flex font-semibold"> HOME </router-link>
       </div>
       <!-- LOGO -->
       <!-- Menu Bar for PC -->
-      <div class="hidden sm:flex sm:gap-x-12">
-        <RouterLink
-          v-for="navItem in navItems"
-          :key="navItem.to"
-          :to="navItem.to"
-          class="text-sm font-semibold leading-6 dark:text-main-orange dark:hover:text-main-yellow"
-        >
-          {{ navItem.text }}
+      <div class="flex h-6 gap-x-12 overflow-hidden">
+        <RouterLink v-for="navItem in navItems" :key="navItem.to" :to="navItem.to">
+          <div
+            class="text-sm font-semibold leading-6 transition-all duration-200 hover:-translate-y-6"
+          >
+            <div>{{ navItem.text }}</div>
+            <div>{{ navItem.text }}</div>
+          </div>
         </RouterLink>
       </div>
       <!-- Menu Bar for PC -->
       <!-- Login Button for PC -->
-      <div class="hidden sm:flex sm:flex-1 sm:justify-end">
-        <RouterLink to="/login" class="text-sm font-semibold leading-6 dark:text-main-yellow">
-          登入<span>&rarr;</span>
+      <div class="group flex w-14">
+        <RouterLink to="/login">
+          <div class="group flex text-sm font-semibold leading-6">
+            <span>登入</span
+            ><span class="group-hover:shift-lr transition-all duration-300">&rarr;</span>
+          </div>
         </RouterLink>
       </div>
       <!-- Login Button for PC -->

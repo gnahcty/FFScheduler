@@ -5,7 +5,10 @@
   <div class="mb-16 hidden h-full flex-col bg-stone-900 pt-16 sm:flex">
     <!-- 上半部標題 -->
     <div class="flex h-1/2 w-screen items-center justify-center gap-6">
-      <div class="overflow-clip text-center text-9xl uppercase text-primary-600">categories_</div>
+      <div class="relative overflow-hidden text-center text-9xl uppercase text-primary-600">
+        <div class="animateMask absolute h-full bg-primary-600"></div>
+        <div class="animateTitle">categories<span class="underscore">_</span></div>
+      </div>
     </div>
     <!-- 上半部標題 -->
 
@@ -31,3 +34,16 @@
   </div>
   <!-- for mobile -->
 </template>
+//
+<script setup>
+import { onMounted } from 'vue'
+import { gsap } from 'gsap'
+
+onMounted(() => {
+  const tl = gsap.timeline()
+  tl.to('.animateMask', { width: '100%', duration: 0.5, ease: 'power3.inOut' })
+    .to('.animateMask', { height: 0, duration: 0.5, ease: 'power3.out', stagger: 0.2 })
+    .from('.animateTitle', { y: 110, duration: 0.8, ease: 'power3.out' }, '<')
+    .fromTo('.underscore', { opacity: 0 }, { opacity: 1, repeat: 4, ease: 'steps(1)', yoyo: true })
+})
+</script>

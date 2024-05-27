@@ -3,8 +3,9 @@
 <template>
   <div class="h-full w-full">
     <!-- PC Marquee -->
-    <div class="hidden h-full w-full sm:block">
-      <Vue3Marquee pauseOnClick duration="35" class="min-h-full overflow-y-clip">
+    <div class="relative hidden h-full w-full overflow-hidden sm:block">
+      <div class="animateMask absolute z-30 h-full w-full bg-stone-900"></div>
+      <Vue3Marquee pauseOnClick :duration="35" class="animateTitle min-h-full overflow-y-clip">
         <div v-for="(category, i) in categories" :key="category.name" class="h-full w-64">
           <CategoryCard :film="category" :filmIndex="i" />
         </div>
@@ -14,7 +15,7 @@
 
     <!-- Mobile Marquee -->
     <div class="h-full w-full sm:hidden">
-      <Vue3Marquee pauseOnClick duration="35" vertical class="max-h-full">
+      <Vue3Marquee pauseOnClick :duration="35" vertical class="max-h-full">
         <div v-for="(category, i) in categories" :key="category.name" class="h-96 w-64">
           <CategoryCard :film="category" :filmIndex="i" />
         </div>

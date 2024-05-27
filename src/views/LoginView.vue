@@ -1,6 +1,6 @@
 <template>
-  <div class="h-full bg-stone-900 text-primary-600 sm:pt-16">
-    <div class="flex w-full flex-1 flex-col justify-center self-center px-6 py-12 lg:px-8">
+  <div class="flex h-full items-center bg-stone-900 text-primary-600">
+    <div class="flex w-full flex-col justify-center self-center px-6 pb-12 lg:px-8">
       <!-- 返回鍵 -->
       <router-link to="/" class="sm:hidden">
         <div class="pi pi-times"></div>
@@ -10,7 +10,7 @@
       <!-- 標題 -->
       <div class="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2
-          class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight dark:text-amber-500"
+          class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight sm:mt-0 dark:text-amber-500"
         >
           登入帳號
         </h2>
@@ -21,7 +21,9 @@
       <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form class="space-y-6" action="#" method="POST">
           <div>
-            <label for="username" class="block text-sm font-medium leading-6 dark:text-amber-500"
+            <label
+              for="username"
+              class="block text-sm font-medium leading-6 dark:text-amber-500"
               >帳號</label
             >
             <div class="mt-2">
@@ -36,11 +38,15 @@
 
           <div>
             <div class="flex items-center justify-between">
-              <label for="password" class="block text-sm font-medium leading-6 dark:text-amber-500"
+              <label
+                for="password"
+                class="block text-sm font-medium leading-6 dark:text-amber-500"
                 >密碼</label
               >
               <div class="text-sm">
-                <a href="#" class="font-semibold dark:text-amber-500 dark:hover:text-amber-500"
+                <a
+                  href="#"
+                  class="font-semibold dark:text-amber-500 dark:hover:text-amber-500"
                   >忘記密碼？</a
                 >
               </div>
@@ -87,7 +93,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 
-const password = ref(null)
+const password = ref(null);
 </script>

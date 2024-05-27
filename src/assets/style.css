@@ -1,19 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Poetsen+One&family=Titan+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.titan-one-regular {
-  font-family: 'Titan One', sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.anton-regular {
-  font-family: 'Anton', sans-serif;
-  font-weight: 400;
-  font-style: normal;
+@layer utilities {
+  .shift-lr {
+    animation: shift-lr 1s infinite;
+  }
 }
 
 .noto-sans {
@@ -40,24 +33,14 @@
   display: none; /* For Chrome, Safari, and Opera */
 }
 
-:root {
-  --surface-0: 255 255 255;
-  --surface-50: 248 250 252;
-  --surface-100: 241 245 249;
-  --surface-200: 226 232 240;
-  --surface-300: 203 213 225;
-  --surface-400: 148 163 184;
-  --surface-500: 100 116 139;
-  --surface-600: 71 85 105;
-  --surface-700: 45 55 72;
-  --surface-800: 30 41 59;
-  --surface-900: 15 23 42;
-  --surface-950: 3 6 23;
-}
-
-.bg-pic {
-  background-image: url('https://cdn.discordapp.com/attachments/1109403221245571167/1235243485158969435/Movie_Time_for_Mobile_Users_1.png?ex=6633a9a4&is=66325824&hm=ce74c56bea8324e46e4d1c906be60f9e5c66b1d5bcc2eb39d2ca3ef0c14c69a9&');
-  background-position: bottom;
+@keyframes shift-lr {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(50%);
+  }
 }
 
 .my-btn {

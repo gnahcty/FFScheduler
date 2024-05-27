@@ -13,8 +13,11 @@
       <!-- 上一個單元按鈕 -->
 
       <!-- 單元名稱 -->
-      <div class="w-4/5 overflow-clip text-balance break-normal text-center text-8xl uppercase">
-        {{ title }}_
+      <div
+        class="relative w-4/5 overflow-hidden text-balance break-normal text-center text-8xl uppercase"
+      >
+        <div class="animateMask absolute h-full bg-primary-600"></div>
+        <div class="animateTitle">{{ title }} <span class="underscore">_</span></div>
       </div>
       <!-- 單元名稱 -->
 
@@ -75,6 +78,7 @@ import { onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getFilmsByCategory, categoryList } from '@/utils/temp_data.js'
 import { useHorizontalScroll } from '@/utils/sideScroller'
+import { gsap } from 'gsap'
 
 const { scrollContainer } = useHorizontalScroll()
 const title = ref('')
@@ -92,10 +96,26 @@ const switchCategory = (direction) => {
 onMounted(() => {
   title.value = route.params.name
   films.value = getFilmsByCategory(route.params.name)
+  const tl = gsap.timeline()
+  tl.to('.animateMask', { width: '100%', duration: 0.5, ease: 'power3.inOut' })
+    .to('.animateMask', { height: 0, duration: 0.5, ease: 'power3.out', stagger: 0.2 })
+    .from('.animateTitle', { y: 110, duration: 0.8, ease: 'power3.out' }, '<')
+    .fromTo('.underscore', { opacity: 0 }, { opacity: 1, repeat: 4, ease: 'steps(1)', yoyo: true })
 })
 
 watch(
   () => route.params.name,
-  () => ((title.value = route.params.name), (films.value = getFilmsByCategory(route.params.name)))
+  () => (
+    (title.value = route.params.name),
+    (films.value = getFilmsByCategory(route.params.name)),
+    gsap
+      .timeline()
+      .from('.animateTitle', { y: 110, duration: 0.8, ease: 'power3.out' })
+      .fromTo(
+        '.underscore',
+        { opacity: 0 },
+        { opacity: 1, repeat: 4, ease: 'steps(1)', yoyo: true }
+      )
+  )
 )
 </script>
