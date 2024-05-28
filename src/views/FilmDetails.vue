@@ -32,19 +32,42 @@
       <!-- 2nd column -->
       <div class="mr-2 flex w-full min-w-72 flex-col justify-between sm:w-1/4">
         <div class="flex flex-col">
+          <!-- director -->
+          <div class="mb-2">導演: {{ directors.join() }}</div>
+          <!-- director -->
+
+          <!-- links to movie sites -->
+          <div class="mb-2 flex items-center gap-2">
+            <a
+              v-for="(link, i) in outerLinks(searchQuery)"
+              :key="i"
+              :href="link.url"
+              target="_blank"
+              class="hover:text-stone-200"
+            >
+              <span
+                v-if="link.icon === '豆'"
+                class="flex h-6 w-6 items-center justify-center rounded-full border-2 border-primary-500 text-center font-semibold hover:border-stone-200"
+                >豆</span
+              >
+              <span
+                v-else
+                :class="link.icon"
+                class="flex h-6 w-6 items-center justify-center"
+              ></span>
+            </a>
+          </div>
+          <!-- links to movie sites -->
+
           <!-- awards -->
           <div v-for="awards in film.awards" :key="awards">{{ awards }}</div>
           <!-- awards -->
+
           <!-- film info -->
-          <div class="mb-6 flex items-center">
-            <div class="flex-shrink-0 pr-1">{{ film.year }}</div>
-            <div class="text-pretty border-l border-orange-600 px-1 text-center">
-              {{ film.region }}
+          <div class="mb-2 flex flex-wrap items-center divide-x divide-primary-600 text-center">
+            <div v-for="(info, i) in filmInfo" :key="i" class="flex-shrink-0 px-1 first:pl-0">
+              {{ filmInfo[i] }}
             </div>
-            <div class="flex-shrink-0 border-l border-orange-600 px-1">{{ film.format }}</div>
-            <div class="flex-shrink-0 border-l border-orange-600 px-1">{{ film.color }}</div>
-            <div class="flex-shrink-0 border-l border-orange-600 px-1">{{ film.length }}</div>
-            <div class="flex-shrink-0 border-l border-orange-600 px-1">{{ film.rating }}</div>
           </div>
           <!-- film info -->
         </div>
@@ -56,11 +79,8 @@
       </div>
       <!-- 2nd column -->
       <!-- 劇情簡介 -->
-      <div
-        class="no-scrollbar flex w-full min-w-72 flex-col justify-between overflow-x-auto sm:w-[28vw]"
-      >
-        <div class="text-right text-sm">導演: {{ directors.join() }}</div>
-        <div class="h-fit">
+      <div class="flex w-full min-w-72 items-end sm:w-[28vw]">
+        <div class="no-scrollbar max-h-full overflow-auto">
           {{ film.description }}
         </div>
       </div>
@@ -70,32 +90,59 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getFilmById, getAdjacentIds } from '@/utils/temp_data.js'
 const route = useRoute()
 const router = useRouter()
 const film = ref({})
 const directors = ref([])
+const filmInfo = ref([])
 const nav = (direction) => {
   const id = getAdjacentIds(route.params.id, direction)
   router.push(`/details/${id}`)
 }
 
-onMounted(() => {
+const searchQuery = computed(() => film.value.EName?.replace(' ', '+'))
+const outerLinks = (query) => [
+  {
+    url: `https://search.douban.com/movie/subject_search?search_text=${query}&cat=1002`,
+    icon: '豆'
+  },
+  {
+    url: `https://letterboxd.com/search/${query}`,
+    icon: 'icon-[fa6-brands--square-letterboxd]'
+  },
+  {
+    url: `https://www.imdb.com/find?q=${query}&s=tt`,
+    icon: 'icon-[fa6-brands--imdb]'
+  },
+  {
+    url: `https://www.youtube.com/results?search_query=${query}+trailer`,
+    icon: 'icon-[fa6-brands--youtube]'
+  }
+]
+
+const setup = () => {
   film.value = getFilmById(route.params.id)
   film.value.directors.map((director) =>
     directors.value.splice(0, directors.value.length, director.directorName)
   )
+  filmInfo.value = [
+    film.value.year,
+    film.value.region,
+    film.value.format,
+    film.value.color,
+    film.value.length,
+    film.value.rating
+  ]
+}
+onMounted(() => {
+  setup()
 })
 
 watch(
   () => route.params.id,
-  () => (
-    (film.value = getFilmById(route.params.id)),
-    film.value.directors.map((director) =>
-      directors.value.splice(0, directors.value.length, director.directorName)
-    )
-  )
+  () => setup()
 )
 </script>

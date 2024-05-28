@@ -13,11 +13,13 @@
       <!-- 上一個單元按鈕 -->
 
       <!-- 單元名稱 -->
-      <div
-        class="relative w-4/5 overflow-hidden text-balance break-normal text-center text-8xl uppercase"
-      >
-        <div class="animateMask absolute h-full bg-primary-600"></div>
-        <div class="animateTitle">{{ title }} <span class="underscore">_</span></div>
+      <div class="flex w-4/5 justify-center break-normal">
+        <div class="relative w-fit overflow-hidden">
+          <div class="animateMask absolute h-full bg-primary-600"></div>
+          <div class="animateTitle text-balance text-8xl uppercase">
+            {{ title }} <span class="underscore">_</span>
+          </div>
+        </div>
       </div>
       <!-- 單元名稱 -->
 

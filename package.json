@@ -12,8 +12,10 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@iconify-json/fa6-brands": "^1.1.19",
     "@vueuse/components": "^10.9.0",
     "@vueuse/core": "^10.9.0",
+    "axios": "^1.7.2",
     "date-fns": "^3.6.0",
     "gsap": "^3.12.5",
     "pinia": "^2.1.7",
