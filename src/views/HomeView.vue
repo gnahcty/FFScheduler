@@ -85,7 +85,12 @@ const bgInterval = ref(null)
 
 onMounted(() => {
   const tl = gsap.timeline()
-  tl.to('.animateMask', { width: '100%', duration: 0.5, stagger: 0.2, ease: 'power3.inOut' })
+  tl.to('.animateMask', {
+    width: '100%',
+    duration: 0.5,
+    stagger: 0.2,
+    ease: 'power3.inOut'
+  })
     .to('.animateMask', { height: 0, duration: 0.5, stagger: 0.2, ease: 'power3.out' })
     .from('.animateTitle', { y: 100, duration: 1, stagger: 0.2, ease: 'power3.out' }, '<')
     .from('.animateBtn', { y: 100, duration: 1, stagger: 0, ease: 'power3.out' }, '<0.5')

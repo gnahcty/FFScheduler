@@ -1,40 +1,52 @@
 <template>
-  <div class="my-4 flex h-16 w-full sm:my-10 sm:h-36">
-    <div class="hidden items-center text-5xl sm:flex md:text-7xl lg:text-9xl">april</div>
-    <!-- timeline -->
-    <div class="flex flex-auto flex-col overflow-clip">
-      <!-- dates -->
-      <div
-        class="no-scrollbar flex h-full items-center justify-center overflow-x-auto overflow-y-clip sm:h-1/2"
-        ref="wrapper"
-      >
-        <div class="container relative h-full w-full" :style="containerOffset">
-          <div
-            v-for="(date, i) in dates"
-            :key="i"
-            class="slide absolute bottom-0 top-0 my-auto flex cursor-pointer items-center justify-center text-primary-600"
-            :class="{
-              'scale-150 font-bold': i === startingSlideIndex
-            }"
-            :id="`slide${i}`"
-            :style="`left:${offset * i}px; width:${offset}px`"
-            @click="moveToDate(date.date, i)"
-          >
-            <div>{{ date.date }}</div>
-            <div class="day ms-2" :class="{ hidden: i !== startingSlideIndex }">{{ date.day }}</div>
-          </div>
-        </div>
-      </div>
-      <!-- dates -->
+  <div class="my-4 flex w-full justify-center sm:my-10">
+    <div class="relative overflow-hidden md:h-36">
+      <div class="animateMask absolute h-full bg-primary-500"></div>
+      <div class="animateTitle flex h-16 justify-center md:h-36">
+        <!-- month -->
+        <div class="hidden items-center text-5xl sm:flex md:text-7xl lg:text-9xl">april</div>
+        <!-- month -->
 
-      <!-- line -->
-      <div
-        class="h-1/2 w-full border-t border-primary-600 sm:border-t-2 md:border-t-4 lg:border-t-8"
-      ></div>
-      <!-- line -->
+        <!-- timeline -->
+        <div id="timeLine" class="flex w-full flex-col overflow-clip">
+          <!-- dates -->
+          <div
+            class="no-scrollbar flex h-full items-center justify-center overflow-x-auto overflow-y-clip sm:h-1/2"
+            ref="wrapper"
+          >
+            <div class="container relative h-full w-full" :style="containerOffset">
+              <div
+                v-for="(date, i) in dates"
+                :key="i"
+                class="slide absolute bottom-0 top-0 my-auto flex cursor-pointer items-center justify-center text-primary-600"
+                :class="{
+                  'scale-150 font-bold': i === startingSlideIndex
+                }"
+                :id="`slide${i}`"
+                :style="`left:${offset * i}px; width:${offset}px`"
+                @click="moveToDate(date.date, i)"
+              >
+                <div>{{ date.date }}</div>
+                <div class="day ms-2" :class="{ hidden: i !== startingSlideIndex }">
+                  {{ date.day }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- dates -->
+
+          <!-- line -->
+          <div
+            class="h-1/2 w-full border-t border-primary-600 sm:border-t-2 md:border-t-4 lg:border-t-8"
+          ></div>
+          <!-- line -->
+        </div>
+        <!-- timeline -->
+        <!-- year -->
+        <div class="hidden items-center text-5xl sm:flex md:text-7xl lg:text-9xl">2024</div>
+        <!-- year -->
+      </div>
     </div>
-    <!-- timeline -->
-    <div class="hidden items-center text-5xl sm:flex md:text-7xl lg:text-9xl">2024</div>
   </div>
 </template>
 <script setup>

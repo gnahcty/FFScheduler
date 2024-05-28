@@ -1,24 +1,22 @@
 //影展場次-放映清單(橫向)-特定影城放映清單 //影展場次-放映清單(縱向)-特定影城放映清單
 
 <template>
-  <div class="absolute h-full rounded-md" :style="CardPosition(props.film)">
-    <div
-      class="group relative m-0 flex h-full w-full rounded-md shadow-xl ring-gray-900/5 sm:mx-auto sm:max-w-lg"
-    >
+  <div class="animateScreeningCard absolute h-full rounded-md" :style="CardPosition(props.film)">
+    <div class="group relative m-0 flex h-full rounded-md sm:mx-auto sm:max-w-lg">
       <!-- 遮罩 -->
       <div
-        class="absolute inset-0 z-20 h-full w-full rounded-md bg-gradient-to-t from-black/80 via-black/50 to-black/10 backdrop-grayscale duration-300 group-hover:backdrop-grayscale-0"
+        class="absolute inset-0 z-10 h-full w-full rounded-md bg-gradient-to-t from-black/80 via-black/50 to-black/10 backdrop-grayscale duration-300 group-hover:backdrop-grayscale-0"
       ></div>
       <!-- 遮罩 -->
       <!-- 卡片 -->
       <div
-        class="z-10 h-full w-full overflow-hidden rounded-md opacity-80 transition duration-300 ease-in-out group-hover:opacity-100"
+        class="h-full w-full overflow-hidden rounded-md opacity-80 transition duration-300 ease-in-out group-hover:opacity-100"
       >
         <router-link :to="`/details/${props.film.filmId}`">
           <!-- cover photo -->
           <img
             :src="props.film.photos.photos1"
-            class="animate-fade-in block h-full w-full scale-100 transform object-cover object-center opacity-100 transition duration-300 group-hover:scale-110"
+            class="block h-full w-full scale-100 transform object-cover object-center opacity-100 transition duration-300 group-hover:scale-110"
             :alt="props.film.CName"
           />
           <!-- cover photo -->
@@ -27,7 +25,7 @@
       <!-- 卡片 -->
 
       <!-- 卡片上的字 -->
-      <div class="absolute z-20 flex h-full w-full items-center justify-between p-4 ps-4">
+      <div class="absolute z-10 flex h-full w-full items-center justify-between p-4 ps-4">
         <router-link :to="`/details/${props.film.filmId}`">
           <div
             class="ellipsis flex h-fit w-full flex-col overflow-clip duration-300 ease-in-out group-hover:-translate-y-1 group-hover:translate-x-3 group-hover:scale-110"
@@ -49,6 +47,8 @@
 </template>
 
 <script setup>
+// import gsap from 'gsap'
+// import { onMounted } from 'vue'
 const props = defineProps({
   film: {
     type: Object,
@@ -114,4 +114,18 @@ const CardPosition = (film) => {
     }
   }
 }
+
+// onMounted(() => {
+// gsap.fromTo(
+//   '.animateScreeningCard',
+//   {
+//     opacity: 0
+//   },
+//   {
+//     opacity: 1,
+//     duration: 0.5,
+//     ease: 'power2.in'
+//   }
+// )
+// })
 </script>

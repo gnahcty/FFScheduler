@@ -7,10 +7,14 @@
     ref="scrollContainer"
   >
     <!-- 各影城場次 -->
-    <div v-for="(theatre, key) in screenTimes" :key="key" class="flex-0 mt-7 flex h-1/3">
+    <div
+      v-for="(theatre, key) in screenTimes"
+      :key="key"
+      class="flex-0 mt-7 flex h-1/3 overflow-hidden"
+    >
       <!-- 影城名稱 -->
       <div
-        class="flex aspect-4/3 h-full items-center justify-center text-nowrap rounded-md bg-stone-500 p-2"
+        class="animateRiver flex aspect-4/3 h-full items-center justify-center text-nowrap rounded-md bg-stone-500 p-2"
       >
         <span>{{ key }}</span>
       </div>
@@ -31,7 +35,11 @@
     class="no-scrollbar flex h-full w-full justify-center gap-1 overflow-auto text-stone-300 sm:hidden"
   >
     <!-- 各影城場次 -->
-    <div v-for="(theatre, key) in screenTimes" :key="key" class="flex-0 h-full w-full flex-col">
+    <div
+      v-for="(theatre, key) in screenTimes"
+      :key="key"
+      class="flex-0 animateScreeningCard h-full w-full flex-col"
+    >
       <!-- 影城名稱 -->
       <div
         class="flex h-20 w-full items-center justify-center text-nowrap rounded-md bg-stone-500 p-2 text-sm"
@@ -52,15 +60,17 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed, reactive, watch } from 'vue'
+import { ref, onMounted, computed, reactive, watch, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 import { useHorizontalScroll } from '@/utils/sideScroller'
 import { getFilmsByDate } from '@/utils/temp_data'
+import gsap from 'gsap'
 
 const films = reactive([])
 const { scrollContainer } = useHorizontalScroll()
 const route = useRoute()
 const date = ref(route.params.date.split('_').join('.'))
+
 let screenTimes = computed(() => {
   const screenTimes = {}
   films.forEach((film) => {
@@ -89,6 +99,14 @@ watch(
   () => route.params.date,
   () => {
     renewFilmsArray(), (date.value = route.params.date.split('_').join('.'))
+    nextTick(() => {
+      gsap.fromTo(
+        '.animateScreeningCard',
+        { opacity: 0 },
+        { opacity: 1, duration: 0.5, ease: 'power2.in' },
+        '<0.5'
+      )
+    })
   }
 )
 </script>
