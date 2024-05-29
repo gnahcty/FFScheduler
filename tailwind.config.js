@@ -15,7 +15,18 @@ export default {
         'primary-700': '#c2410c',
         'primary-800': '#9a3412',
         'primary-900': '#7c2d12',
-        'primary-950': '#431407'
+        'primary-950': '#431407',
+        'surface-50': '#fff7ed',
+        'surface-100': '#ffedd5',
+        'surface-200': '#fed7aa',
+        'surface-300': '#fdba74',
+        'surface-400': '#fb923c',
+        'surface-500': '#f97316',
+        'surface-600': '#ea580c',
+        'surface-700': '#c2410c',
+        'surface-800': '#9a3412',
+        'surface-900': '#7c2d12',
+        'surface-950': '#431407'
       },
       cursor: {
         left: 'url(@/assets/left-circle.svg), pointer',

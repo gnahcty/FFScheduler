@@ -9,6 +9,7 @@ import PrimeVue from 'primevue/config'
 import Lara from './presets/lara'
 import ConfirmationService from 'primevue/confirmationservice'
 import ToastService from 'primevue/toastservice'
+import Tooltip from 'primevue/tooltip'
 import Vue3Marquee from 'vue3-marquee'
 
 const app = createApp(App)
@@ -26,5 +27,5 @@ app.use(PrimeVue, {
     mergeProps: true
   }
 })
-
+app.directive('tooltip', Tooltip)
 app.mount('#app')

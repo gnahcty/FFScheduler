@@ -29,7 +29,7 @@ onMounted(() => {
       .from('.animateTitle', { y: 150, duration: 1, stagger: 0.2, ease: 'power3.out' }, '<')
       .to('.animateTitle', { width: '100vw', duration: 0.1, ease: 'power4.out' })
       .from('#timeLine', { width: 0, duration: 1, ease: 'power4.out' }, '>')
-      .from('.animateRiver', { y: 150, duration: 1, stagger: 0.2, ease: 'power3.out' })
+      .from('.animateRiver', { y: 200, duration: 1, stagger: 0.2, ease: 'power3.out' })
       .fromTo(
         '.animateScreeningCard',
         { opacity: 0 },

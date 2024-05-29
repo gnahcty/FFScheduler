@@ -9,6 +9,10 @@
         <div class="flex w-full flex-1 items-center justify-between px-2 lg:pt-8">
           <div class="text-7xl uppercase">scheduler</div>
           <div class="flex gap-5 text-xl">
+            <div
+              v-tooltip.left="info"
+              class="pi pi-info-circle cursor-pointer hover:text-stone-300"
+            ></div>
             <router-link to="/export" class="flex items-center">
               <div class="pi pi-print cursor-pointer hover:text-stone-300"></div>
             </router-link>
@@ -58,4 +62,5 @@ import { ref } from 'vue'
 import { useUserList } from '@/stores/filmStore.js'
 const { films } = useUserList()
 const showList = ref(false)
+const info = '點擊場次以刪除\n 長按場次以鎖定'
 </script>
