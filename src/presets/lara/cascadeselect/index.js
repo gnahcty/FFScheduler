@@ -9,20 +9,20 @@ export default {
             'rounded-md',
 
             // Color and Background
-            'bg-surface-0 dark:bg-surface-900',
+            'bg-surface-0  ',
             'border',
-            { 'border-surface-300 dark:border-surface-600': !props.invalid },
+            { 'border-surface-300  ': !props.invalid },
 
             // Invalid State
-            { 'border-red-500 dark:border-red-400': props.invalid },
+            { 'border-red-500  ': props.invalid },
 
             // Transitions
             'transition-all',
             'duration-200',
 
             // States
-            { 'hover:border-primary-500 dark:hover:border-primary-300': !props.invalid },
-            { 'outline-none outline-offset-0 ring ring-primary-400/50 dark:ring-primary-300/50': state.focused },
+            { 'hover:border-primary-500  ': !props.invalid },
+            { 'outline-none outline-offset-0 ring ring-primary-400/50  ': state.focused },
 
             // Misc
             'cursor-pointer',
@@ -49,8 +49,8 @@ export default {
             // Color and Background
             'bg-transparent',
             'border-0',
-            { 'text-surface-800 dark:text-white/80': props.modelValue, 'text-surface-400 dark:text-surface-500': !props.modelValue },
-            'placeholder:text-surface-400 dark:placeholder:text-surface-500',
+            { 'text-surface-800  ': props.modelValue, 'text-surface-400  ': !props.modelValue },
+            'placeholder:text-surface-400  ',
 
             // Transitions
             'transition',
@@ -91,14 +91,14 @@ export default {
             'absolute top-0 left-0',
 
             // Shape
-            'border-0 dark:border',
+            'border-0  ',
             'rounded-md',
             'shadow-md',
 
             // Color
-            'bg-surface-0 dark:bg-surface-700',
-            'text-surface-800 dark:text-white/80',
-            'dark:border-surface-700'
+            'bg-surface-0  ',
+            'text-surface-800  ',
+            ' '
         ]
     },
     wrapper: {
@@ -128,16 +128,16 @@ export default {
 
             //  Colors
             {
-                'text-surface-500 dark:text-white/70': !context.focused && !context.active,
-                'text-surface-500 dark:text-white/70 bg-surface-200 dark:bg-surface-600/90': context.focused && !context.active,
-                'text-primary-700 dark:text-surface-0/80 bg-primary-50 dark:bg-primary-400/30': context.focused && context.active,
-                'text-primary-700 dark:text-surface-0/80 bg-primary-50 dark:bg-primary-400/30': !context.focused && context.active
+                'text-surface-500  ': !context.focused && !context.active,
+                'text-surface-500   bg-surface-200  ': context.focused && !context.active,
+                'text-primary-700   bg-primary-50  ': context.focused && context.active,
+                'text-primary-700   bg-primary-50  ': !context.focused && context.active
             },
 
             // Hover States
             {
-                'hover:bg-surface-100 dark:hover:bg-surface-600/80': !context.active,
-                'hover:bg-primary-500/50 dark:hover:bg-primary-300/30 text-primary-700 dark:text-surface-0/80': context.active
+                'hover:bg-surface-100  ': !context.active,
+                'hover:bg-primary-500/50   text-primary-700  ': context.active
             },
 
             // Transitions
@@ -194,11 +194,11 @@ export default {
             'z-10',
 
             // Color
-            'bg-surface-0 dark:bg-surface-700'
+            'bg-surface-0  '
         ]
     },
     separator: {
-        class: 'border-t border-surface-200 dark:border-surface-600 my-1'
+        class: 'border-t border-surface-200   my-1'
     },
     transition: {
         enterFromClass: 'opacity-0 scale-y-[0.8]',

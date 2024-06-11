@@ -3,7 +3,7 @@ export default {
         class: 'mb-1'
     },
     header: {
-        class: ['rounded-md', 'outline-none', 'focus-visible:outline-none focus-visible:outline-offset-0 focus-visible:ring focus-visible:ring-primary-400/50 dark:focus-visible:ring-primary-300/50']
+        class: ['rounded-md', 'outline-none', 'focus-visible:outline-none focus-visible:outline-offset-0 focus-visible:ring focus-visible:ring-primary-400/50  ']
     },
     headercontent: ({ context, instance }) => ({
         class: [
@@ -12,13 +12,13 @@ export default {
             { 'rounded-br-md rounded-bl-md': !context.active || instance.activeItem?.items === undefined, 'rounded-br-0 rounded-bl-0': context.active && instance.activeItem?.items !== undefined },
 
             // Color
-            'border border-surface-200 dark:border-surface-700',
-            'bg-surface-50 dark:bg-surface-800',
-            'text-surface-600 dark:text-surface-0/80',
+            'border border-surface-200  ',
+            'bg-surface-50  ',
+            'text-surface-600  ',
             { 'text-surface-900': context.active },
 
             // States
-            'hover:bg-surface-100 dark:hover:bg-surface-700/80',
+            'hover:bg-surface-100  ',
             'hover:text-surface-900',
 
             // Transition
@@ -63,9 +63,9 @@ export default {
             'rounded-t-none rounded-br-md rounded-bl-md',
 
             // Color
-            'text-surface-700 dark:text-white/80',
-            'bg-surface-0 dark:bg-surface-800',
-            'border-surface-200 dark:border-surface-700'
+            'text-surface-700  ',
+            'bg-surface-0  ',
+            'border-surface-200  '
         ]
     },
     menu: {
@@ -77,7 +77,7 @@ export default {
             'border-none rounded-none',
 
             // Color
-            'text-surface-700 dark:text-white/80',
+            'text-surface-700  ',
 
             // Transition
             'transition-shadow duration-200'
@@ -97,12 +97,12 @@ export default {
             'py-3 px-5',
 
             // Color
-            'text-surface-700 dark:text-white/80',
+            'text-surface-700  ',
 
             // States
-            'hover:bg-surface-100 dark:hover:bg-surface-700/80 hover:text-surface-700 dark:hover:text-white/80',
+            'hover:bg-surface-100   hover:text-surface-700  ',
             {
-                'bg-surface-200 text-surface-700 dark:text-white/80 dark:bg-surface-600/90': context.focused
+                'bg-surface-200 text-surface-700    ': context.focused
             },
 
             // Misc

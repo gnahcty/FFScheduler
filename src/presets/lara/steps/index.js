@@ -17,7 +17,7 @@ export default {
             // Before
             'before:border-t',
             'before:border-surface-200',
-            'before:dark:border-surface-700',
+            'before: ',
             'before:w-full',
             'before:absolute',
             'before:top-1/2',
@@ -38,11 +38,11 @@ export default {
 
             // Colors
             'bg-surface-0',
-            'dark:bg-transparent',
+            ' ',
 
             // States
             'focus:outline-none focus:outline-offset-0 focus:ring',
-            'focus:ring-primary-400/50 dark:focus:ring-primary-300/50',
+            'focus:ring-primary-400/50  ',
 
             // Misc
             'overflow-hidden',
@@ -69,17 +69,17 @@ export default {
 
             // Colors
             {
-                'text-surface-400 dark:text-white/60': !context.active,
-                'border-surface-100 dark:border-surface-700': !context.active,
-                'bg-surface-0 dark:bg-surface-800': !context.active,
-                'bg-primary-500 dark:bg-primary-400': context.active,
-                'border-primary-500 dark:border-primary-400': context.active,
-                'text-surface-0 dark:text-surface-900': context.active
+                'text-surface-400  ': !context.active,
+                'border-surface-100  ': !context.active,
+                'bg-surface-0  ': !context.active,
+                'bg-primary-500  ': context.active,
+                'border-primary-500  ': context.active,
+                'text-surface-0  ': context.active
             },
 
             // States
             {
-                'hover:border-surface-300 dark:hover:border-surface-500': !context.active && !props.readonly
+                'hover:border-surface-300  ': !context.active && !props.readonly
             },
 
             // Transition
@@ -99,7 +99,7 @@ export default {
             'mt-2',
 
             // Colors
-            { 'text-surface-400 dark:text-white/60': !context.active, 'text-surface-800 dark:text-white/80': context.active },
+            { 'text-surface-400  ': !context.active, 'text-surface-800  ': context.active },
 
             // Text and Overflow
             'whitespace-nowrap',

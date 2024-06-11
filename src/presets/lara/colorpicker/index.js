@@ -21,12 +21,12 @@ export default {
             'rounded-lg w-8 h-8',
 
             // Colors
-            'bg-surface-0 dark:bg-surface-900',
-            'border border-surface-300 dark:border-surface-700',
+            'bg-surface-0  ',
+            'border border-surface-300  ',
 
             // States
-            'hover:border-primary-500 dark:hover:border-primary-400',
-            'focus:outline-none focus:outline-offset-0 focus:ring focus:ring-primary-400/50 dark:focus:ring-primary-300/50',
+            'hover:border-primary-500  ',
+            'focus:outline-none focus:outline-offset-0 focus:ring focus:ring-primary-400/50  ',
 
             // Transition
             'transition-colors duration-200',
@@ -47,7 +47,7 @@ export default {
             'shadow-md border',
 
             // Colors
-            'bg-surface-800 border-surface-900 dark:border-surface-600'
+            'bg-surface-800 border-surface-900  '
         ]
     }),
     selector: {

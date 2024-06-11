@@ -11,7 +11,7 @@ export default {
             'rounded-md',
 
             // Colors
-            'bg-surface-100 dark:bg-surface-700'
+            'bg-surface-100  '
         ]
     },
     value: ({ props }) => ({
@@ -20,7 +20,7 @@ export default {
             { 'absolute flex items-center justify-center overflow-hidden': props.mode !== 'indeterminate' },
 
             // Colors
-            'bg-primary-500 dark:bg-primary-400',
+            'bg-primary-500  ',
 
             // Spacing & Sizing
             'm-0',
@@ -48,7 +48,7 @@ export default {
             'inline-flex',
 
             // Font and Text
-            'text-white dark:text-surface-900',
+            'text-white  ',
             'leading-6'
         ]
     }

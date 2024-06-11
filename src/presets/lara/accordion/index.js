@@ -27,9 +27,9 @@ export default {
                 { 'rounded-br-md rounded-bl-md': !context.active, 'rounded-br-0 rounded-bl-0': context.active },
 
                 // Color
-                'border border-surface-200 dark:border-surface-700',
-                'bg-surface-50 dark:bg-surface-800',
-                'text-surface-600 dark:text-surface-0/80',
+                'border border-surface-200  ',
+                'bg-surface-50  ',
+                'text-surface-600  ',
                 { 'text-surface-900': context.active },
 
                 // Transition
@@ -37,9 +37,9 @@ export default {
                 'transition-shadow duration-200',
 
                 // States
-                'hover:bg-surface-100 dark:hover:bg-surface-700/40',
+                'hover:bg-surface-100  ',
                 'hover:text-surface-900',
-                'focus:outline-none focus:outline-offset-0 focus-visible:ring focus-visible:ring-primary-400/50 ring-inset dark:focus-visible:ring-primary-300/50', // Focus
+                'focus:outline-none focus:outline-offset-0 focus-visible:ring focus-visible:ring-primary-400/50 ring-inset  ', // Focus
 
                 // Misc
                 'cursor-pointer no-underline select-none'
@@ -61,9 +61,9 @@ export default {
                 'border-t-0',
 
                 // Color
-                'bg-surface-0 dark:bg-surface-800',
-                'border border-surface-200 dark:border-surface-700',
-                'text-surface-700 dark:text-surface-0/80'
+                'bg-surface-0  ',
+                'border border-surface-200  ',
+                'text-surface-700  '
             ]
         },
         transition: {

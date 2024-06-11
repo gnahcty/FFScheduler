@@ -7,9 +7,9 @@ export default {
             // Spacing
             'py-2',
             // Colors
-            'bg-surface-0 dark:bg-surface-700',
-            'text-surface-700 dark:text-white/80',
-            'border border-surface-200 dark:border-surface-700'
+            'bg-surface-0  ',
+            'text-surface-700  ',
+            'border border-surface-200  '
         ]
     },
     menu: {
@@ -26,16 +26,16 @@ export default {
             //Shape
             'rounded-none',
             // Colors
-            'text-surface-700 dark:text-white/80',
+            'text-surface-700  ',
             {
-                'bg-surface-200 text-surface-700 dark:bg-surface-300/10 dark:text-white': context.focused
+                'bg-surface-200 text-surface-700    ': context.focused
             },
             // Transitions
             'transition-shadow',
             'duration-200',
             // States
-            'hover:text-surface-700 dark:hover:text-white/80',
-            'hover:bg-surface-100 dark:bg-surface-700 dark:hover:bg-surface-400/10'
+            'hover:text-surface-700  ',
+            'hover:bg-surface-100    '
         ]
     }),
     action: {
@@ -51,7 +51,7 @@ export default {
             'px-5',
 
             // Color
-            'text-surface-700 dark:text-white/80',
+            'text-surface-700  ',
 
             // Misc
             'no-underline',
@@ -66,7 +66,7 @@ export default {
             'mr-2',
 
             // Color
-            'text-surface-600 dark:text-white/70'
+            'text-surface-600  '
         ]
     },
     label: {
@@ -83,8 +83,8 @@ export default {
             'rounded-tl-none',
             'rounded-tr-none',
             // Colors
-            'bg-surface-0 dark:bg-surface-700',
-            'text-surface-700 dark:text-white'
+            'bg-surface-0  ',
+            'text-surface-700  '
         ]
     },
     transition: {

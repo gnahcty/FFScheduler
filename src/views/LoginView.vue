@@ -10,7 +10,7 @@
       <!-- 標題 -->
       <div class="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2
-          class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight sm:mt-0 dark:text-amber-500"
+          class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight sm:mt-0  "
         >
           登入帳號
         </h2>
@@ -21,7 +21,7 @@
       <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form class="space-y-6" action="#" method="POST">
           <div>
-            <label for="username" class="block text-sm font-medium leading-6 dark:text-amber-500"
+            <label for="username" class="block text-sm font-medium leading-6  "
               >帳號</label
             >
             <div class="mt-2">
@@ -36,11 +36,11 @@
 
           <div>
             <div class="flex items-center justify-between">
-              <label for="password" class="block text-sm font-medium leading-6 dark:text-amber-500"
+              <label for="password" class="block text-sm font-medium leading-6  "
                 >密碼</label
               >
               <div class="text-sm">
-                <a href="#" class="font-semibold dark:text-amber-500 dark:hover:text-amber-500"
+                <a href="#" class="font-semibold    "
                   >忘記密碼？</a
                 >
               </div>
@@ -58,7 +58,7 @@
           <div>
             <button
               type="submit"
-              class="flex w-full justify-center rounded-md bg-primary-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 dark:bg-amber-500 dark:hover:bg-amber-500"
+              class="flex w-full justify-center rounded-md bg-primary-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500    "
             >
               登入
             </button>
@@ -72,7 +72,7 @@
         <div class="mt-10 flex items-center justify-center gap-8 text-center">
           <router-link to="/register">
             <div
-              class="font-semibold leading-6 text-primary-500 hover:text-primary-400 dark:text-amber-500 dark:hover:text-amber-400"
+              class="font-semibold leading-6 text-primary-500 hover:text-primary-400    "
             >
               註冊
             </div>

@@ -32,7 +32,7 @@
           <label for="email" class="block text-sm font-medium leading-6">信箱</label>
           <div class="mt-2">
             <InputText
-              invalid
+
               id="email"
               name="email"
               class="block w-full rounded-md border-0 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-emerald-500 sm:text-sm sm:leading-6"
@@ -56,7 +56,7 @@
         <div>
           <button
             type="submit"
-            class="flex w-full justify-center rounded-md bg-primary-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 dark:bg-amber-500 dark:hover:bg-amber-500"
+            class="flex w-full justify-center rounded-md bg-primary-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500    "
           >
             註冊
           </button>

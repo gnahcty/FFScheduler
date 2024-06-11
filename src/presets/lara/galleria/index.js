@@ -106,7 +106,7 @@ export default {
       'hover:bg-surface-0/10 hover:text-white',
 
       // Focus Effects
-      'focus:outline-none focus:outline-offset-0 focus:ring focus:ring-primary-400/50 dark:focus:ring-primary-300/50'
+      'focus:outline-none focus:outline-offset-0 focus:ring focus:ring-primary-400/50  '
     ]
   },
   thumbnailitemscontainer: {
@@ -162,7 +162,7 @@ export default {
       'hover:bg-surface-0/10 hover:text-white',
 
       // Focus Effects
-      'focus:outline-none focus:outline-offset-0 focus:ring focus:ring-primary-400/50 dark:focus:ring-primary-300/50'
+      'focus:outline-none focus:outline-offset-0 focus:ring focus:ring-primary-400/50  '
     ]
   },
   indicators: ({ parent }) => ({
@@ -215,11 +215,11 @@ export default {
       'rounded-full transition duration-200',
 
       // Focus Effects
-      'focus:outline-none focus:outline-offset-0 focus:ring focus:ring-primary-400/50 dark:focus:ring-primary-300/50',
+      'focus:outline-none focus:outline-offset-0 focus:ring focus:ring-primary-400/50  ',
 
       // Conditional Appearance: Not Highlighted
       {
-        'bg-surface-200 hover:bg-surface-300 dark:bg-surface-700 dark:hover:bg-surface-600':
+        'bg-surface-200 hover:bg-surface-300    ':
           !context.highlighted
       },
 
@@ -252,7 +252,7 @@ export default {
       'hover:text-white hover:bg-surface-0/10',
 
       // Focus Effects
-      'focus:outline-none focus:outline-offset-0 focus:ring focus:ring-primary-400/50 dark:focus:ring-primary-300/50'
+      'focus:outline-none focus:outline-offset-0 focus:ring focus:ring-primary-400/50  '
     ]
   },
   closeicon: {
@@ -283,7 +283,7 @@ export default {
       'hover:bg-surface-0/10 hover:text-white',
 
       // Focus Effects
-      'focus:outline-none focus:outline-offset-0 focus:ring focus:ring-primary-400/50 dark:focus:ring-primary-300/50'
+      'focus:outline-none focus:outline-offset-0 focus:ring focus:ring-primary-400/50  '
     ]
   }),
   nextitembutton: ({ parent }) => ({
@@ -311,7 +311,7 @@ export default {
       'hover:bg-surface-0/10 hover:text-white',
 
       // Focus Effects
-      'focus:outline-none focus:outline-offset-0 focus:ring focus:ring-primary-400/50 dark:focus:ring-primary-300/50'
+      'focus:outline-none focus:outline-offset-0 focus:ring focus:ring-primary-400/50  '
     ]
   }),
   caption: {

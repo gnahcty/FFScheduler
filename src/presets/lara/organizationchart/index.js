@@ -29,18 +29,18 @@ export default {
 
             // Color
             {
-                'text-surface-600 dark:text-white/80': !context?.selected,
-                'bg-surface-0 dark:bg-surface-800': !context?.selected,
-                'border-surface-200 dark:border-surface-700': !context?.selected,
-                'text-primary-700 dark:text-surface-0': context?.selected,
-                'bg-primary-50 dark:bg-primary-400/30': context?.selected,
-                'border-primary-200 dark:border-primary-600': context?.selected
+                'text-surface-600  ': !context?.selected,
+                'bg-surface-0  ': !context?.selected,
+                'border-surface-200  ': !context?.selected,
+                'text-primary-700  ': context?.selected,
+                'bg-primary-50  ': context?.selected,
+                'border-primary-200  ': context?.selected
             },
 
             // States
             {
-                'hover:bg-surface-100 dark:hover:bg-surface-700': context?.selectable && !context?.selected,
-                'hover:bg-primary-100 dark:hover:bg-primary-300/30': context?.selectable && context?.selected
+                'hover:bg-surface-100  ': context?.selectable && !context?.selected,
+                'hover:bg-primary-100  ': context?.selectable && context?.selected
             },
 
             { 'cursor-pointer': context?.selectable }
@@ -64,7 +64,7 @@ export default {
             'w-px h-[20px]',
 
             // Color
-            'bg-surface-200 dark:bg-surface-700'
+            'bg-surface-200  '
         ]
     },
     lineleft: ({ context }) => ({
@@ -80,7 +80,7 @@ export default {
             { 'border-t': context.lineTop },
 
             // Color
-            'border-surface-200 dark:border-surface-700'
+            'border-surface-200  '
         ]
     }),
     lineright: ({ context }) => ({
@@ -95,7 +95,7 @@ export default {
             'rounded-none',
 
             // Color
-            { 'border-t border-surface-200 dark:border-surface-700': context.lineTop }
+            { 'border-t border-surface-200  ': context.lineTop }
         ]
     }),
     nodecell: {
@@ -120,7 +120,7 @@ export default {
             'bg-inherit text-inherit',
 
             // Focus
-            'focus:outline-none focus:outline-offset-0 focus:ring focus:ring-primary-400/50 dark:focus:ring-primary-300/50',
+            'focus:outline-none focus:outline-offset-0 focus:ring focus:ring-primary-400/50  ',
 
             // Misc
             'cursor-pointer no-underline select-none'

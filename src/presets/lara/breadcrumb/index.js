@@ -8,8 +8,8 @@ export default {
             'p-4',
 
             // Color
-            'bg-surface-0 dark:bg-surface-700',
-            'border border-surface-200 dark:border-surface-700',
+            'bg-surface-0  ',
+            'border border-surface-200  ',
 
             // Misc
             'overflow-x-auto'
@@ -33,11 +33,11 @@ export default {
             'rounded-md',
 
             // Color
-            'text-surface-600 dark:text-white/70',
+            'text-surface-600  ',
 
             // States
             'focus-visible:outline-none focus-visible:outline-offset-0',
-            'focus-visible:ring focus-visible:ring-primary-400/50 dark:focus-visible:ring-primary-300/50',
+            'focus-visible:ring focus-visible:ring-primary-400/50  ',
 
             // Transitions
             'transition-shadow duration-200',
@@ -47,7 +47,7 @@ export default {
         ]
     },
     icon: {
-        class: 'text-surface-600 dark:text-white/70'
+        class: 'text-surface-600  '
     },
     separator: {
         class: [
@@ -58,7 +58,7 @@ export default {
             ' mx-2',
 
             // Color
-            'text-surface-600 dark:text-white/70'
+            'text-surface-600  '
         ]
     }
 };

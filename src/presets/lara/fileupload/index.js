@@ -10,9 +10,9 @@ export default {
 
             // Colors
             'bg-surface-50',
-            'dark:bg-surface-800',
+            ' ',
             'text-surface-700',
-            'dark:text-white/80',
+            ' ',
 
             // Spacing
             'p-5',
@@ -22,7 +22,7 @@ export default {
             'border',
             'border-solid',
             'border-surface-200',
-            'dark:border-surface-700',
+            ' ',
             'border-b-0',
 
             // Shape
@@ -48,12 +48,12 @@ export default {
             'font-bold',
 
             // Colors
-            'text-white dark:text-surface-900',
-            'bg-primary-500 dark:bg-primary-400',
-            'border-primary-500 dark:border-primary-400',
+            'text-white  ',
+            'bg-primary-500  ',
+            'border-primary-500  ',
 
             // States
-            'hover:bg-primary-600 dark:hover:bg-primary-300',
+            'hover:bg-primary-600  ',
 
             // Misc
             'overflow-hidden',
@@ -83,9 +83,9 @@ export default {
 
             // Colors
             'bg-surface-0',
-            'dark:bg-surface-900',
+            ' ',
             'text-surface-700',
-            'dark:text-white/80',
+            ' ',
 
             // Spacing
             'p-8',
@@ -93,7 +93,7 @@ export default {
             // Borders
             'border',
             'border-surface-200',
-            'dark:border-surface-700',
+            ' ',
 
             // Shape
             'rounded-b-lg'
@@ -114,7 +114,7 @@ export default {
             // Borders
             'border',
             'border-surface-200',
-            'dark:border-surface-700',
+            ' ',
             'gap-2',
 
             // Shape
@@ -147,7 +147,7 @@ export default {
                 'w-full',
 
                 // Colors
-                'bg-surface-100 dark:bg-surface-700'
+                'bg-surface-100  '
             ]
         },
         value: {
@@ -156,7 +156,7 @@ export default {
                 'absolute flex items-center justify-center overflow-hidden',
 
                 // Colors
-                'bg-primary-500 dark:bg-primary-400',
+                'bg-primary-500  ',
 
                 // Spacing & Sizing
                 'm-0',

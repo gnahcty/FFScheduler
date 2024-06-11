@@ -20,7 +20,7 @@ export default {
 
             //State
             {
-                'outline-none ring ring-primary-500/50 dark:ring-primary-400/50': context.focused
+                'outline-none ring ring-primary-500/50  ': context.focused
             },
 
             // Misc
@@ -33,10 +33,10 @@ export default {
             'w-5 h-5',
 
             // Color
-            'text-red-500 dark:text-red-400',
+            'text-red-500  ',
 
             // State
-            'hover:text-red-600 dark:hover:text-red-300',
+            'hover:text-red-600  ',
 
             // Transition
             'transition duration-200 ease-in'
@@ -49,7 +49,7 @@ export default {
 
             // State
             {
-                'outline-none ring ring-primary-500/50 dark:ring-primary-400/50': context.focused
+                'outline-none ring ring-primary-500/50  ': context.focused
             },
 
             // Misc
@@ -65,10 +65,10 @@ export default {
             'w-5 h-5',
 
             // Color
-            'text-surface-700 dark:text-surface-0/80',
+            'text-surface-700  ',
 
             // State
-            { 'hover:text-primary-500 dark:hover:text-primary-400': !props.readonly },
+            { 'hover:text-primary-500  ': !props.readonly },
 
             // Transition
             'transition duration-200 ease-in'
@@ -80,10 +80,10 @@ export default {
             'w-5 h-5',
 
             // Color
-            'text-primary-500 dark:text-primary-400',
+            'text-primary-500  ',
 
             // State
-            { 'hover:text-primary-600 dark:hover:text-primary-300': !props.readonly },
+            { 'hover:text-primary-600  ': !props.readonly },
 
             // Transition
             'transition duration-200 ease-in'

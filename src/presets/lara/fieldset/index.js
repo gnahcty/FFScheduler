@@ -10,9 +10,9 @@ export default {
       // Shape
       'rounded-md',
       // Color
-      'border border-surface-200 dark:border-surface-700',
+      'border border-surface-200  ',
       'bg-stone-900',
-      'text-primary-700 dark:text-surface-0/80'
+      'text-primary-700  '
     ]
   },
   legend: ({ props }) => ({
@@ -29,7 +29,7 @@ export default {
 
       // Color
       'text-surface-100',
-      // 'border border-surface-200 dark:border-surface-700',
+      // 'border border-surface-200  ',
       'bg-stone-900',
 
       // Transition
@@ -37,7 +37,7 @@ export default {
 
       // States
       {
-        ' hover:border-surface-200 hover:text-surface-900 dark:hover:text-surface-0/80 dark:hover:bg-surface-800/80':
+        ' hover:border-surface-200 hover:text-surface-900    ':
           props.toggleable
       }
     ]
@@ -55,12 +55,12 @@ export default {
       { 'rounded-md': props.toggleable },
 
       // Color
-      { 'text-surface-700 dark:text-surface-200 hover:text-surface-900': props.toggleable },
+      { 'text-surface-700   hover:text-surface-900': props.toggleable },
 
       // States
-      { 'hover:text-surface-900 dark:hover:text-surface-100': props.toggleable },
+      { 'hover:text-surface-900  ': props.toggleable },
       {
-        'focus-visible:outline-none focus-visible:outline-offset-0 focus-visible:ring focus-visible:ring-inset focus-visible:ring-primary-400/50 dark:focus-visible:ring-primary-300/50':
+        'focus-visible:outline-none focus-visible:outline-offset-0 focus-visible:ring focus-visible:ring-inset focus-visible:ring-primary-400/50  ':
           props.toggleable
       },
 

@@ -5,9 +5,9 @@ export default {
             'flex items-center justify-between',
 
             // Colors
-            'text-surface-700 dark:text-surface-0/80',
-            'bg-surface-50 dark:bg-surface-900',
-            'border border-surface-200 dark:border-surface-700',
+            'text-surface-700  ',
+            'bg-surface-50  ',
+            'border border-surface-200  ',
 
             //Shape
             'rounded-tl-lg rounded-tr-lg',
@@ -34,12 +34,12 @@ export default {
 
             //Color
             'bg-transparent',
-            'text-surface-600 dark:text-surface-0/80',
+            'text-surface-600  ',
 
             // States
-            'hover:text-surface-800 dark:hover:text-surface-0/80',
-            'hover:bg-surface-100 dark:hover:bg-surface-800/80',
-            'focus:outline-none focus:outline-offset-0 focus-visible:ring focus-visible:ring-primary-400/50 focus-visible:ring-inset dark:focus-visible:ring-primary-300/50',
+            'hover:text-surface-800  ',
+            'hover:bg-surface-100  ',
+            'focus:outline-none focus:outline-offset-0 focus-visible:ring focus-visible:ring-primary-400/50 focus-visible:ring-inset  ',
 
             // Transitions
             'transition-all duration-200 ease-in-out',
@@ -61,9 +61,9 @@ export default {
             'border border-t-0 last:rounded-br-lg last:rounded-bl-lg',
 
             //Color
-            'border-surface-200 dark:border-surface-700',
-            'bg-surface-0 dark:bg-surface-900',
-            'text-surface-700 dark:text-surface-0/80'
+            'border-surface-200  ',
+            'bg-surface-0  ',
+            'text-surface-700  '
         ]
     },
     footer: {
@@ -75,9 +75,9 @@ export default {
             'border border-t-0 rounded-br-lg rounded-bl-lg',
 
             //Color
-            'border-surface-200 dark:border-surface-700',
-            'bg-surface-0 dark:bg-surface-900',
-            'text-surface-700 dark:text-surface-0/80'
+            'border-surface-200  ',
+            'bg-surface-0  ',
+            'text-surface-700  '
         ]
     },
     transition: {

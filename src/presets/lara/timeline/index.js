@@ -49,12 +49,12 @@ export default {
             'w-4 h-4',
 
             // Appearance
-            'rounded-full border-2 border-primary-500 bg-surface-0 dark:border-primary-300 dark:bg-surface-900/40'
+            'rounded-full border-2 border-primary-500 bg-surface-0    '
         ]
     },
     connector: ({ props }) => ({
         class: [
-            'grow bg-surface-300 dark:bg-surface-700',
+            'grow bg-surface-300  ',
             {
                 'w-[2px]': props.layout === 'vertical',
                 'w-full h-[2px]': props.layout === 'horizontal'

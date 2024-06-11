@@ -14,13 +14,13 @@ export default {
       'p-5',
 
       // Shape
-      'border-0 dark:border',
+      'border-0  ',
       'shadow-md rounded-md',
 
       // Colors
-      'bg-surface-0 dark:bg-surface-900',
-      'text-surface-700 dark:text-white/80',
-      'dark:border-surface-700'
+      'bg-surface-0  ',
+      'text-surface-700  ',
+      ' '
     ]
   },
   meter: {
@@ -37,7 +37,7 @@ export default {
       'mb-2',
 
       // Colors
-      'bg-surface-100 dark:bg-surface-700'
+      'bg-surface-100  '
     ]
   },
   meterlabel: ({ instance }) => ({
@@ -47,9 +47,9 @@ export default {
 
       // Colors
       {
-        'bg-red-500 dark:bg-red-400/50': instance?.meter?.strength == 'weak',
-        'bg-orange-500 dark:bg-orange-400/50': instance?.meter?.strength == 'medium',
-        'bg-green-500 dark:bg-green-400/50': instance?.meter?.strength == 'strong'
+        'bg-red-500  ': instance?.meter?.strength == 'weak',
+        'bg-orange-500  ': instance?.meter?.strength == 'medium',
+        'bg-green-500  ': instance?.meter?.strength == 'strong'
       },
 
       // Transitions
@@ -57,10 +57,10 @@ export default {
     ]
   }),
   showicon: {
-    class: ['absolute top-1/2 right-3 -mt-2 z-10', 'text-surface-600 dark:text-white/70']
+    class: ['absolute top-1/2 right-3 -mt-2 z-10', 'text-surface-600  ']
   },
   hideicon: {
-    class: ['absolute top-1/2 right-3 -mt-2 z-10', 'text-surface-600 dark:text-white/70']
+    class: ['absolute top-1/2 right-3 -mt-2 z-10', 'text-surface-600  ']
   },
   input: {
     root: ({ props, context, parent }) => ({
@@ -89,20 +89,20 @@ export default {
         { 'first:ml-0 -ml-px': parent.instance.$name == 'InputGroup' && !props.showButtons },
 
         // Colors
-        'text-surface-600 dark:text-surface-200',
-        'placeholder:text-surface-400 dark:placeholder:text-surface-500',
-        'bg-surface-0 dark:bg-surface-900',
+        'text-surface-600  ',
+        'placeholder:text-surface-400  ',
+        'bg-surface-0  ',
         'border',
-        { 'border-surface-300 dark:border-surface-600': !parent.props.invalid },
+        { 'border-surface-300  ': !parent.props.invalid },
 
         // Invalid State
-        { 'border-red-500 dark:border-red-400': parent.props.invalid },
+        { 'border-red-500  ': parent.props.invalid },
 
         // States
         {
-          //   'hover:border-primary-500 dark:hover:border-primary-400':
+          //   'hover:border-primary-500  ':
           //     !context.disabled && !parent.props.invalid,
-          'focus:outline-none focus:outline-offset-0 focus:ring-1 focus:ring-primary-500/50 dark:focus:ring-primary-400/50 focus:z-10':
+          'focus:outline-none focus:outline-offset-0 focus:ring-1 focus:ring-primary-500/50   focus:z-10':
             !context.disabled,
           'opacity-60 select-none pointer-events-none cursor-default': context.disabled
         },

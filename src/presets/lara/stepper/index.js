@@ -78,7 +78,7 @@ export default {
                 'justify-center',
 
                 // Colors (Conditional)
-                context.active ? 'bg-primary-500 dark:bg-primary-400 text-surface-0 dark:text-surface-900' : 'border border-surface-200 dark:border-surface-700 text-surface-900 dark:text-surface-0', // Adjust colors as needed
+                context.active ? 'bg-primary-500   text-surface-0  ' : 'border border-surface-200   text-surface-900  ', // Adjust colors as needed
 
                 // Size and Shape
                 'min-w-[2rem]',
@@ -112,7 +112,7 @@ export default {
                 'ml-2',
 
                 // Text
-                context.active ? 'text-surface-900 dark:text-surface-0' : 'text-surface-700 dark:text-surface-0/80',
+                context.active ? 'text-surface-900  ' : 'text-surface-700  ',
                 'font-bold',
 
                 // Transitions
@@ -125,7 +125,7 @@ export default {
         separator: ({ context, state, parent }) => ({
             class: [
                 // Colors (Conditional for active step)
-                state.d_activeStep <= context.index ? 'bg-surface-200 dark:bg-surface-700' : 'bg-primary-500 dark:bg-primary-400',
+                state.d_activeStep <= context.index ? 'bg-surface-200  ' : 'bg-primary-500  ',
 
                 // Conditional for Vertical Orientation
                 parent.props.orientation === 'vertical' ? ['flex-none', 'w-[2px]', 'h-auto', 'ml-[calc(1.29rem+2px)]'] : ['flex-1', 'w-full', 'h-[2px]', 'ml-4'],
@@ -136,7 +136,7 @@ export default {
             ]
         }),
         transition: {
-            class: ['flex flex-1', 'bg-surface-0 dark:bg-surface-800', 'text-surface-900 dark:text-surface-0'],
+            class: ['flex flex-1', 'bg-surface-0  ', 'text-surface-900  '],
             enterFromClass: 'max-h-0',
             enterActiveClass: 'overflow-hidden transition-[max-height] duration-1000 ease-[cubic-bezier(0.42,0,0.58,1)]',
             enterToClass: 'max-h-[1000px]',
@@ -151,8 +151,8 @@ export default {
     panelcontainer: {
         class: [
             // Colors
-            'bg-surface-0 dark:bg-surface-800',
-            'text-surface-900 dark:text-surface-0',
+            'bg-surface-0  ',
+            'text-surface-900  ',
 
             // Spacing
             'p-4'
