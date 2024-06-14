@@ -1,4 +1,7 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { START_LOCATION, createRouter, createWebHashHistory } from 'vue-router'
+import { useUserStore } from '@/stores/userStore'
+import { useToast } from 'primevue/usetoast'
+
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -12,7 +15,8 @@ const router = createRouter({
           name: 'Home',
           component: () => import(/* webpackChunkName: "home" */ '@/views/HomeView.vue'),
           meta: {
-            title: '首頁'
+            title: '首頁',
+            needAuth: false
           }
         },
         {
@@ -23,7 +27,8 @@ const router = createRouter({
           // which is lazy-loaded when the route is visited.
           component: () => import(/* webpackChunkName: "login" */ '@/views/LoginView.vue'),
           meta: {
-            title: '登入'
+            title: '登入',
+            needAuth: false
           }
         },
         {
@@ -31,7 +36,8 @@ const router = createRouter({
           name: 'register',
           component: () => import(/* webpackChunkName: "login" */ '@/views/RegisterView.vue'),
           meta: {
-            title: '註冊'
+            title: '註冊',
+            needAuth: false
           }
         },
         {
@@ -39,7 +45,8 @@ const router = createRouter({
           name: 'categories',
           component: () => import(/* webpackChunkName: "categories" */ '@/views/CategoryList.vue'),
           meta: {
-            title: '影展單元'
+            title: '影展單元',
+            needAuth: false
           }
         },
         {
@@ -48,7 +55,8 @@ const router = createRouter({
           component: () =>
             import(/* webpackChunkName: "categories" */ '@/views/CategoryDetail.vue'),
           meta: {
-            title: '影展單元'
+            title: '影展單元',
+            needAuth: false
           }
         },
         {
@@ -56,7 +64,8 @@ const router = createRouter({
           name: 'film details',
           component: () => import('@/views/FilmDetails.vue'),
           meta: {
-            title: '電影簡介'
+            title: '電影簡介',
+            needAuth: false
           }
         },
         {
@@ -64,7 +73,8 @@ const router = createRouter({
           name: 'calendar',
           component: () => import('@/views/EventCalendar.vue'),
           meta: {
-            title: '場次'
+            title: '場次',
+            needAuth: false
           }
         },
         {
@@ -72,7 +82,8 @@ const router = createRouter({
           name: 'favorites',
           component: () => import('@/views/WatchList.vue'),
           meta: {
-            title: '收藏'
+            title: '收藏',
+            needAuth: true
           }
         },
         {
@@ -80,27 +91,44 @@ const router = createRouter({
           name: 'scheduler',
           component: () => import('@/views/UserScheduler.vue'),
           meta: {
-            title: '排程'
-          }
-        },
-        {
-          path: '/export',
-          name: 'export',
-          component: () => import('@/views/ExportList.vue'),
-          meta: {
-            title: '匯出'
+            title: '排程',
+            needAuth: true
           }
         },
         {
           path: '/:pathMatch(.*)*',
           name: 'NotFound',
-          component: () => import('@/views/ExportList.vue')
+          component: () => import('@/views/NotFound.vue'),
+          meta: {
+            title: 'OOPS!',
+            needAuth: false
+          }
         }
       ]
     }
   ]
 })
+
+
 router.afterEach((to) => {
   document.title = to.meta.title
+})
+
+router.beforeEach(async (to, from, next) => {
+  const user = useUserStore()
+  // 進網站第一次路由跳轉時，確認是否有 token
+  if (from === START_LOCATION) {
+    await user.getProfile()
+  }
+  //  if user is logged in and going to register or login page, redirect to home page
+  if (user.isLoggedIn && ['/register', '/login'].includes(to.path)) {
+    next('/')
+    // if user is not logged in and going to a page that requires login, redirect to login page
+  } else if (!user.isLoggedIn && to.meta.needAuth) {
+    useToast().add({ severity: 'error', summary: '錯誤', detail: '請先登入', life: 1000 })
+    next('/login')
+  } else {
+    next()
+  }
 })
 export default router

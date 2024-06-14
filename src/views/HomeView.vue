@@ -54,62 +54,22 @@
 </template>
 
 <script setup>
-import ex from '@/utils/temp_data.js'
-import { ref, onMounted, onUnmounted, nextTick } from 'vue'
-import { gsap } from 'gsap'
-const data = ex()
-const photos = []
-let i = 0
+import { ref, onMounted } from 'vue'
+import { api } from '@/utils/axios.js'
+import { HomePageTitleAnimation, ChangeBGImages } from '@/animation/animation.js'
+
 const bgImg = ref(
-  'https://storage.googleapis.com/tghff_outland/image/photo/2024/GHFF/huge/photo_50a811345c896a2b83c663b525eed5ee.jpeg'
+  'https://storage.googleapis.com/tghff_outland/image/photo/2024/GHFF/huge/photo_307bd894dee72db53bf35e0f95a2b9da.jpeg'
 )
-data.map((film) => {
-  Object.values(film.photos).forEach((photo) => {
-    photos.push(photo)
-  })
-})
 
-const changeImg = () => {
-  i = (i + 1) % photos.length
-  const img = new Image()
-  img.src = photos[i]
-  img.onload = () => {
-    bgImg.value = photos[i]
+onMounted(async () => {
+  try {
+    const { data } = await api.get('/film/pics')
+    bgImg.value = data.result[0]
+    HomePageTitleAnimation()
+    ChangeBGImages(data.result)
+  } catch (error) {
+    console.error(error)
   }
-  img.onerror = () => {
-    changeImg()
-  }
-}
-
-const bgInterval = ref(null)
-
-onMounted(() => {
-  const tl = gsap.timeline()
-  tl.to('.animateMask', {
-    width: '100%',
-    duration: 0.5,
-    stagger: 0.2,
-    ease: 'power3.inOut'
-  })
-    .to('.animateMask', { height: 0, duration: 0.5, stagger: 0.2, ease: 'power3.out' })
-    .from('.animateTitle', { y: 100, duration: 1, stagger: 0.2, ease: 'power3.out' }, '<')
-    .from('.animateBtn', { y: 100, duration: 1, stagger: 0, ease: 'power3.out' }, '<0.5')
-
-  bgInterval.value = setInterval(() => {
-    gsap.to('#homeViewBg', {
-      opacity: 0,
-      duration: 0.4,
-      onComplete: () => {
-        changeImg()
-        nextTick(() => {
-          gsap.to('#homeViewBg', { opacity: 1, duration: 0.6 })
-        })
-      }
-    })
-  }, 4000)
-})
-
-onUnmounted(() => {
-  clearInterval(bgInterval.value)
 })
 </script>

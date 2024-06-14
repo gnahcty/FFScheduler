@@ -10,6 +10,7 @@ export default {
   }),
   panel: {
     class: [
+      'hidden',
       // Spacing
       'p-5',
 
@@ -18,13 +19,14 @@ export default {
       'shadow-md rounded-md',
 
       // Colors
-      'bg-surface-0  ',
+      'bg-black ',
       'text-surface-700  ',
       ' '
     ]
   },
   meter: {
     class: [
+      'hidden',
       // Position and Overflow
       'overflow-hidden',
       'relative',
@@ -42,6 +44,8 @@ export default {
   },
   meterlabel: ({ instance }) => ({
     class: [
+      'hidden',
+
       // Size
       'h-full',
 

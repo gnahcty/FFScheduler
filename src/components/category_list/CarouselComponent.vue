@@ -6,8 +6,8 @@
     <div class="relative hidden h-full w-full overflow-hidden sm:block">
       <div class="animateMask absolute z-30 h-full w-full bg-stone-900"></div>
       <Vue3Marquee pauseOnClick :duration="35" class="animateTitle min-h-full overflow-y-clip">
-        <div v-for="(category, i) in categories" :key="category.name" class="h-full w-64">
-          <CategoryCard :film="category" :filmIndex="i" />
+        <div v-for="(category, i) in categories" :key="i" class="h-full w-64">
+          <CategoryCard :category="category" :categoryIndex="i" />
         </div>
       </Vue3Marquee>
     </div>
@@ -16,8 +16,8 @@
     <!-- Mobile Marquee -->
     <div class="h-full w-full sm:hidden">
       <Vue3Marquee pauseOnClick :duration="35" vertical class="max-h-full">
-        <div v-for="(category, i) in categories" :key="category.name" class="h-96 w-64">
-          <CategoryCard :film="category" :filmIndex="i" />
+        <div v-for="(category, i) in categories" :key="i" class="h-96 w-64">
+          <CategoryCard :film="category" :categoryIndex="i" />
         </div>
       </Vue3Marquee>
     </div>
@@ -26,7 +26,14 @@
 </template>
 
 <script setup>
-import { getCategories } from '@/utils/temp_data.js'
 import { Vue3Marquee } from 'vue3-marquee'
-const categories = getCategories()
+import { onMounted, ref } from 'vue'
+import useAxios from '@/utils/useAxios'
+
+const categories = ref([])
+const { getCategoryList } = useAxios()
+
+onMounted(async () => {
+  categories.value = await getCategoryList()
+})
 </script>

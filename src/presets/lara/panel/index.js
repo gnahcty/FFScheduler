@@ -33,7 +33,7 @@ export default {
             'border-0 rounded-full',
 
             //Color
-            'bg-transparent',
+            // 'bg-transparent',
             'text-surface-600  ',
 
             // States

@@ -1,4 +1,4 @@
-// 影展場次-放映清單(橫向)
+// 影展場次-放映清單
 
 <template>
   <!-- pc and tab -->
@@ -7,22 +7,24 @@
     ref="scrollContainer"
   >
     <!-- 各影城場次 -->
-    <div
-      v-for="(theatre, key) in screenTimes"
-      :key="key"
-      class="flex-0 mt-7 flex h-1/3 overflow-hidden"
-    >
+    <div v-for="(theatre, key) in screenTimes" :key="key" class="flex-0 mt-7 flex h-1/3">
       <!-- 影城名稱 -->
-      <div
-        class="animateRiver flex aspect-4/3 h-full items-center justify-center text-nowrap rounded-md bg-stone-500 p-2"
-      >
-        <span>{{ key }}</span>
+      <div class="overflow-hidden">
+        <div
+          class="animateRiver flex aspect-4/3 h-full items-center justify-center text-nowrap rounded-md bg-stone-500 p-2"
+        >
+          <span>{{ key }}</span>
+        </div>
       </div>
       <!-- 影城名稱 -->
 
       <!-- 電影 -->
-      <div v-for="(film, i) in theatre" :key="i" class="relative">
-        <ScreeningCard :film="film" :date="date"></ScreeningCard>
+      <div v-for="(screening, i) in theatre" :key="i" class="relative">
+        <ScreeningCard
+          :screening="screening"
+          :film="screening.movie_id"
+          :date="route.params.date"
+        ></ScreeningCard>
       </div>
       <!-- 電影 -->
     </div>
@@ -36,7 +38,7 @@
   >
     <!-- 各影城場次 -->
     <div
-      v-for="(theatre, key) in screenTimes"
+      v-for="(theatre, key) in props.screenTimes.value"
       :key="key"
       class="flex-0 animateScreeningCard h-full w-full flex-col"
     >
@@ -49,8 +51,13 @@
       <!-- 影城名稱 -->
 
       <!-- 電影 -->
-      <div v-for="(film, i) in theatre" :key="i" class="no-scrollbar relative">
-        <ScreeningCard :film="film" :date="date" :vertical="true"></ScreeningCard>
+      <div v-for="(screening, i) in theatre" :key="i" class="no-scrollbar relative">
+        <ScreeningCard
+          :screening="screening"
+          :film="screening.movie_id"
+          :date="route.params.date"
+          :vertical="true"
+        ></ScreeningCard>
       </div>
       <!-- 電影 -->
     </div>
@@ -60,53 +67,17 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed, reactive, watch, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
-import { useHorizontalScroll } from '@/utils/sideScroller'
-import { getFilmsByDate } from '@/utils/temp_data'
-import gsap from 'gsap'
+import { useHorizontalScroll } from '@/utils/sideScroller.js'
 
-const films = reactive([])
 const { scrollContainer } = useHorizontalScroll()
-const route = useRoute()
-const date = ref(route.params.date.split('_').join('.'))
 
-let screenTimes = computed(() => {
-  const screenTimes = {}
-  films.forEach((film) => {
-    film.times.forEach((screening) => {
-      if (screening.time.includes(route.params.date.split('_').join('.'))) {
-        if (!screenTimes[screening.place]) {
-          screenTimes[screening.place] = []
-        }
-        screenTimes[screening.place].push(film)
-      }
-    })
-  })
-  return screenTimes
-})
-
-const renewFilmsArray = () => {
-  const newFilmsArray = getFilmsByDate(route.params.date.split('_').join('.'))
-  films.splice(0, films.length, ...newFilmsArray)
-}
-
-onMounted(() => {
-  renewFilmsArray()
-})
-
-watch(
-  () => route.params.date,
-  () => {
-    renewFilmsArray(), (date.value = route.params.date.split('_').join('.'))
-    nextTick(() => {
-      gsap.fromTo(
-        '.animateScreeningCard',
-        { opacity: 0 },
-        { opacity: 1, duration: 0.5, ease: 'power2.in' },
-        '<0.5'
-      )
-    })
+const props = defineProps({
+  screenTimes: {
+    type: Object,
+    default: () => {}
   }
-)
+})
+
+const route = useRoute()
 </script>

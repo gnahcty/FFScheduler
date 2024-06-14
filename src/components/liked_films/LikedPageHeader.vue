@@ -30,11 +30,11 @@
           <!-- Searchbar for PC and tab -->
 
           <!-- Button for PC and tab -->
-          <div class="relative ml-5 mt-1">
+          <!-- <div class="relative ml-5 mt-1">
             <router-link to="/export">
               <span class="pi pi-print text-3xl text-gray-600 hover:text-emerald-500"></span>
             </router-link>
-          </div>
+          </div> -->
           <!-- Button for PC and tab -->
         </div>
       </div>

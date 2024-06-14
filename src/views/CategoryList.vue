@@ -37,13 +37,9 @@
 //
 <script setup>
 import { onMounted } from 'vue'
-import { gsap } from 'gsap'
+import { CategoryTitleAnimation } from '@/animation/animation.js'
 
 onMounted(() => {
-  const tl = gsap.timeline()
-  tl.to('.animateMask', { width: '100%', duration: 0.5, ease: 'power3.inOut' })
-    .to('.animateMask', { height: 0, duration: 0.5, ease: 'power3.out', stagger: 0.2 })
-    .from('.animateTitle', { y: 110, duration: 0.8, ease: 'power3.out' }, '<')
-    .fromTo('.underscore', { opacity: 0 }, { opacity: 1, repeat: 4, ease: 'steps(1)', yoyo: true })
+  CategoryTitleAnimation()
 })
 </script>

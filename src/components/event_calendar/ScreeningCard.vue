@@ -1,7 +1,7 @@
 //影展場次-放映清單(橫向)-特定影城放映清單 //影展場次-放映清單(縱向)-特定影城放映清單
 
 <template>
-  <div class="animateScreeningCard absolute h-full rounded-md" :style="CardPosition(props.film)">
+  <div class="animateScreeningCard absolute h-full rounded-md" :style="CardPosition()">
     <div class="group relative m-0 flex h-full rounded-md sm:mx-auto sm:max-w-lg">
       <!-- 遮罩 -->
       <div
@@ -12,10 +12,10 @@
       <div
         class="h-full w-full overflow-hidden rounded-md opacity-80 transition duration-300 ease-in-out group-hover:opacity-100"
       >
-        <router-link :to="`/details/${props.film.filmId}`">
+        <router-link :to="`/details/${props.film._id}`">
           <!-- cover photo -->
           <img
-            :src="props.film.photos.photos1"
+            :src="props.film.photos[0]"
             class="block h-full w-full scale-100 transform object-cover object-center opacity-100 transition duration-300 group-hover:scale-110"
             :alt="props.film.CName"
           />
@@ -26,13 +26,11 @@
 
       <!-- 卡片上的字 -->
       <div class="absolute z-10 flex h-full w-full items-center justify-between p-4 ps-4">
-        <router-link :to="`/details/${props.film.filmId}`">
+        <router-link :to="`/details/${props.film._id}`">
           <div
             class="ellipsis flex h-fit w-full flex-col overflow-clip duration-300 ease-in-out group-hover:-translate-y-1 group-hover:translate-x-3 group-hover:scale-110"
           >
-            <span class="text-xs opacity-75 sm:text-sm"
-              >{{ findTime(props.film) }} - {{ findEndingTime(props.film) }}</span
-            >
+            <span class="text-xs opacity-75 sm:text-sm">{{ startingTime }} - {{ endingTime }}</span>
             <span class="sm:text-md text-sm">{{ props.film.CName }}</span>
             <span class="text-pretty text-xs opacity-75 sm:text-sm">{{ props.film.EName }}</span>
           </div>
@@ -47,9 +45,14 @@
 </template>
 
 <script setup>
-// import gsap from 'gsap'
-// import { onMounted } from 'vue'
+import { format, parseISO, addMinutes } from 'date-fns'
+import { computed } from 'vue'
+
 const props = defineProps({
+  screening: {
+    type: Object,
+    default: () => {}
+  },
   film: {
     type: Object,
     default: () => {}
@@ -64,20 +67,16 @@ const props = defineProps({
   }
 })
 
-// 回傳film.times裡面time包含04.18的放映時間(HH:MM)
-const findTime = (film) => {
-  // 找到film.times裡面time包含04.18的screening obj
-  const screening = film.times.find((screening) => screening.time.includes(props.date))
-  //包含04.18的time (eg. "04.18  〈四〉 17:30"),以空格分開(["04.18","〈四〉","17:30"])，取第4個
-  return screening.time.split(' ')[2]
-}
+const startingTime = computed(() => format(parseISO(props.screening.time), 'HH:mm'))
 
-// 計算場次結束時間
-const findEndingTime = (film) => {
-  const StartingTime = convertTimeToMinutes(findTime(film))
-  const length = parseInt(film.length.split(' ')[0]) //去掉"分"
-  return convertMinutesToTime(StartingTime + length)
-}
+const endingTime = computed(() => {
+  const startingTime = parseISO(props.screening.time)
+  const endingTime = addMinutes(startingTime, filmLength.value)
+  return format(endingTime, 'HH:mm')
+})
+
+// 片長去掉'分'
+const filmLength = computed(() => parseInt(props.film.length.split(' ')[0]))
 
 // HH:MM -> HH*60+MM
 const convertTimeToMinutes = (timeString) => {
@@ -86,46 +85,25 @@ const convertTimeToMinutes = (timeString) => {
   return hours * 60 + minutes
 }
 
-//MMM -> HH:MM
-const convertMinutesToTime = (totalMinutes) => {
-  const hours = Math.floor(totalMinutes / 60)
-  const minutes = totalMinutes % 60
-  return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`
-}
-
-const CardPosition = (film) => {
+const CardPosition = () => {
   const referenceTime = 610 // 10:10 AM in minutes
 
-  const filmTime = convertTimeToMinutes(findTime(film))
+  const startingTimeInMin = convertTimeToMinutes(startingTime.value)
   // 將片長去掉分轉成以10分鐘為單位
-  const filmLength = parseInt(film.length.split(' ')[0], 10)
+  const filmLength = parseInt(props.film.length.split(' ')[0], 10)
 
   if (props.vertical) {
-    const offset = (filmTime - referenceTime) * 2
+    const offset = (startingTimeInMin - referenceTime) * 2
     return {
       marginTop: offset + 'px',
       height: filmLength * 2 + 'px'
     }
   } else {
-    const offset = (filmTime - referenceTime) * 2.6
+    const offset = (startingTimeInMin - referenceTime) * 2.6
     return {
       marginLeft: offset + 'px',
       width: filmLength * 3 + 'px'
     }
   }
 }
-
-// onMounted(() => {
-// gsap.fromTo(
-//   '.animateScreeningCard',
-//   {
-//     opacity: 0
-//   },
-//   {
-//     opacity: 1,
-//     duration: 0.5,
-//     ease: 'power2.in'
-//   }
-// )
-// })
 </script>

@@ -4,7 +4,9 @@
       <div class="animateMask absolute h-full bg-primary-500"></div>
       <div class="animateTitle flex h-16 justify-center md:h-36">
         <!-- month -->
-        <div class="hidden items-center text-5xl sm:flex md:text-7xl lg:text-9xl">april</div>
+        <div class="hidden items-center text-5xl sm:flex md:text-7xl lg:text-9xl">
+          {{ FFMonth }}
+        </div>
         <!-- month -->
 
         <!-- timeline -->
@@ -20,14 +22,14 @@
                 :key="i"
                 class="slide absolute bottom-0 top-0 my-auto flex cursor-pointer items-center justify-center text-primary-600"
                 :class="{
-                  'scale-150 font-bold': i === startingSlideIndex
+                  'scale-150 font-bold': i === currentSlideIndex
                 }"
                 :id="`slide${i}`"
                 :style="`left:${offset * i}px; width:${offset}px`"
                 @click="moveToDate(date.date, i)"
               >
                 <div>{{ date.date }}</div>
-                <div class="day ms-2" :class="{ hidden: i !== startingSlideIndex }">
+                <div class="day ms-2" :class="{ hidden: i !== currentSlideIndex }">
                   {{ date.day }}
                 </div>
               </div>
@@ -50,70 +52,55 @@
   </div>
 </template>
 <script setup>
-import { computed, ref } from 'vue'
-import gsap from 'gsap'
+import { onMounted, computed, ref } from 'vue'
 import { useElementSize } from '@vueuse/core'
 import { useRouter, useRoute } from 'vue-router'
+import { format, eachDayOfInterval } from 'date-fns'
+import { moveTimeLine } from '@/animation/animation.js'
+import useAxios from '@/utils/useAxios.js'
+
+const { getFFDateRange } = useAxios()
+const router = useRouter()
+const route = useRoute()
 
 const wrapper = ref(null)
 const { width } = useElementSize(wrapper) //timeline width
-const router = useRouter()
-const route = useRoute()
 const offset = computed(() => (width.value > 530 ? width.value / 7 : width.value / 5)) //日期間隔
 const datesBefore = computed(() => (width.value > 530 ? 3 : 2)) //置中日期前有幾個日期
-const dates = ref([
-  { date: '14', day: 'SAT' },
-  { date: '15', day: 'SUN' },
-  { date: '16', day: 'MON' },
-  { date: '17', day: 'TUE' },
-  { date: '18', day: 'WED' },
-  { date: '19', day: 'THU' },
-  { date: '20', day: 'FRI' },
-  { date: '21', day: 'SAT' },
-  { date: '22', day: 'SUN' },
-  { date: '23', day: 'MON' },
-  { date: '24', day: 'TUE' },
-  { date: '25', day: 'WED' },
-  { date: '26', day: 'THU' },
-  { date: '27', day: 'FRI' }
-])
-const month = '04'
-const startingDate = ref(route.params.date.split('_')[1]) //進入頁面時的日期
+const FFStartDate = ref(null)
+const FFEndDate = ref(null)
+const FFMonth = ref(null)
 
-const startingSlideIndex = computed(() =>
-  dates.value.findIndex((date) => date.date === startingDate.value)
+const dates = ref([])
+
+const renderDates = (start, end) =>
+  eachDayOfInterval({ start, end }).map((date) => {
+    return {
+      date: format(date, 'dd'),
+      day: format(date, 'eee')
+    }
+  })
+
+const currentDate = ref(route.params.date.split('_')[1]) //進入頁面時的日期
+
+const currentSlideIndex = computed(() =>
+  dates.value.findIndex((date) => date.date === currentDate.value)
 ) //進入頁面時的日期在第幾個slide
 
 const containerOffset = computed(() => {
-  return `left:${-offset.value * (startingSlideIndex.value - datesBefore.value)}px`
+  return `left:${-offset.value * (currentSlideIndex.value - datesBefore.value)}px`
 })
 
 const moveToDate = (date, n) => {
-  const tl = gsap.timeline()
-  tl.to('.container', {
-    duration: 1,
-    x: -offset.value * (n - startingSlideIndex.value),
-    ease: 'power2.inOut'
-  })
-    .to('.slide', { duration: 0.5, scale: 1, fontWeight: 400, ease: 'power2.inOut' }, '<')
-    .to(
-      `#slide${n}`,
-      {
-        duration: 1,
-        scale: 1.5,
-        fontWeight: 700,
-        ease: 'power2.inOut'
-      },
-      '<'
-    )
-    .to('.day', { display: 'none', duration: 0.5, ease: 'power2.inOut' }, '<')
-    .to(
-      [`#slide${n + 1}`, `#slide${n - 1}`],
-      { duration: 0.5, scale: 1.3, ease: 'power2.inOut' },
-      '<0.2'
-    )
-    .to(`#slide${n} .day`, { display: 'block', duration: 0.5, ease: 'power2.inOut' }, '<0.2')
-
-  router.push(`${month}_${date}`)
+  moveTimeLine(offset.value, n, currentSlideIndex.value)
+  router.push(`${FFMonth.value}_${date}`)
 }
+
+onMounted(async () => {
+  const dateRange = await getFFDateRange()
+  FFStartDate.value = dateRange.start
+  FFEndDate.value = dateRange.end
+  FFMonth.value = format(dateRange.start, 'MMMM')
+  dates.value = renderDates(FFStartDate.value, FFEndDate.value)
+})
 </script>

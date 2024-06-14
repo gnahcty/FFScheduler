@@ -4,7 +4,8 @@
   <ul role="list" class="w-full flex-shrink divide-y divide-orange-600">
     <li v-for="(screening, i) in props.screenings" :key="i" class="flex justify-between">
       <div class="flex flex-wrap gap-x-3">
-        <span> {{ screening.time }}</span>
+        <span class="w-24"> {{ screening.date }}</span>
+        <span> {{ screening.time }} </span>
         <span> {{ screening.place }} </span>
       </div>
       <!-- like btn -->

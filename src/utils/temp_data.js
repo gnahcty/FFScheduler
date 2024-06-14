@@ -1680,24 +1680,12 @@ export const getFilmById = (id) => {
   return data.find((item) => item.filmId === id)
 }
 
-/**
- *
- * @param {string} filmId
- * @param {number} direction
- * @returns {string} -prev/next film id
- */
-export const getAdjacentIds = (id, dir) => {
-  const index = data.findIndex((item) => item.filmId === id)
-  if (index !== -1) {
-    return data[(index + dir + data.length) % data.length].filmId
-  }
-  return null
-}
+
 
 export const getFilmsByDate = (date) => {
   return data.filter((film) => film.times.some((screening) => screening.time.includes(date)))
 }
 
-export default function ex() {
+export default function ex () {
   return data
 }

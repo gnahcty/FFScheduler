@@ -25,7 +25,7 @@
     <div class="flex h-full flex-col justify-between gap-y-6 overflow-clip sm:flex-row">
       <!-- img -->
       <div class="hidden max-w-fit flex-1 md:block">
-        <img :src="film.photos?.photos2" alt="film poster" class="h-full w-[40vw] object-cover" />
+        <img :src="poster" alt="film poster" class="h-full w-[40vw] object-cover" />
       </div>
       <!-- img -->
 
@@ -33,7 +33,7 @@
       <div class="mr-2 flex w-full min-w-72 flex-col justify-between sm:w-1/4">
         <div class="flex flex-col">
           <!-- director -->
-          <div class="mb-2">導演: {{ directors.join() }}</div>
+          <div class="mb-2">導演: {{ film.directors?.join() }}</div>
           <!-- director -->
 
           <!-- links to movie sites -->
@@ -73,7 +73,7 @@
         </div>
         <!-- 放映時間 -->
         <div class="flex flex-col">
-          <ShowtimeList :screenings="film.times"></ShowtimeList>
+          <ShowtimeList :screenings="screenings"></ShowtimeList>
         </div>
         <!-- 放映時間 -->
       </div>
@@ -92,18 +92,29 @@
 <script setup>
 import { ref, onMounted, watch, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { getFilmById, getAdjacentIds } from '@/utils/temp_data.js'
+import { useListStore } from '@/stores/listStore.js'
+import useAxios from '@/utils/useAxios.js'
+
+const { getFilmById, getScreeningsByFilmId } = useAxios()
+const { getAdjacentIds } = useListStore()
 const route = useRoute()
 const router = useRouter()
 const film = ref({})
-const directors = ref([])
 const filmInfo = ref([])
+const poster = ref('')
+const screenings = ref([])
+
 const nav = (direction) => {
   const id = getAdjacentIds(route.params.id, direction)
-  router.push(`/details/${id}`)
+  if (id) {
+    router.push(`/details/${id}`)
+  } else {
+    router.push('/categories')
+  }
 }
 
 const searchQuery = computed(() => film.value.EName?.replace(' ', '+'))
+
 const outerLinks = (query) => [
   {
     url: `https://search.douban.com/movie/subject_search?search_text=${query}&cat=1002`,
@@ -123,19 +134,18 @@ const outerLinks = (query) => [
   }
 ]
 
-const setup = () => {
-  film.value = getFilmById(route.params.id)
-  film.value.directors.map((director) =>
-    directors.value.splice(0, directors.value.length, director.directorName)
-  )
+const setup = async () => {
+  film.value = await getFilmById(route.params.id)
+  poster.value = film.value.photos[0]
   filmInfo.value = [
-    film.value.year,
+    film.value.release_year,
     film.value.region,
     film.value.format,
     film.value.color,
     film.value.length,
     film.value.rating
   ]
+  screenings.value = await getScreeningsByFilmId(route.params.id)
 }
 onMounted(() => {
   setup()

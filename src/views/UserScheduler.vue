@@ -13,9 +13,9 @@
               v-tooltip.left="info"
               class="pi pi-info-circle cursor-pointer hover:text-stone-300"
             ></div>
-            <router-link to="/export" class="flex items-center">
+            <!-- <router-link to="/export" class="flex items-center">
               <div class="pi pi-print cursor-pointer hover:text-stone-300"></div>
-            </router-link>
+            </router-link> -->
             <div
               class="pi pi-list cursor-pointer hover:text-stone-300"
               @click="showList = !showList"

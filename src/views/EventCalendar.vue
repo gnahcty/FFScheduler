@@ -8,34 +8,32 @@
     <!-- Date Nav -->
 
     <!-- Schedule -->
-    <EventSchedule></EventSchedule>
+    <EventSchedule :screenTimes="screenTimes"></EventSchedule>
     <!-- Schedule -->
   </div>
 </template>
 <script setup>
-import { onMounted, nextTick } from 'vue'
-import gsap from 'gsap'
-onMounted(() => {
-  nextTick(() => {
-    gsap
-      .timeline()
-      .to('.animateMask', {
-        width: '100%',
-        duration: 0.5,
-        stagger: 0.2,
-        ease: 'power3.inOut'
-      })
-      .to('.animateMask', { height: 0, duration: 0.5, stagger: 0.2, ease: 'power3.out' })
-      .from('.animateTitle', { y: 150, duration: 1, stagger: 0.2, ease: 'power3.out' }, '<')
-      .to('.animateTitle', { width: '100vw', duration: 0.1, ease: 'power4.out' })
-      .from('#timeLine', { width: 0, duration: 1, ease: 'power4.out' }, '>')
-      .from('.animateRiver', { y: 200, duration: 1, stagger: 0.2, ease: 'power3.out' })
-      .fromTo(
-        '.animateScreeningCard',
-        { opacity: 0 },
-        { opacity: 1, duration: 0.5, ease: 'power2.in' },
-        '<0.5'
-      )
-  })
+import { ref, onMounted, watch, nextTick } from 'vue'
+import { useRoute } from 'vue-router'
+// import { onMounted, nextTick } from 'vue'
+import { CalendarAnimation } from '@/animation/animation.js'
+import { ScreeningCardAnimation } from '@/animation/animation.js'
+import useAxios from '@/utils/useAxios.js'
+
+const { getScreeningsByDate } = useAxios()
+const screenTimes = ref({})
+const route = useRoute()
+
+onMounted(async () => {
+  screenTimes.value = await getScreeningsByDate(route.params.date)
+  nextTick(() => CalendarAnimation())
 })
+
+watch(
+  () => route.params.date,
+  async () => {
+    ;(screenTimes.value = await getScreeningsByDate(route.params.date)),
+      nextTick(() => ScreeningCardAnimation())
+  }
+)
 </script>

@@ -16,6 +16,7 @@ export default {
         'primary-800': '#9a3412',
         'primary-900': '#7c2d12',
         'primary-950': '#431407',
+        'surface -0': '#fff',
         'surface-50': '#fff7ed',
         'surface-100': '#ffedd5',
         'surface-200': '#fed7aa',

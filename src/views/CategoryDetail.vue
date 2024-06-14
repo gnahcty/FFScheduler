@@ -78,46 +78,38 @@
 <script setup>
 import { onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { getFilmsByCategory, categoryList } from '@/utils/temp_data.js'
+import useAxios from '@/utils/useAxios.js'
 import { useHorizontalScroll } from '@/utils/sideScroller'
-import { gsap } from 'gsap'
+import { CategoryTitleAnimation, CategorySwitchAnimation } from '@/animation/animation'
 
+const { getFilmsByCategory, getCategoryList } = useAxios()
 const { scrollContainer } = useHorizontalScroll()
 const title = ref('')
 const route = useRoute()
 const router = useRouter()
-const categories = categoryList()
+const categories = ref([])
 let films = ref([])
 
 const switchCategory = (direction) => {
-  const index = categories.indexOf(route.params.name) + direction
-  const newIndex = (index + categories.length) % categories.length
-  router.push(`/categories/${categories[newIndex]}`)
+  const currentIdx = categories.value.findIndex((category) => category.name === route.params.name)
+  const index = currentIdx + direction
+  const newIndex = (index + categories.value.length) % categories.value.length
+  router.push(`/categories/${categories.value[newIndex].name}`)
 }
 
-onMounted(() => {
+onMounted(async () => {
   title.value = route.params.name
-  films.value = getFilmsByCategory(route.params.name)
-  const tl = gsap.timeline()
-  tl.to('.animateMask', { width: '100%', duration: 0.5, ease: 'power3.inOut' })
-    .to('.animateMask', { height: 0, duration: 0.5, ease: 'power3.out', stagger: 0.2 })
-    .from('.animateTitle', { y: 110, duration: 0.8, ease: 'power3.out' }, '<')
-    .fromTo('.underscore', { opacity: 0 }, { opacity: 1, repeat: 4, ease: 'steps(1)', yoyo: true })
+  categories.value = await getCategoryList()
+  films.value = await getFilmsByCategory(route.params.name)
+  CategoryTitleAnimation()
 })
 
 watch(
   () => route.params.name,
-  () => (
+  async () => (
     (title.value = route.params.name),
-    (films.value = getFilmsByCategory(route.params.name)),
-    gsap
-      .timeline()
-      .from('.animateTitle', { y: 110, duration: 0.8, ease: 'power3.out' })
-      .fromTo(
-        '.underscore',
-        { opacity: 0 },
-        { opacity: 1, repeat: 4, ease: 'steps(1)', yoyo: true }
-      )
+    (films.value = await getFilmsByCategory(route.params.name)),
+    CategorySwitchAnimation()
   )
 )
 </script>

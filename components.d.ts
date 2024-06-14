@@ -18,6 +18,7 @@ declare module 'vue' {
     EventSchedule: typeof import('./src/components/event_calendar/EventSchedule.vue')['default']
     FieldSet: typeof import('./src/components/liked_films/FieldSet.vue')['default']
     FilmCardSquare: typeof import('./src/components/category_list/FilmCardSquare.vue')['default']
+    Inplace: typeof import('primevue/inplace')['default']
     InputText: typeof import('primevue/inputtext')['default']
     LikedList: typeof import('./src/components/liked_films/LikedList.vue')['default']
     LikedPageHeader: typeof import('./src/components/liked_films/LikedPageHeader.vue')['default']

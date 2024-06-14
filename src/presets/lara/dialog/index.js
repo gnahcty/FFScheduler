@@ -12,7 +12,7 @@ export default {
       'm-0',
 
       // Color
-      ' ',
+      'bg-black',
       ' ',
 
       // Transitions
