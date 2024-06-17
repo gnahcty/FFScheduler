@@ -22,7 +22,17 @@
       </div>
       <div class="grid grid-cols-2 gap-4 pb-2 xl:grid-cols-3">
         <template v-for="screening in props.film.screenings" :key="screening.list_id">
-          <ScreeningChip :id="screening.list_id" :time="new Date(screening.time)"></ScreeningChip>
+          <button
+            class="my-btn text-sm"
+            :class="list.chipStyle(screening.list_id).value"
+            v-on-long-press="[() => list.lock(screening.list_id), { modifiers: { stop: true } }]"
+            @click="list.hide(screening.list_id)"
+          >
+            <span class="font-bold">
+              {{ format(screening.time, 'MM.dd EEE HH:mm') }}
+              {{ screening.clash }}
+            </span>
+          </button>
         </template>
       </div>
     </div>
@@ -33,6 +43,9 @@
 <script setup>
 import { ref } from 'vue'
 import { manageList } from '@/utils/manageList'
+import { format } from 'date-fns'
+import { vOnLongPress } from '@vueuse/components'
+
 const props = defineProps({
   film: {
     type: Object,

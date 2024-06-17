@@ -24,23 +24,23 @@ export const addScreening = (screeningId) => {
     return user.isLoggedIn
   }
 
-  const handleAPI = async (action) => {
+
+
+  const targetScreening = computed(() => list.userList.find((likedItem) => likedItem.screening._id === screeningId))
+
+  const screeningSaved = computed(() => targetScreening.value || false)
+
+  const add = async () => {
+
     try {
       if (!checkLogin()) return
-      await action()
+      await apiAuth.post('/list/add', { screening: screeningId })
       list.getList()
     } catch (error) {
       console.log(error)
       notify('error', '錯誤', error.message)
     }
+
   }
-
-  const targetScreening = computed(() => list.userList.find((likedItem) => likedItem._id === screeningId))
-
-  const screeningSaved = computed(() => targetScreening.value || false)
-
-  const add = async () => {
-    await handleAPI(apiAuth.post('/list/add', { screening: screeningId }))
-  }
-  return { screeningSaved, add }
+  return { targetScreening, screeningSaved, add }
 }

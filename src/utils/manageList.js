@@ -117,18 +117,20 @@ export const manageList = (listID) => {
     }
   }
 
-  const chipStyle = computed(() => {
-    const bg = targetList.value.locked ? 'bg-stone-200' : ''
-    const text = targetList.value.locked
+  const chipStyle = (listID) => computed(() => {
+    const targetList = list.userList.find((list) => list._id === listID)
+
+    const bg = targetList.locked ? 'bg-stone-200' : ''
+    const text = targetList.locked
       ? 'text-stone-900'
-      : targetList.value.hidden
+      : targetList.hidden
         ? 'text-stone-600'
         : remainingScreening.value.length <= 2
           ? 'text-orange-500'
           : 'text-white'
-    const ring = targetList.value.hidden
+    const ring = targetList.hidden
       ? 'border border-stone-600'
-      : targetList.value.clash > 0
+      : targetList.clash > 0
         ? 'border border-red-600 ring-1 ring-inset ring-red-700'
         : 'border'
     return `${bg} ${text} ${ring}`
