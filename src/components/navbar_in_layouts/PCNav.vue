@@ -20,7 +20,7 @@
       </div>
       <!-- Menu Bar for PC -->
       <!-- Login Button for PC -->
-      <div class="group flex w-14" v-if="!isLoggedIn">
+      <div class="group flex w-14" v-if="!user.isLoggedIn">
         <RouterLink to="/login">
           <div class="group flex text-sm font-semibold leading-6">
             <span>登入</span
@@ -29,7 +29,7 @@
         </RouterLink>
       </div>
       <div class="group flex w-14" v-else>
-        <div class="group flex text-sm font-semibold leading-6" @click="logout">
+        <div class="group flex text-sm font-semibold leading-6" @click="user.logout">
           <span>登出</span
           ><span class="group-hover:shift-lr transition-all duration-300">&rarr;</span>
         </div>
@@ -41,7 +41,7 @@
 
 <script setup>
 import { useUserStore } from '@/stores/userStore'
-const { isLoggedIn, logout } = useUserStore()
+const user = useUserStore()
 defineProps({
   navItems: {
     type: Array,

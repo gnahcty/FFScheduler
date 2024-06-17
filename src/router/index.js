@@ -1,6 +1,7 @@
 import { START_LOCATION, createRouter, createWebHashHistory } from 'vue-router'
 import { useUserStore } from '@/stores/userStore'
 import { useToast } from 'primevue/usetoast'
+import { useListStore } from '@/stores/listStore'
 
 
 const router = createRouter({
@@ -116,6 +117,7 @@ router.afterEach((to) => {
 
 router.beforeEach(async (to, from, next) => {
   const user = useUserStore()
+  const list = useListStore()
   // 進網站第一次路由跳轉時，確認是否有 token
   if (from === START_LOCATION) {
     await user.getProfile()
@@ -128,6 +130,7 @@ router.beforeEach(async (to, from, next) => {
     useToast().add({ severity: 'error', summary: '錯誤', detail: '請先登入', life: 1000 })
     next('/login')
   } else {
+    list.getList()
     next()
   }
 })

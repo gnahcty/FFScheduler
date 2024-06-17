@@ -1,4 +1,4 @@
-//影展場次-放映清單(橫向)-特定影城放映清單 //影展場次-放映清單(縱向)-特定影城放映清單
+//影展場次-放映清單(橫向)-特定影城放映清單
 
 <template>
   <div class="animateScreeningCard absolute h-full rounded-md" :style="CardPosition()">
@@ -36,7 +36,7 @@
           </div>
         </router-link>
         <!-- like btn  -->
-        <span class="pi pi-plus absolute right-3 top-3 z-40 text-gray-400"></span>
+        <LikeButton :screeningId="props.screening._id"></LikeButton>
         <!-- like btn  -->
       </div>
       <!-- 卡片上的字 -->

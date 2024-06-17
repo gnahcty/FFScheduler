@@ -96,7 +96,7 @@ import { useListStore } from '@/stores/listStore.js'
 import useAxios from '@/utils/useAxios.js'
 
 const { getFilmById, getScreeningsByFilmId } = useAxios()
-const { getAdjacentIds } = useListStore()
+const { nextIdInCategory } = useListStore()
 const route = useRoute()
 const router = useRouter()
 const film = ref({})
@@ -105,7 +105,7 @@ const poster = ref('')
 const screenings = ref([])
 
 const nav = (direction) => {
-  const id = getAdjacentIds(route.params.id, direction)
+  const id = nextIdInCategory(route.params.id, direction)
   if (id) {
     router.push(`/details/${id}`)
   } else {

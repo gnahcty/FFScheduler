@@ -20,6 +20,7 @@ declare module 'vue' {
     FilmCardSquare: typeof import('./src/components/category_list/FilmCardSquare.vue')['default']
     Inplace: typeof import('primevue/inplace')['default']
     InputText: typeof import('primevue/inputtext')['default']
+    LikeButton: typeof import('./src/components/LikeButton.vue')['default']
     LikedList: typeof import('./src/components/liked_films/LikedList.vue')['default']
     LikedPageHeader: typeof import('./src/components/liked_films/LikedPageHeader.vue')['default']
     MobileNav: typeof import('./src/components/navbar_in_layouts/MobileNav.vue')['default']
@@ -28,6 +29,7 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     ScreeningCard: typeof import('./src/components/event_calendar/ScreeningCard.vue')['default']
+    ScreeningChip: typeof import('./src/components/ScreeningChip.vue')['default']
     ShowtimeList: typeof import('./src/components/ShowtimeList.vue')['default']
     TimelineNav: typeof import('./src/components/event_calendar/TimelineNav.vue')['default']
   }

@@ -78,9 +78,11 @@ import * as yup from 'yup'
 import { api } from '@/utils/axios.js'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/userStore.js'
+import { useListStore } from '@/stores/listStore.js'
 
 const router = useRouter()
 const user = useUserStore()
+const list = useListStore()
 
 const toast = useToast()
 const notify = (severity, summary, detail = '', life = 1000) => {
@@ -107,8 +109,8 @@ const submit = handleSubmit(async (values) => {
     })
     console.log(data)
     user.login({ token: data.result.token })
+    list.getList()
     notify('success', '登入成功')
-
     router.push('/categories')
   } catch (error) {
     notify('error', '登入失敗', error.response?.data?.message || '發生未知錯誤，請稍後再試', 2000)

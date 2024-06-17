@@ -3,7 +3,7 @@ import { useConfirm } from 'primevue/useconfirm'
 import { useToast } from 'primevue/usetoast'
 import { useUserList } from '@/stores/filmStore.js'
 
-export default function useScreeningManagement(id) {
+export default function useScreeningManagement (id) {
   const { films } = useUserList()
   const confirm = useConfirm()
   const toast = useToast()

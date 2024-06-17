@@ -6,8 +6,8 @@
     >
       <div class="w-full text-6xl font-bold uppercase">watchlist</div>
     </div>
-    <div class="w-full">
-      <div v-for="film in films" :key="film.filmId">
+    <div class="w-full text-primary-500">
+      <div v-for="film in list.listByFilm" :key="film.CName">
         <!-- 收藏清單 -->
         <FieldSet :film="film"></FieldSet>
         <!-- 收藏清單 -->
@@ -17,7 +17,6 @@
 </template>
 
 <script setup>
-import { useUserList } from '@/stores/filmStore.js'
-
-const { films } = useUserList()
+import { useListStore } from '@/stores/listStore'
+const list = useListStore()
 </script>

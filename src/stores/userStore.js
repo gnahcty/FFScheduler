@@ -1,11 +1,14 @@
 import { defineStore } from 'pinia'
-import { ref, reactive, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { apiAuth } from '@/utils/axios.js'
 import { useToast } from 'primevue/usetoast'
 import { useRouter } from 'vue-router'
+import { useListStore } from './listStore'
+// import { storeToRefs } from 'pinia'
 
 
 export const useUserStore = defineStore('user', () => {
+  const { userList } = useListStore()
   const router = useRouter()
   const toast = useToast()
   const notify = (severity, summary, detail = '', life = 1000) => {
@@ -13,8 +16,8 @@ export const useUserStore = defineStore('user', () => {
   }
 
   const token = ref('')
-  const list = reactive([])
-  const isLoggedIn = computed(() => token.value.length > 0)
+
+  const isLoggedIn = computed(() => token.value !== '')
 
 
   const login = (data) => {
@@ -22,13 +25,14 @@ export const useUserStore = defineStore('user', () => {
   }
 
   const getProfile = async () => {
-    if (token.value.length === 0) return
+    if (token.value === '') return
     try {
-      const { data } = await apiAuth.get('/user/profile')
-      list.splice(0, list.length, ...data.result.list)
+      const { data } = await apiAuth.get('/list')
+      userList.value = data.result.list
       // get some user data....
     } catch (error) {
-      token.value.length = 0
+      token.value = ''
+      notify('error', '請重新登入')
     }
 
   }
@@ -36,7 +40,7 @@ export const useUserStore = defineStore('user', () => {
   const logout = async () => {
     await apiAuth.post('/user/logout')
     token.value = ''
-    list.length = 0
+    userList.length = 0
     notify('success', '您已登出')
     router.push('/')
   }
@@ -44,11 +48,10 @@ export const useUserStore = defineStore('user', () => {
 
   return {
     token,
-    list,
     login,
     logout,
-    isLoggedIn,
     getProfile,
+    isLoggedIn,
   }
 }, {
   persist: {

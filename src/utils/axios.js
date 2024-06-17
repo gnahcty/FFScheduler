@@ -11,6 +11,6 @@ export const apiAuth = axios.create({
 
 apiAuth.interceptors.request.use(config => {
   const user = useUserStore()
-  config.headers.Authorization = `Bearer ${user.token.value}`
+  config.headers.Authorization = `Bearer ${user.token}`
   return config
 })

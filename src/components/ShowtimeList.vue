@@ -2,35 +2,24 @@
 
 <template>
   <ul role="list" class="w-full flex-shrink divide-y divide-orange-600">
-    <li v-for="(screening, i) in props.screenings" :key="i" class="flex justify-between">
-      <div class="flex flex-wrap gap-x-3">
-        <span class="w-24"> {{ screening.date }}</span>
+    <li v-for="screening in props.screenings" :key="screening._id" class="flex justify-between">
+      <div class="text-md flex flex-wrap gap-x-2">
+        <span class="w-[5.3rem]"> {{ screening.date }}</span>
         <span> {{ screening.time }} </span>
         <span> {{ screening.place }} </span>
       </div>
       <!-- like btn -->
-      <div class="px-3">
-        <span
-          class="pi leading-6"
-          :class="isLiked(screening.time, route.params.id) ? 'pi-minus' : 'pi-plus'"
-          @click="likeScreeningToggle(screening, route.params.id)"
-        ></span>
-        <div></div>
-      </div>
+      <LikeButton :screeningId="screening._id" class="" />
       <!-- like btn -->
     </li>
   </ul>
 </template>
 
 <script setup>
-import { useUserList } from '@/stores/filmStore.js'
-import { useRoute } from 'vue-router'
 const props = defineProps({
   screenings: {
     type: Object,
     default: () => {}
   }
 })
-const route = useRoute()
-const { isLiked, likeScreeningToggle } = useUserList()
 </script>
