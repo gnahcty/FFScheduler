@@ -55,7 +55,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { api } from '@/utils/axios.js'
+import { api } from '@/axios/axios.js'
 import { HomePageTitleAnimation, ChangeBGImages } from '@/animation/animation.js'
 
 const bgImg = ref(
@@ -63,13 +63,9 @@ const bgImg = ref(
 )
 
 onMounted(async () => {
-  try {
-    const { data } = await api.get('/film/pics')
-    bgImg.value = data.result[0]
-    HomePageTitleAnimation()
-    ChangeBGImages(data.result)
-  } catch (error) {
-    console.error(error)
-  }
+  const { data } = await api.get('/film/pics')
+  bgImg.value = data.result[0]
+  HomePageTitleAnimation()
+  ChangeBGImages(data.result)
 })
 </script>

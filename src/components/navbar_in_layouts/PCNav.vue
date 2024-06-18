@@ -11,7 +11,7 @@
       <div class="flex h-6 gap-x-12 overflow-hidden">
         <RouterLink v-for="navItem in navItems" :key="navItem.to" :to="navItem.to">
           <div
-            class="text-sm font-semibold leading-6 transition-all duration-200 hover:-translate-y-6"
+            class="select-none text-sm font-semibold leading-6 transition-all duration-200 hover:-translate-y-6"
           >
             <div>{{ navItem.text }}</div>
             <div>{{ navItem.text }}</div>
@@ -29,7 +29,10 @@
         </RouterLink>
       </div>
       <div class="group flex w-14" v-else>
-        <div class="group flex text-sm font-semibold leading-6" @click="user.logout">
+        <div
+          class="group flex cursor-pointer select-none text-sm font-semibold leading-6"
+          @click="user.logout"
+        >
           <span>登出</span
           ><span class="group-hover:shift-lr transition-all duration-300">&rarr;</span>
         </div>

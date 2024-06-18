@@ -93,7 +93,7 @@
 import { ref, onMounted, watch, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useListStore } from '@/stores/listStore.js'
-import useAxios from '@/utils/useAxios.js'
+import useAxios from '@/axios/useAxios.js'
 
 const { getFilmById, getScreeningsByFilmId } = useAxios()
 const { nextIdInCategory } = useListStore()

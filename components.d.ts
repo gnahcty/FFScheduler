@@ -30,7 +30,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     ScreeningCard: typeof import('./src/components/event_calendar/ScreeningCard.vue')['default']
     ScreeningChip: typeof import('./src/components/ScreeningChip.vue')['default']
-    ShowtimeList: typeof import('./src/components/ShowtimeList.vue')['default']
+    ShowtimeList: typeof import('./src/components/film_details/ShowtimeList.vue')['default']
     TimelineNav: typeof import('./src/components/event_calendar/TimelineNav.vue')['default']
   }
 }

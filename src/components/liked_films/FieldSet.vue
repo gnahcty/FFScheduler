@@ -1,3 +1,4 @@
+// 收藏清單頁面 - 電影欄
 <template>
   <div class="border-gray-200 text-white transition-all duration-500">
     <!-- 收藏清單 -->

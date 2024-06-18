@@ -1,10 +1,15 @@
 import { computed } from 'vue'
 import { useUserStore } from '@/stores/userStore'
-import { apiAuth } from '@/utils/axios.js'
+import { apiAuth } from '@/axios/axios.js'
 import { useToast } from 'primevue/usetoast'
 import { useListStore } from '@/stores/listStore.js'
 import { useRouter } from 'vue-router'
 
+/**
+ * 將電影加入清單
+ * @param {String} screeningId 
+ * @returns {Object} -{targetScreening, isSaved, add}
+ */
 export const addScreening = (screeningId) => {
   const user = useUserStore()
   const list = useListStore()
@@ -25,11 +30,14 @@ export const addScreening = (screeningId) => {
   }
 
 
-
   const targetScreening = computed(() => list.userList.find((likedItem) => likedItem.screening._id === screeningId))
 
-  const screeningSaved = computed(() => targetScreening.value || false)
+  /** 
+   * @returns {Boolean}- is the screening saved in userList?
+   *  */
+  const isSaved = computed(() => targetScreening.value || false)
 
+  /** add/ remove screening to userList */
   const add = async () => {
 
     try {
@@ -42,5 +50,5 @@ export const addScreening = (screeningId) => {
     }
 
   }
-  return { targetScreening, screeningSaved, add }
+  return { targetScreening, isSaved, add }
 }

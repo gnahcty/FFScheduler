@@ -1,4 +1,4 @@
-//影展場次-放映清單(橫向)-特定影城放映清單
+//影展場次-放映清單-場次卡片
 
 <template>
   <div class="animateScreeningCard absolute h-full rounded-md" :style="CardPosition()">

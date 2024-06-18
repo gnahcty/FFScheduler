@@ -1,4 +1,4 @@
-// 影展單元詳細片單-電影卡片
+// 影展單元-輪播圖元件-電影卡片
 <template>
   <div class="animateFilmCard group relative h-96 w-64 text-primary-600 sm:h-full">
     <router-link :to="`/details/${props.film._id}`">

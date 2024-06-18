@@ -1,9 +1,10 @@
 import { useToast } from 'primevue/usetoast'
 import { storeToRefs } from 'pinia'
 import { useListStore } from '@/stores/listStore'
-import { api } from '@/utils/axios.js'
+import { api } from '@/axios/axios.js'
 import { format, parseISO } from 'date-fns'
 
+/**functions to get public film info */
 export default function useAxios () {
   const toast = useToast()
   const { currentCategory } = storeToRefs(useListStore())

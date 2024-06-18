@@ -63,17 +63,16 @@
 
   <!-- list -->
   <div class="flex flex-col">
-    <div
+    <!-- <div
       class="mr-6 self-end text-sm underline"
-      @click="deleteScreeningOfTheDay(format(currentDate, 'MM.dd'))"
     >
       清除本日場次
-    </div>
+    </div> -->
     <div class="flex flex-wrap px-5 sm:mt-10">
       <div class="flex flex-auto flex-col gap-1 rounded p-3">
-        <div v-for="(film, i) in filmsForDate" :key="i">
-          <div v-if="!film.times.deleted">
-            <EventChips v-model:film="filmsForDate[i]"></EventChips>
+        <div v-for="(list, i) in lists" :key="list._id">
+          <div v-if="!list.hidden">
+            <EventChips v-model:list="lists[i]"></EventChips>
           </div>
         </div>
       </div>
@@ -83,9 +82,9 @@
           本日已刪除場次
         </div>
         <div class="mt-3 min-h-32 rounded-lg border border-dashed px-2 py-3">
-          <div v-for="(film, i) in filmsForDate" :key="i">
-            <div v-if="film.times.deleted">
-              <EventChips v-model:film="filmsForDate[i]"></EventChips>
+          <div v-for="(list, i) in lists" :key="list._id">
+            <div v-if="list.hidden">
+              <EventChips v-model:list="lists[i]"></EventChips>
             </div>
           </div>
         </div>
@@ -95,26 +94,34 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import {
   startOfWeek,
   endOfWeek,
   addWeeks,
   format,
   eachDayOfInterval,
-  isBefore,
-  isAfter
+  isWithinInterval,
+  isSameDay
 } from 'date-fns'
-import { useUserList } from '@/stores/filmStore.js'
-import { FFStartDay, FFEndDay } from '@/utils/temp_data'
-const { screeningsOfTheDay, deleteScreeningOfTheDay } = useUserList()
+import useAxios from '@/axios/useAxios'
+import { useListStore } from '@/stores/listStore'
 
+const dateRange = ref(null)
+const lists = ref([])
 const currentDate = ref(new Date())
-
-let filmsForDate = screeningsOfTheDay(format(currentDate.value, 'MM.dd'))
+const { getFFDateRange } = useAxios()
+const useList = useListStore()
 
 //是否在影展播映期間
-const isAiring = (date) => isAfter(new Date(date), FFStartDay) && isBefore(new Date(date), FFEndDay)
+const isAiring = (date) =>
+  computed(
+    () =>
+      isWithinInterval(date, {
+        start: new Date(dateRange.value.start),
+        end: new Date(dateRange.value.end)
+      }) || isSameDay(date, new Date(dateRange.value.start))
+  )
 
 // 本周第一天日期
 const startOfCurrentWeek = computed(() => startOfWeek(currentDate.value, { weekStartsOn: 1 }))
@@ -146,7 +153,13 @@ const goToPreviousWeek = () => {
 watch(
   () => currentDate.value,
   () => {
-    filmsForDate = screeningsOfTheDay(format(currentDate.value, 'MM.dd'))
+    lists.value = useList.getListByDate(currentDate.value)
   }
 )
+
+onMounted(async () => {
+  dateRange.value = await getFFDateRange()
+  currentDate.value = new Date(dateRange.value.start)
+  lists.value = useList.getListByDate(currentDate.value)
+})
 </script>

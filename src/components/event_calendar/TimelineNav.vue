@@ -1,3 +1,4 @@
+// 影展場次-時間軸
 <template>
   <div class="my-4 flex w-full justify-center sm:my-10">
     <div class="relative overflow-hidden md:h-36">
@@ -57,7 +58,7 @@ import { useElementSize } from '@vueuse/core'
 import { useRouter, useRoute } from 'vue-router'
 import { format, eachDayOfInterval } from 'date-fns'
 import { moveTimeLine } from '@/animation/animation.js'
-import useAxios from '@/utils/useAxios.js'
+import useAxios from '@/axios/useAxios.js'
 
 const { getFFDateRange } = useAxios()
 const router = useRouter()
@@ -70,7 +71,6 @@ const datesBefore = computed(() => (width.value > 530 ? 3 : 2)) //置中日期�
 const FFStartDate = ref(null)
 const FFEndDate = ref(null)
 const FFMonth = ref(null)
-
 const dates = ref([])
 
 const renderDates = (start, end) =>

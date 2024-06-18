@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import { apiAuth } from '@/utils/axios.js'
+import { apiAuth } from '@/axios/axios.js'
 import { useToast } from 'primevue/usetoast'
 import { useRouter } from 'vue-router'
 import { useListStore } from './listStore'
@@ -29,7 +29,6 @@ export const useUserStore = defineStore('user', () => {
     try {
       const { data } = await apiAuth.get('/list')
       userList.value = data.result.list
-      // get some user data....
     } catch (error) {
       token.value = ''
       notify('error', '請重新登入')

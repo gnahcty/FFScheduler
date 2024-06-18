@@ -25,7 +25,6 @@
       :class="useList.chipStyle(list._id).value"
       v-on-long-press="[() => useList.lock(list._id), { modifiers: { stop: true } }]"
       @click="useList.hide(list._id)"
-      v-if="!useList.isHidden.value"
     >
       <p class="truncate">{{ film.CName }}</p>
       <p class="truncate">{{ film.EName }}</p>

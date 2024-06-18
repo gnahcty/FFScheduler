@@ -1,6 +1,6 @@
 import { computed } from 'vue'
 import { useUserStore } from '@/stores/userStore'
-import { apiAuth } from '@/utils/axios.js'
+import { apiAuth } from '@/axios/axios.js'
 import { useToast } from 'primevue/usetoast'
 import { useConfirm } from 'primevue/useconfirm'
 import { useListStore } from '@/stores/listStore.js'

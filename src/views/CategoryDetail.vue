@@ -78,7 +78,7 @@
 <script setup>
 import { onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import useAxios from '@/utils/useAxios.js'
+import useAxios from '@/axios/useAxios.js'
 import { useHorizontalScroll } from '@/utils/sideScroller'
 import { CategoryTitleAnimation, CategorySwitchAnimation } from '@/animation/animation'
 

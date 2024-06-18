@@ -2,7 +2,7 @@
   <div class="px-3">
     <span
       class="pi leading-6"
-      :class="list.screeningSaved.value ? 'pi-minus' : 'pi-plus'"
+      :class="list.isSaved.value ? 'pi-minus' : 'pi-plus'"
       @click="list.add()"
     ></span>
   </div>

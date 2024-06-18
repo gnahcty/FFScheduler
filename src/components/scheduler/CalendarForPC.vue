@@ -65,7 +65,7 @@ import {
   addMonths,
   getYear
 } from 'date-fns'
-import useAxios from '@/utils/useAxios'
+import useAxios from '@/axios/useAxios'
 const { getFFDateRange } = useAxios()
 const currentDate = ref(new Date())
 const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']

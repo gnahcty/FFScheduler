@@ -19,7 +19,7 @@
 <script setup>
 import { ref, watch, onMounted, computed } from 'vue'
 import { isToday, getDate, isWithinInterval, isSameDay } from 'date-fns'
-import useAxios from '@/utils/useAxios'
+import useAxios from '@/axios/useAxios'
 import { useListStore } from '@/stores/listStore'
 
 const { getFFDateRange } = useAxios()

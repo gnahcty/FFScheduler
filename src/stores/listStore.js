@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, reactive, computed } from 'vue'
 import { useToast } from 'primevue/usetoast'
-import { apiAuth } from '@/utils/axios.js'
+import { apiAuth } from '@/axios/axios.js'
 import { useUserStore } from './userStore'
 import { isSameDay } from 'date-fns'
 
@@ -34,6 +34,7 @@ export const useListStore = defineStore('list', () => {
     return ''
   }
 
+  /** get user list */
   const getList = async () => {
     try {
       if (user.token === '') return
@@ -46,6 +47,7 @@ export const useListStore = defineStore('list', () => {
     }
   }
 
+  /** sort user list by film */
   const listByFilm = computed(() => {
     return Object.values(
       userList.reduce((acc, item) => {
@@ -74,6 +76,11 @@ export const useListStore = defineStore('list', () => {
     );
   })
 
+  /** 
+   * get user list by date
+   * @param {Date} date
+   * @returns {Array} -user list 
+   * */
   const getListByDate = (date) =>
     userList.filter((item) => isSameDay(new Date(item.screening.time), date))
 

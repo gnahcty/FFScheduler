@@ -62,8 +62,8 @@
           <router-link to="/register">
             <div class="font-semibold leading-6 text-primary-500 hover:text-primary-400">註冊</div>
           </router-link>
-          <div class="text-sm">/</div>
-          <div class="pi pi-google"></div>
+          <!-- <div class="text-sm">/</div> -->
+          <!-- <div class="pi pi-google"></div> -->
         </div>
       </div>
       <!-- 登入表單 -->
@@ -75,7 +75,7 @@
 import { useToast } from 'primevue/usetoast'
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
-import { api } from '@/utils/axios.js'
+import { api } from '@/axios/axios.js'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/userStore.js'
 import { useListStore } from '@/stores/listStore.js'
@@ -107,7 +107,6 @@ const submit = handleSubmit(async (values) => {
       account: values.account,
       password: values.password
     })
-    console.log(data)
     user.login({ token: data.result.token })
     list.getList()
     notify('success', '登入成功')

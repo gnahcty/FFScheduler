@@ -74,8 +74,8 @@
         <router-link to="/login">
           <div class="leading-6 text-primary-500 hover:text-primary-400">登入</div>
         </router-link>
-        <div class="text-sm">/</div>
-        <div class="pi pi-google"></div>
+        <!-- <div class="text-sm">/</div>
+        <div class="pi pi-google"></div> -->
       </div>
     </div>
     <!-- 註冊表單 -->
@@ -87,7 +87,7 @@ import validator from 'validator'
 import { useToast } from 'primevue/usetoast'
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
-import { api } from '@/utils/axios.js'
+import { api } from '@/axios/axios.js'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()

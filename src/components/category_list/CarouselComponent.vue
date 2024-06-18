@@ -28,7 +28,7 @@
 <script setup>
 import { Vue3Marquee } from 'vue3-marquee'
 import { onMounted, ref } from 'vue'
-import useAxios from '@/utils/useAxios'
+import useAxios from '@/axios/useAxios'
 
 const categories = ref([])
 const { getCategoryList } = useAxios()

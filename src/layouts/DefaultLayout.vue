@@ -14,7 +14,7 @@
 <script setup>
 import PCNav from '@/components/navbar_in_layouts/PCNav.vue'
 import MobileNav from '@/components/navbar_in_layouts/MobileNav.vue'
-import useAxios from '@/utils/useAxios'
+import useAxios from '@/axios/useAxios'
 import { format } from 'date-fns'
 import { ref, onMounted, computed } from 'vue'
 
