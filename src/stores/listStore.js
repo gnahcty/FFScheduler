@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 import { ref, reactive, computed } from 'vue'
-
 import { useToast } from 'primevue/usetoast'
 import { apiAuth } from '@/utils/axios.js'
 import { useUserStore } from './userStore'
+import { isSameDay } from 'date-fns'
 
 
 export const useListStore = defineStore('list', () => {
@@ -74,6 +74,10 @@ export const useListStore = defineStore('list', () => {
     );
   })
 
+  const getListByDate = (date) =>
+    userList.filter((item) => isSameDay(new Date(item.screening.time), date))
+
+
 
 
 
@@ -84,6 +88,7 @@ export const useListStore = defineStore('list', () => {
     currentCategory,
     nextIdInCategory,
     getList,
-    listByFilm
+    listByFilm,
+    getListByDate
   }
 })

@@ -98,7 +98,7 @@ export const manageList = (listID) => {
 
   const filmClashed = computed(() => listByFilm.value.some((likedItem) => likedItem.clash > 0))
 
-
+  const isHidden = computed(() => targetList.value.hidden)
 
 
   const lock = (listID) => {
@@ -146,7 +146,7 @@ export const manageList = (listID) => {
 
 
 
-  return { targetList, listByFilm, targetFilmID, filmLocked, filmClashed, remainingScreening, lock, hide, chipStyle }
+  return { targetList, listByFilm, targetFilmID, filmLocked, filmClashed, remainingScreening, lock, hide, chipStyle, isHidden }
 }
 
 

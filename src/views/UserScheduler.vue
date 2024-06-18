@@ -35,7 +35,7 @@
         :class="{ 'w-0': !showList, 'w-1/2': showList }"
       >
         <div class="no-scrollbar flex-auto overflow-auto">
-          <div v-for="film in films" :key="film.filmId">
+          <div v-for="film in list.listByFilm" :key="film.CName">
             <!-- 收藏清單 -->
             <FieldSet :film="film"></FieldSet>
             <!-- 收藏清單 -->
@@ -59,8 +59,8 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useUserList } from '@/stores/filmStore.js'
-const { films } = useUserList()
+import { useListStore } from '@/stores/listStore'
+const list = useListStore()
 const showList = ref(false)
 const info = '點擊場次以刪除\n 長按場次以鎖定'
 </script>

@@ -55,7 +55,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import {
   format,
   getDay,
@@ -65,8 +65,9 @@ import {
   addMonths,
   getYear
 } from 'date-fns'
-import { FFStartDay } from '@/utils/temp_data.js'
-const currentDate = ref(FFStartDay)
+import useAxios from '@/utils/useAxios'
+const { getFFDateRange } = useAxios()
+const currentDate = ref(new Date())
 const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
 // 本月第一天日期 (str)
@@ -84,4 +85,9 @@ const blankDays = computed(() => (getDay(startDay.value) + 6) % 7)
 function changeMonth(step) {
   currentDate.value = addMonths(currentDate.value, step)
 }
+
+onMounted(async () => {
+  const dateRange = await getFFDateRange()
+  currentDate.value = new Date(dateRange.start)
+})
 </script>

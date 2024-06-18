@@ -32,8 +32,6 @@
           >
             <span class="font-bold">
               {{ format(screening.time, 'MM.dd EEE HH:mm') }}
-              {{ screening.clash }}
-              {{ screening.locked }}
             </span>
           </button>
         </template>
