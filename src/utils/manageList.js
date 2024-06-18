@@ -59,13 +59,14 @@ export const manageList = (listID) => {
       acceptClass: 'p-button-success p-button-text',
       accept: async () => {
         await handleAPI(async () => await apiAuth.post('/list/lock', { id: listID, filmID: targetFilmID.value }))
+        console.log('locked');
         notify('success', '已鎖定')
       },
       reject: () => notify('error', '已取消')
     })
   }
 
-  const unlockScreening = (listID) => {
+  const unlockScreening = (listID) => new Promise((resolve) => {
     confirm.require({
       message: '解除鎖定後，此電影其他場次將被復原，確定要解除鎖定嗎？',
       header: '解除鎖定',
@@ -74,16 +75,18 @@ export const manageList = (listID) => {
       accept: async () => {
         await handleAPI(async () => await apiAuth.post('/list/unlock', { id: listID, filmID: targetFilmID.value }))
         notify('success', '已解除鎖定')
+        resolve()
       },
-      reject: () => notify('error', '已取消')
+      reject: () => {
+        notify('error', '已取消');
+        resolve()
+      }
     })
-  }
+  })
 
   /*** internal use functions ***/
 
-  const targetList = computed(() =>
-    list.userList.find((list) => list._id === listID)
-  )
+  const targetList = computed(() => list.userList.find((list) => list._id === listID))
 
   const listByFilm = computed(() => list.userList.filter((likedItem) => likedItem.screening.film._id === targetFilmID.value && !likedItem.hidden))
 
@@ -91,31 +94,35 @@ export const manageList = (listID) => {
 
   const targetFilmID = computed(() => targetList.value.screening.film._id)
 
-  const filmLocked = computed(() => listByFilm.value.some((likedItem) => likedItem.screening.locked))
+  const filmLocked = computed(() => listByFilm.value.some((likedItem) => likedItem.locked))
 
-  const filmClashed = computed(() => listByFilm.value.some((likedItem) => likedItem.screening.clash > 0))
+  const filmClashed = computed(() => listByFilm.value.some((likedItem) => likedItem.clash > 0))
 
 
 
 
   const lock = (listID) => {
-    if (targetList.value.locked) {
+    const targetList = list.userList.find((list) => list._id === listID)
+    if (targetList.locked) {
       unlockScreening(listID)
     } else {
       lockScreening(listID)
     }
   }
 
-  const hide = (listID) => {
-    if (targetList.value.locked) {
-      unlockScreening(listID)
+
+  const hide = async (listID) => {
+    const targetList = list.userList.find((list) => list._id === listID)
+    if (filmLocked.value) {
+      await unlockScreening(listID)
     }
-    if (targetList.value.hidden) {
-      unhideScreening(listID)
+    if (targetList.hidden) {
+      await unhideScreening(listID)
     } else {
-      hideScreening(listID)
+      await hideScreening(listID)
     }
   }
+
 
   const chipStyle = (listID) => computed(() => {
     const targetList = list.userList.find((list) => list._id === listID)

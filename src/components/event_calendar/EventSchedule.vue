@@ -7,7 +7,7 @@
     ref="scrollContainer"
   >
     <!-- 各影城場次 -->
-    <div v-for="(theatre, key) in screenTimes" :key="key" class="flex-0 mt-7 flex h-1/3">
+    <div v-for="(theatre, key) in props.screenTimes" :key="key" class="flex-0 mt-7 flex h-1/3">
       <!-- 影城名稱 -->
       <div class="overflow-hidden">
         <div
@@ -19,10 +19,10 @@
       <!-- 影城名稱 -->
 
       <!-- 電影 -->
-      <div v-for="(screening, i) in theatre" :key="i" class="relative">
+      <div v-for="screening in theatre" :key="screening._id" class="relative">
         <ScreeningCard
           :screening="screening"
-          :film="screening.movie_id"
+          :film="screening.film"
           :date="route.params.date"
         ></ScreeningCard>
       </div>
@@ -38,7 +38,7 @@
   >
     <!-- 各影城場次 -->
     <div
-      v-for="(theatre, key) in props.screenTimes.value"
+      v-for="(theatre, key) in screenTimes"
       :key="key"
       class="flex-0 animateScreeningCard h-full w-full flex-col"
     >
@@ -51,10 +51,10 @@
       <!-- 影城名稱 -->
 
       <!-- 電影 -->
-      <div v-for="(screening, i) in theatre" :key="i" class="no-scrollbar relative">
+      <div v-for="screening in theatre" :key="screening._id" class="no-scrollbar relative">
         <ScreeningCard
           :screening="screening"
-          :film="screening.movie_id"
+          :film="screening.film"
           :date="route.params.date"
           :vertical="true"
         ></ScreeningCard>

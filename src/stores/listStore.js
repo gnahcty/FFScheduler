@@ -54,6 +54,7 @@ export const useListStore = defineStore('list', () => {
           acc[film._id] = {
             CName: film.CName,
             EName: film.EName,
+            _id: film._id,
             screenings: []
           };
         }
