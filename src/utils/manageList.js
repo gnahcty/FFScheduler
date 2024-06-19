@@ -96,12 +96,12 @@ export const manageList = (listID) => {
 
   const filmLocked = computed(() => listByFilm.value.some((likedItem) => likedItem.locked))
 
-  const filmClashed = computed(() => listByFilm.value.some((likedItem) => likedItem.clash > 0))
+  // const filmClashed = computed(() => listByFilm.value.some((likedItem) => likedItem.clash > 0))
 
   const isHidden = computed(() => targetList.value.hidden)
 
 
-  const lock = (listID) => {
+  const lock = () => {
     const targetList = list.userList.find((list) => list._id === listID)
     if (targetList.locked) {
       unlockScreening(listID)
@@ -111,7 +111,7 @@ export const manageList = (listID) => {
   }
 
 
-  const hide = async (listID) => {
+  const hide = async () => {
     const targetList = list.userList.find((list) => list._id === listID)
     if (filmLocked.value) {
       await unlockScreening(listID)
@@ -124,7 +124,7 @@ export const manageList = (listID) => {
   }
 
 
-  const chipStyle = (listID) => computed(() => {
+  const chipStyle = computed(() => {
     const targetList = list.userList.find((list) => list._id === listID)
 
     const bg = targetList.locked ? 'bg-stone-200' : ''
@@ -132,7 +132,7 @@ export const manageList = (listID) => {
       ? 'text-stone-900'
       : targetList.hidden
         ? 'text-stone-600'
-        : remainingScreening.value.length <= 2
+        : remainingScreening.value <= 2
           ? 'text-orange-500'
           : 'text-white'
     const ring = targetList.hidden
@@ -146,8 +146,10 @@ export const manageList = (listID) => {
 
 
 
-  return { targetList, listByFilm, targetFilmID, filmLocked, filmClashed, remainingScreening, lock, hide, chipStyle, isHidden }
+  return { targetList, remainingScreening, lock, hide, chipStyle, isHidden }
 }
+
+
 
 
 

@@ -71,9 +71,7 @@
     <div class="flex flex-wrap px-5 sm:mt-10">
       <div class="flex flex-auto flex-col gap-1 rounded p-3">
         <div v-for="(list, i) in lists" :key="list._id">
-          <div v-if="!list.hidden">
-            <EventChips v-model:list="lists[i]"></EventChips>
-          </div>
+          <EventChips v-model:list="lists[i]"></EventChips>
         </div>
       </div>
       <Divider class="sm:hidden" />
@@ -83,9 +81,7 @@
         </div>
         <div class="mt-3 min-h-32 rounded-lg border border-dashed px-2 py-3">
           <div v-for="(list, i) in lists" :key="list._id">
-            <div v-if="list.hidden">
-              <EventChips v-model:list="lists[i]"></EventChips>
-            </div>
+            <EventChips v-model:list="lists[i]" showHidden></EventChips>
           </div>
         </div>
       </div>
