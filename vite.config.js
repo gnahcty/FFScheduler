@@ -12,9 +12,9 @@ export default defineConfig({
   plugins: [
     vue({
       template: {
-        compilerOptions: {
-          isCustomElement: (tag) => tag.includes('swiper')
-        }
+        // compilerOptions: {
+        //   isCustomElement: (tag) => tag.includes('swiper')
+        // }
       }
     }),
     VueDevTools(),

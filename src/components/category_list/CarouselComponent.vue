@@ -14,12 +14,12 @@
     <!-- PC Marquee -->
 
     <!-- Mobile Marquee -->
-    <div class="h-full w-full sm:hidden">
-      <Vue3Marquee pauseOnClick :duration="35" vertical class="max-h-full">
-        <div v-for="(category, i) in categories" :key="i" class="h-96 w-64">
-          <CategoryCard :category="category" :categoryIndex="i" />
-        </div>
-      </Vue3Marquee>
+    <div class="no-scrollbar h-screen w-full overflow-y-auto sm:hidden">
+      <!-- <Vue3Marquee pauseOnClick :duration="35" vertical class="max-h-full"> -->
+      <div v-for="(category, i) in categories" :key="i" class="h-96 w-64">
+        <CategoryCard :category="category" :categoryIndex="i" />
+      </div>
+      <!-- </Vue3Marquee> -->
     </div>
     <!-- Mobile Marquee -->
   </div>
