@@ -2,13 +2,15 @@
   <div
     class="flex h-screen w-full flex-wrap items-center justify-center overflow-clip bg-black text-primary-500"
   >
-    <div class="w-full text-wrap">
-      {{ list.userList.find((list) => list._id === '666ed84221b32fa70a3a3dd7') }}
-    </div>
+    ERROR 404: Page not found X__X
   </div>
 </template>
 
 <script setup>
-import { useListStore } from '@/stores/listStore'
-const list = useListStore()
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
+setTimeout(() => {
+  router.replace('/')
+}, 5000)
 </script>
