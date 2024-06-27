@@ -1,1 +1,0 @@
-import{m as t,o,c as r}from"./index-D04HorTq.js";const c={class:"flex h-screen w-full flex-wrap items-center justify-center overflow-clip bg-black text-primary-500"},u={__name:"NotFound",setup(s){const e=t();return setTimeout(()=>{e.replace("/")},5e3),(a,n)=>(o(),r("div",c," ERROR 404: Page not found X__X "))}};export{u as default};
