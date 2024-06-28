@@ -96,9 +96,7 @@ import { ref, onMounted, watch, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useListStore } from '@/stores/listStore.js'
 import useAxios from '@/axios/useAxios.js'
-import { useGeneralStore } from '@/stores/generalStore'
 
-const state = useGeneralStore()
 const { getFilmById, getScreeningsByFilmId } = useAxios()
 const { nextIdInCategory } = useListStore()
 const route = useRoute()
@@ -155,12 +153,10 @@ const setup = async () => {
 
 onMounted(() => {
   setup()
-  state.isLoading = false
 })
 
 watch(
   () => route.params.id,
-  (state.isLoading = false),
   () => setup()
 )
 </script>

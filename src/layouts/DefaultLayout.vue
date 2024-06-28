@@ -6,7 +6,7 @@
 
     <div
       v-if="state.isLoading"
-      class="flex h-screen w-full items-center justify-center bg-stone-900 text-primary-600"
+      class="absolute z-10 flex h-screen w-full items-center justify-center bg-stone-900 text-primary-600"
     >
       {{ loadText }}
     </div>

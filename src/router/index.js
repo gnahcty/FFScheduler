@@ -17,7 +17,8 @@ const router = createRouter({
           component: () => import(/* webpackChunkName: "home" */ '@/views/HomeView.vue'),
           meta: {
             title: '首頁',
-            needAuth: false
+            needAuth: false,
+            load: true
           }
         },
         {
@@ -29,7 +30,8 @@ const router = createRouter({
           component: () => import(/* webpackChunkName: "login" */ '@/views/LoginView.vue'),
           meta: {
             title: '登入',
-            needAuth: false
+            needAuth: false,
+            load: false
           }
         },
         {
@@ -38,7 +40,8 @@ const router = createRouter({
           component: () => import(/* webpackChunkName: "login" */ '@/views/RegisterView.vue'),
           meta: {
             title: '註冊',
-            needAuth: false
+            needAuth: false,
+            load: false
           }
         },
         {
@@ -47,7 +50,8 @@ const router = createRouter({
           component: () => import(/* webpackChunkName: "categories" */ '@/views/CategoryList.vue'),
           meta: {
             title: '影展單元',
-            needAuth: false
+            needAuth: false,
+            load: true
           }
         },
         {
@@ -57,7 +61,8 @@ const router = createRouter({
             import(/* webpackChunkName: "categories" */ '@/views/CategoryDetail.vue'),
           meta: {
             title: '影展單元',
-            needAuth: false
+            needAuth: false,
+            load: true
           }
         },
         {
@@ -66,7 +71,8 @@ const router = createRouter({
           component: () => import('@/views/FilmDetails.vue'),
           meta: {
             title: '電影簡介',
-            needAuth: false
+            needAuth: false,
+            load: false
           }
         },
         {
@@ -75,7 +81,8 @@ const router = createRouter({
           component: () => import('@/views/EventCalendar.vue'),
           meta: {
             title: '場次',
-            needAuth: false
+            needAuth: false,
+            load: true
           }
         },
         {
@@ -84,7 +91,8 @@ const router = createRouter({
           component: () => import('@/views/WatchList.vue'),
           meta: {
             title: '收藏',
-            needAuth: true
+            needAuth: true,
+            load: false
           }
         },
         {
@@ -93,7 +101,8 @@ const router = createRouter({
           component: () => import('@/views/UserScheduler.vue'),
           meta: {
             title: '排程',
-            needAuth: true
+            needAuth: true,
+            load: true
           }
         },
         {
@@ -102,7 +111,8 @@ const router = createRouter({
           component: () => import('@/views/NotFound.vue'),
           meta: {
             title: 'OOPS!',
-            needAuth: false
+            needAuth: false,
+            load: false
           }
         }
       ]
@@ -120,9 +130,7 @@ router.beforeEach(async (to, from, next) => {
   const list = useListStore()
   const state = useGeneralStore()
 
-  if(!['/register', '/login','/favorites'].includes(to.path)){
-    state.isLoading = true
-  }
+    state.isLoading = to.meta.load
 
   // 進網站第一次路由跳轉時，確認是否有 token
   if (from === START_LOCATION) {
