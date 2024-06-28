@@ -47,7 +47,7 @@
 
       <!-- 日期 -->
       <div v-for="date in daysInMonth" :key="date.getDate()">
-        <DateBlock :date="date"></DateBlock>
+        <DateBlock :date="date" :dateRange="dateRange"></DateBlock>
       </div>
       <!-- 日期 -->
     </div>
@@ -66,7 +66,11 @@ import {
   getYear
 } from 'date-fns'
 import useAxios from '@/axios/useAxios'
+import { useGeneralStore } from '@/stores/generalStore'
+
+const state = useGeneralStore()
 const { getFFDateRange } = useAxios()
+const dateRange = ref(null)
 const currentDate = ref(new Date())
 const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
@@ -87,7 +91,8 @@ function changeMonth(step) {
 }
 
 onMounted(async () => {
-  const dateRange = await getFFDateRange()
-  currentDate.value = new Date(dateRange.start)
+  dateRange.value = await getFFDateRange()
+  currentDate.value = new Date(dateRange.value.start)
+  state.isLoading = false
 })
 </script>

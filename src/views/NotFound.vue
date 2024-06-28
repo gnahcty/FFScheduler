@@ -8,9 +8,14 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
+import { onUnmounted } from 'vue'
 const router = useRouter()
 
 setTimeout(() => {
   router.replace('/')
 }, 5000)
+
+onUnmounted(() => {
+  clearTimeout()
+})
 </script>

@@ -19,28 +19,29 @@
 <script setup>
 import { ref, watch, onMounted, computed } from 'vue'
 import { isToday, getDate, isWithinInterval, isSameDay } from 'date-fns'
-import useAxios from '@/axios/useAxios'
 import { useListStore } from '@/stores/listStore'
 
-const { getFFDateRange } = useAxios()
 const { getListByDate } = useListStore()
 const props = defineProps({
   date: {
     type: Object,
     default: null
+  },
+  dateRange: {
+    type: Object,
+    default: null
   }
 })
 
-const dateRange = ref(null)
 const lists = ref([])
 
 const duringFF = computed(() => {
-  if (!dateRange.value) return false
+  if (!props.dateRange?.value) return false
   return (
     isWithinInterval(props.date, {
-      start: new Date(dateRange.value.start),
-      end: new Date(dateRange.value.end)
-    }) || isSameDay(props.date, new Date(dateRange.value.start))
+      start: new Date(props.dateRange.value.start),
+      end: new Date(props.dateRange.value.end)
+    }) || isSameDay(props.date, new Date(props.dateRange.value.start))
   )
 })
 
@@ -52,7 +53,6 @@ watch(
 )
 
 onMounted(async () => {
-  dateRange.value = await getFFDateRange()
   lists.value = getListByDate(props.date)
 })
 </script>

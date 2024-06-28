@@ -12,7 +12,9 @@
   ></div>
   <!-- nav next -->
 
-  <div class="flex h-full flex-col bg-stone-900 pb-12 text-primary-600 sm:pb-0 sm:pt-12">
+  <div
+    class="flex min-h-full flex-col bg-stone-900 pb-12 text-primary-600 sm:h-full sm:pb-0 sm:pt-12"
+  >
     <!-- title -->
     <div class="text-9xl font-bold">
       <Vue3Marquee class="overflow-y-clip" :clone="true">
@@ -94,7 +96,9 @@ import { ref, onMounted, watch, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useListStore } from '@/stores/listStore.js'
 import useAxios from '@/axios/useAxios.js'
+import { useGeneralStore } from '@/stores/generalStore'
 
+const state = useGeneralStore()
 const { getFilmById, getScreeningsByFilmId } = useAxios()
 const { nextIdInCategory } = useListStore()
 const route = useRoute()
@@ -146,7 +150,9 @@ const setup = async () => {
     film.value.rating
   ]
   screenings.value = await getScreeningsByFilmId(route.params.id)
+  state.isLoading = false
 }
+
 onMounted(() => {
   setup()
 })

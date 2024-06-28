@@ -3,7 +3,15 @@
     <!-- Menu Bar for PC -->
     <PCNav :navItems="pcNavItems" />
     <!-- Menu Bar for PC -->
-    <RouterView />
+
+    <div
+      v-if="state.isLoading"
+      class="flex h-screen w-full items-center justify-center bg-stone-900 text-primary-600"
+    >
+      {{ loadText }}
+    </div>
+
+    <RouterView v-show="!state.isLoading" />
 
     <!-- navbar for phone and tab -->
     <MobileNav :navItems="mobileNavItems" />
@@ -15,12 +23,15 @@
 import PCNav from '@/components/navbar_in_layouts/PCNav.vue'
 import MobileNav from '@/components/navbar_in_layouts/MobileNav.vue'
 import useAxios from '@/axios/useAxios'
+import { useGeneralStore } from '@/stores/generalStore'
 import { format } from 'date-fns'
 import { ref, onMounted, computed } from 'vue'
 
 const { getFFDateRange } = useAxios()
+const state = useGeneralStore()
 
-const FFStartDate = ref('')
+const loadText = ref('Loading...')
+const FFStartDate = ref('April_12')
 const pcNavItems = computed(() => [
   { to: '/categories', text: '索引' },
   { to: `/calendar/${FFStartDate.value}`, text: '場次' },
@@ -34,7 +45,12 @@ const mobileNavItems = computed(() => [
 ])
 
 onMounted(async () => {
-  const dateRange = await getFFDateRange()
-  FFStartDate.value = format(dateRange.start, 'MMMM_dd')
+  try {
+    const dateRange = await getFFDateRange()
+    FFStartDate.value = format(dateRange.start, 'MMMM_dd')
+    state.isLoading = false
+  } catch (error) {
+    loadText.value = '載入失敗，請稍後再試'
+  }
 })
 </script>

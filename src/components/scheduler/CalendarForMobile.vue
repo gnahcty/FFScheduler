@@ -102,7 +102,9 @@ import {
 } from 'date-fns'
 import useAxios from '@/axios/useAxios'
 import { useListStore } from '@/stores/listStore'
+import { useGeneralStore } from '@/stores/generalStore'
 
+const state = useGeneralStore()
 const dateRange = ref(null)
 const lists = ref([])
 const currentDate = ref(new Date())
@@ -157,5 +159,6 @@ onMounted(async () => {
   dateRange.value = await getFFDateRange()
   currentDate.value = new Date(dateRange.value.start)
   lists.value = useList.getListByDate(currentDate.value)
+  state.isLoading = false
 })
 </script>

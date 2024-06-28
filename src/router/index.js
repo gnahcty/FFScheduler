@@ -2,7 +2,7 @@ import { START_LOCATION, createRouter, createWebHashHistory } from 'vue-router'
 import { useUserStore } from '@/stores/userStore'
 import { useToast } from 'primevue/usetoast'
 import { useListStore } from '@/stores/listStore'
-
+import { useGeneralStore } from '@/stores/generalStore.js'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -118,6 +118,12 @@ router.afterEach((to) => {
 router.beforeEach(async (to, from, next) => {
   const user = useUserStore()
   const list = useListStore()
+  const state = useGeneralStore()
+
+  if(!['/register', '/login','/favorites'].includes(to.path)){
+    state.isLoading = true
+  }
+
   // 進網站第一次路由跳轉時，確認是否有 token
   if (from === START_LOCATION) {
     await user.getProfile()

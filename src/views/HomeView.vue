@@ -57,12 +57,15 @@
 import { ref, onMounted } from 'vue'
 import { api } from '@/axios/axios.js'
 import { HomePageTitleAnimation, ChangeBGImages } from '@/animation/animation.js'
+import { useGeneralStore } from '@/stores/generalStore'
+const state = useGeneralStore()
 
 const bgImg = ref(
   'https://storage.googleapis.com/tghff_outland/image/photo/2024/GHFF/huge/photo_307bd894dee72db53bf35e0f95a2b9da.jpeg'
 )
 
 onMounted(async () => {
+  state.isLoading = false
   const { data } = await api.get('/film/pics')
   bgImg.value = data.result[0]
   HomePageTitleAnimation()

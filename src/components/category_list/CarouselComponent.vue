@@ -29,11 +29,14 @@
 import { Vue3Marquee } from 'vue3-marquee'
 import { onMounted, ref } from 'vue'
 import useAxios from '@/axios/useAxios'
+import { useGeneralStore } from '@/stores/generalStore'
 
+const state = useGeneralStore()
 const categories = ref([])
 const { getCategoryList } = useAxios()
 
 onMounted(async () => {
   categories.value = await getCategoryList()
+  state.isLoading = false
 })
 </script>

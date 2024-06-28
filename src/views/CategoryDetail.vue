@@ -80,10 +80,12 @@ import { onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import useAxios from '@/axios/useAxios.js'
 import { useHorizontalScroll } from '@/utils/sideScroller'
+import { useGeneralStore } from '@/stores/generalStore'
 import { CategoryTitleAnimation, CategorySwitchAnimation } from '@/animation/animation'
 
 const { getFilmsByCategory, getCategoryList } = useAxios()
 const { scrollContainer } = useHorizontalScroll()
+const state = useGeneralStore()
 const title = ref('')
 const route = useRoute()
 const router = useRouter()
@@ -101,6 +103,7 @@ onMounted(async () => {
   title.value = route.params.name
   categories.value = await getCategoryList()
   films.value = await getFilmsByCategory(route.params.name)
+  state.isLoading = false
   CategoryTitleAnimation()
 })
 
@@ -109,6 +112,7 @@ watch(
   async () => (
     (title.value = route.params.name),
     (films.value = await getFilmsByCategory(route.params.name)),
+    (state.isLoading = false),
     CategorySwitchAnimation()
   )
 )
