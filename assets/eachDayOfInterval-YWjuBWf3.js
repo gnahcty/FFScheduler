@@ -1,0 +1,1 @@
+import{Y as u}from"./index-Cq4_Sw1c.js";function o(D,s){const a=u(D.start),n=u(D.end);let t=+a>+n;const d=t?+a:+n,e=t?n:a;e.setHours(0,0,0,0);let r=(s==null?void 0:s.step)??1;if(!r)return[];r<0&&(r=-r,t=!t);const c=[];for(;+e<=d;)c.push(u(e)),e.setDate(e.getDate()+r),e.setHours(0,0,0,0);return t?c.reverse():c}export{o as e};
