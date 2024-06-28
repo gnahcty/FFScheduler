@@ -149,12 +149,13 @@ const setup = async () => {
     film.value.length,
     film.value.rating
   ]
+
   screenings.value = await getScreeningsByFilmId(route.params.id)
-  state.isLoading = false
 }
 
 onMounted(() => {
   setup()
+  state.isLoading = false
 })
 
 watch(
