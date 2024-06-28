@@ -1,0 +1,1 @@
+import{i as n,k as t,a0 as o}from"./index-FleeiVZA.js";const s=()=>{const e=n(null),a=l=>{l.deltaY&&(l.preventDefault(),e.value.scrollLeft+=l.deltaY*.75)};return t(()=>{e.value&&e.value.addEventListener("wheel",a,{passive:!1})}),o(()=>{e.value&&e.value.removeEventListener("wheel",a)}),{scrollContainer:e}};export{s as u};
