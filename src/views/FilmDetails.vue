@@ -160,6 +160,7 @@ onMounted(() => {
 
 watch(
   () => route.params.id,
+  (state.isLoading = false),
   () => setup()
 )
 </script>

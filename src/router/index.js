@@ -135,7 +135,7 @@ router.beforeEach(async (to, from, next) => {
     // if user is not logged in and going to a page that requires login, redirect to login page
   } else if (!user.isLoggedIn && to.meta.needAuth) {
     useToast().add({ severity: 'error', summary: '錯誤', detail: '請先登入', life: 1000 })
-    state.isLoading = true
+    state.isLoading = false
     next('/login')
   } else {
     list.getList()
