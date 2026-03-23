@@ -94,11 +94,9 @@
 <script setup>
 import { ref, onMounted, watch, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useListStore } from '@/stores/listStore.js'
 import useAxios from '@/axios/useAxios.js'
 
-const { getFilmById, getScreeningsByFilmId } = useAxios()
-const { nextIdInCategory } = useListStore()
+const { getFilmById, getScreeningsByFilmId, getCategoryList, getFilmsByCategory } = useAxios()
 const route = useRoute()
 const router = useRouter()
 const film = ref({})
@@ -106,13 +104,45 @@ const filmInfo = ref([])
 const poster = ref('')
 const screenings = ref([])
 
-const nav = (direction) => {
-  const id = nextIdInCategory(route.params.id, direction)
-  if (id) {
-    router.push(`/details/${id}`)
-  } else {
-    router.push('/categories')
+const getBoundaryFilmId = async (categories, startIndex, direction) => {
+  for (
+    let categoryIndex = startIndex + direction;
+    categoryIndex >= 0 && categoryIndex < categories.length;
+    categoryIndex += direction
+  ) {
+    const films = await getFilmsByCategory(categories[categoryIndex].name)
+    if (!films?.length) continue
+
+    const boundaryFilm = direction > 0 ? films[0] : films[films.length - 1]
+    if (boundaryFilm?._id) return boundaryFilm._id
   }
+
+  return ''
+}
+
+const getAdjacentFilmId = async (currentFilmId, direction) => {
+  const categories = await getCategoryList()
+  if (!categories?.length) return ''
+
+  for (let categoryIndex = 0; categoryIndex < categories.length; categoryIndex += 1) {
+    const films = await getFilmsByCategory(categories[categoryIndex].name)
+    const currentFilmIndex = films?.findIndex((item) => item._id === currentFilmId) ?? -1
+
+    if (currentFilmIndex === -1) continue
+
+    const nextFilm = films[currentFilmIndex + direction]
+    if (nextFilm?._id) return nextFilm._id
+
+    return getBoundaryFilmId(categories, categoryIndex, direction)
+  }
+
+  return ''
+}
+
+const nav = async (direction) => {
+  const id = await getAdjacentFilmId(route.params.id, direction)
+  if (!id) return
+  router.push(`/details/${id}`)
 }
 
 const searchQuery = computed(() => film.value.EName?.replace(' ', '+'))
