@@ -1,37 +1,44 @@
-# Action 名稱
 name: Deploy
-# 觸發時機，當推送到分支 main 時
+
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+  workflow_dispatch:
 
-# 執行的工作
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-github-pages
+  cancel-in-progress: true
+
 jobs:
-  # 工作名稱
   deploy:
-    # 執行工作的虛擬機作業系統
     runs-on: ubuntu-latest
-    # 工作步驟
+
     steps:
-      # 步驟一：複製程式碼
-      - name: checkout
-        # 使用的 actions/checkout 複製程式碼
+      - name: Checkout repository
         uses: actions/checkout@v4
-      # Sets up Node.js environment
-      - name: Create Node Environment
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 16.x
-      # 步驟二：編譯
-      - name: Install and Build
-        run: |
-          npm install
-          npm run build
+          node-version: 20
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
         env:
           VITE_API: ${{ secrets.VITE_API }}
-      # 步驟三：部署
-      - name: Deploy
+
+      - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: dist
+          clean: true
