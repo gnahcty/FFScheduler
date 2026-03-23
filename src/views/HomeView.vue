@@ -54,14 +54,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import { api } from '@/axios/axios.js'
 import { HomePageTitleAnimation, ChangeBGImages } from '@/animation/animation.js'
 import { useGeneralStore } from '@/stores/generalStore'
+
 const state = useGeneralStore()
 
 const bgImg = ref(
-  'https://storage.googleapis.com/tghff_outland/image/photo/2024/GHFF/huge/photo_307bd894dee72db53bf35e0f95a2b9da.jpeg'
+  'https://storage.googleapis.com/tghff_outland/image/photo/2026/GHFF/huge/photo_597a268c5ee4000a139985652110a82a.jpeg'
 )
 
 onMounted(async () => {

@@ -46,14 +46,16 @@
         </div>
         <!-- timeline -->
         <!-- year -->
-        <div class="hidden items-center text-5xl sm:flex md:text-7xl lg:text-9xl">2024</div>
+        <div class="hidden items-center text-5xl sm:flex md:text-7xl lg:text-9xl">
+          {{ FFYear }}
+        </div>
         <!-- year -->
       </div>
     </div>
   </div>
 </template>
 <script setup>
-import { onMounted, computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useElementSize } from '@vueuse/core'
 import { useRouter, useRoute } from 'vue-router'
 import { format, eachDayOfInterval } from 'date-fns'
@@ -71,6 +73,7 @@ const datesBefore = computed(() => (width.value > 530 ? 3 : 2)) //置中日期�
 const FFStartDate = ref(null)
 const FFEndDate = ref(null)
 const FFMonth = ref(null)
+const FFYear = ref(null)
 const dates = ref([])
 
 const renderDates = (start, end) =>
@@ -101,6 +104,7 @@ onMounted(async () => {
   FFStartDate.value = dateRange.start
   FFEndDate.value = dateRange.end
   FFMonth.value = format(dateRange.start, 'MMMM')
+  FFYear.value = format(dateRange.start, 'yyyy')
   dates.value = renderDates(FFStartDate.value, FFEndDate.value)
 })
 </script>

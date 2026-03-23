@@ -13,7 +13,7 @@
   </div>
 </template>
 <script setup>
-import { ref, onMounted, watch, nextTick } from 'vue'
+import { ref, watch, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 import { CalendarAnimation } from '@/animation/animation.js'
 import { ScreeningCardAnimation } from '@/animation/animation.js'
@@ -24,19 +24,35 @@ const state = useGeneralStore()
 const { getScreeningsByDate } = useAxios()
 const screenTimes = ref({})
 const route = useRoute()
+const hasApiBase = Boolean(import.meta.env.VITE_API)
+const loadedDate = ref(null)
 
-onMounted(async () => {
-  screenTimes.value = await getScreeningsByDate(route.params.date)
+const loadScreenings = async (date) => {
+  if (!hasApiBase || typeof date !== 'string' || !date.trim()) {
+    screenTimes.value = {}
+    state.isLoading = false
+    return
+  }
+
+  screenTimes.value = (await getScreeningsByDate(date)) ?? {}
   state.isLoading = false
-  nextTick(() => CalendarAnimation())
-})
+
+  nextTick(() => {
+    if (loadedDate.value === null) {
+      CalendarAnimation()
+    } else {
+      ScreeningCardAnimation()
+    }
+
+    loadedDate.value = date
+  })
+}
 
 watch(
   () => route.params.date,
-  async () => {
-    state.isLoading = false
-    screenTimes.value = await getScreeningsByDate(route.params.date)
-    nextTick(() => ScreeningCardAnimation())
-  }
+  async (date) => {
+    await loadScreenings(date)
+  },
+  { immediate: true }
 )
 </script>
