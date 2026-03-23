@@ -11,7 +11,9 @@
       {{ loadText }}
     </div>
 
-    <RouterView v-show="!state.isLoading" />
+    <div v-show="!state.isLoading" class="h-full">
+      <RouterView />
+    </div>
 
     <!-- navbar for phone and tab -->
     <MobileNav :navItems="mobileNavItems" />
