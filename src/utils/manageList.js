@@ -5,6 +5,11 @@ import { useToast } from 'primevue/usetoast'
 import { useConfirm } from 'primevue/useconfirm'
 import { useListStore } from '@/stores/listStore.js'
 import { useRouter } from 'vue-router'
+import { differenceInMinutes } from 'date-fns'
+
+const TITAN_GAP_THRESHOLD_MINUTES = 10
+
+const isTitanVenue = (place = '') => place.toLowerCase().includes('titan')
 
 
 export const manageList = (listID) => {
@@ -100,6 +105,40 @@ export const manageList = (listID) => {
 
   const isHidden = computed(() => targetList.value.hidden)
 
+  const visibleSchedule = computed(() =>
+    list.userList
+      .filter((item) => !item.hidden)
+      .slice()
+      .sort((a, b) => new Date(a.screening.time) - new Date(b.screening.time))
+  )
+
+  const hasTitanGapWarning = computed(() => {
+    const currentIndex = visibleSchedule.value.findIndex((item) => item._id === listID)
+    if (currentIndex === -1) return false
+
+    const currentItem = visibleSchedule.value[currentIndex]
+    const previousItem = visibleSchedule.value[currentIndex - 1]
+    const nextItem = visibleSchedule.value[currentIndex + 1]
+
+    const hasWarningWithAdjacentItem = (leftItem, rightItem) => {
+      if (!leftItem || !rightItem) return false
+
+      const gapMinutes = differenceInMinutes(
+        new Date(rightItem.screening.time),
+        new Date(leftItem.screening.endTime)
+      )
+
+      if (gapMinutes < 0 || gapMinutes > TITAN_GAP_THRESHOLD_MINUTES) return false
+
+      return isTitanVenue(leftItem.screening.place) !== isTitanVenue(rightItem.screening.place)
+    }
+
+    return (
+      hasWarningWithAdjacentItem(previousItem, currentItem) ||
+      hasWarningWithAdjacentItem(currentItem, nextItem)
+    )
+  })
+
 
   const lock = () => {
     const targetList = list.userList.find((list) => list._id === listID)
@@ -139,6 +178,8 @@ export const manageList = (listID) => {
       ? 'border border-stone-600'
       : targetList.clash > 0
         ? 'border border-red-600 ring-1 ring-inset ring-red-700'
+        : hasTitanGapWarning.value
+          ? 'border border-yellow-400 ring-1 ring-inset ring-yellow-500/70'
         : 'border'
     return `${bg} ${text} ${ring}`
   })
@@ -148,8 +189,6 @@ export const manageList = (listID) => {
 
   return { targetList, remainingScreening, lock, hide, chipStyle, isHidden }
 }
-
-
 
 
 
